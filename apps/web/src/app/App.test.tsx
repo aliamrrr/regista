@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import type { CoreVersion } from '../lib/api.ts'
+import { API_BASE, type CoreVersion } from '../lib/api.ts'
 import { useCoreStatus } from '../store/coreStatus.ts'
 import { App } from './App.tsx'
 
@@ -43,6 +43,7 @@ describe('App (Phase 0 placeholder)', () => {
 
     expect(await screen.findByText(/core v0\.1\.0/i)).toBeInTheDocument()
     expect(screen.getByRole('status')).toHaveTextContent('memory bus · LLM template')
-    expect(fetchMock).toHaveBeenCalledWith('http://localhost:8000/api/version', expect.anything())
+    // API_BASE, not a literal URL: Vitest reads the developer's repo-root .env.
+    expect(fetchMock).toHaveBeenCalledWith(`${API_BASE}/api/version`, expect.anything())
   })
 })
