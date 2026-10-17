@@ -3,6 +3,33 @@
 Facts verified against primary sources, dated, so later phases don't have to re-research them.
 Re-check anything older than a few days before coding against it: these libraries ship weekly.
 
+## Azure AI resources (created 2026-10-17, Azure CLI)
+
+Subscription upgraded to pay-as-you-go the same day (spending limit off); monthly budget
+`regista-monthly`: 100, email alerts at 25/50/75/100 %. Created with the CLI steps of
+https://learn.microsoft.com/azure/foundry/tutorials/quickstart-create-foundry-resources. Phase 3's
+Bicep must **reference** these through parameters, not recreate them.
+
+| What | Value |
+|---|---|
+| Resource group | `rg-regista-ai`, Sweden Central |
+| Foundry resource | `regista-foundry-e6y47` (kind `AIServices`, S0, project management on, system-assigned identity) |
+| Foundry project | `regista` → `FOUNDRY_PROJECT_ENDPOINT=https://regista-foundry-e6y47.services.ai.azure.com/api/projects/regista` |
+| OpenAI-compatible endpoint | `AZURE_OPENAI_ENDPOINT=https://regista-foundry-e6y47.openai.azure.com/` (v1 API: `POST /openai/v1/chat/completions`, `model` = deployment name) |
+| Model deployment | `gpt-5-mini` → model `gpt-5-mini` 2025-08-07, GlobalStandard, capacity 100 (subscription quota: 500) |
+| Speech | `regista-speech-e6y47`, F0, custom domain; `SPEECH_REGION=swedencentral` |
+| Content Safety | `regista-safety-e6y47`, F0 → `https://regista-safety-e6y47.cognitiveservices.azure.com/` |
+
+- **Auth:** the developer account has **Foundry User** (role id `53ca6127-db72-4b80-b1b0-d745d6d5456d`,
+  formerly "Azure AI User") on the Foundry resource, so `az login` is enough locally (verified with a
+  live call: HTTP 200). Speech and Content Safety keys live only in the local `.env`.
+- **Phase 3:** grant the core's managed identity Foundry User on `regista-foundry-e6y47`; pass the
+  Speech and Content Safety keys as Container Apps secrets.
+- `gpt-5-mini` is a reasoning model: send `max_completion_tokens` (not `max_tokens`) and the lowest
+  `reasoning_effort` for live calls (docs/ARCHITECTURE.md §6).
+- Windows + personal Microsoft account: `az login` silently fails in the Windows broker (WAM);
+  `az config set core.enable_broker_on_windows=false` makes it use the browser.
+
 ## Microsoft Agent Framework for Python (needed in Phase 4)
 
 Checked **2026-10-17** through the `microsoft-learn` MCP server (`microsoft_docs_search`,
