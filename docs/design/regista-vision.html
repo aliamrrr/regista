@@ -1,0 +1,1270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important}</style>
+<title>Regista Vision Deck</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: two fixed 1920×1080 "broadcast stages" scaled to the window. Slide 1 = annotated fan view + two insets + numbered key. Slide 2 = five pipeline lanes over a trust band, wires drawn from the live layout. */
+:root {
+  color-scheme: dark;
+  /* night-match neutrals, biased toward stadium blue */
+  --ink: #070b14;
+  --ink-2: #0c1322;
+  --ink-3: #121b2e;
+  --ink-4: #1a2540;
+  --line: #1f2b44;
+  --line-2: #2c3b5c;
+  --chalk: #eef2f8;
+  --mist: #9ba9c2;
+  --dim: #5d6b87;
+  /* accent + data colours */
+  --flood: #ffb547;
+  --flood-a: rgba(255, 181, 71, .16);
+  --glacier: #86cfff;
+  --glacier-a: rgba(134, 207, 255, .14);
+  --violet: #a99bff;
+  --violet-a: rgba(169, 155, 255, .16);
+  --ok: #3fd29b;
+  --ok-a: rgba(63, 210, 155, .16);
+  --alert: #ff6b5e;
+  --alert-a: rgba(255, 107, 94, .22);
+  /* fictional clubs */
+  --home: #ef4f5c;
+  --home-a: rgba(239, 79, 92, .18);
+  --home-gk: #e9c46a;
+  --away: #4d86ff;
+  --away-a: rgba(77, 134, 255, .18);
+  --away-gk: #b9a6ff;
+  /* pitch */
+  --turf-deep: #0a271d;
+  --turf-1: #0e3224;
+  --turf-2: #113a2a;
+  --pitch-line: rgba(238, 242, 248, .5);
+  --goal-fill: rgba(238, 242, 248, .08);
+  /* surfaces */
+  --glass: rgba(9, 14, 26, .8);
+  --glass-strong: rgba(9, 14, 26, .92);
+  --shadow: rgba(0, 0, 0, .55);
+  --glow-amber: rgba(255, 181, 71, .09);
+  --glow-blue: rgba(77, 134, 255, .10);
+  /* pipeline stages */
+  --st-ingest: #86cfff;
+  --st-interpret: #a99bff;
+  --st-explain: #ffb547;
+  --st-render: #ff8a73;
+  --st-personalize: #48d6a0;
+  --st-trust: #e8edf5;
+  /* type */
+  --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-body: "Figtree", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-ar: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { background: var(--ink); color: var(--chalk); }
+body { margin: 0; font-family: var(--font-body); }
+
+/* ---------- page chrome ---------- */
+.page {
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 12px 24px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.deck-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.deck-id { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.deck-id .mark { width: 26px; height: 26px; color: var(--flood); flex: none; }
+.deck-name { font: 800 21px/1 var(--font-display); letter-spacing: .1em; }
+.deck-sub { font: 500 13px/1.3 var(--font-body); color: var(--mist); }
+.deck-nav { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.nav-btn, .dot, .fs-btn {
+  font: 600 13px/1 var(--font-body); color: var(--chalk);
+  background: var(--ink-3); border: 1px solid var(--line-2); border-radius: 999px;
+  padding: 9px 14px; cursor: pointer;
+}
+.nav-btn { width: 36px; height: 36px; padding: 0; font-size: 18px; display: grid; place-items: center; }
+.dot.is-on { background: var(--flood); color: var(--ink); border-color: var(--flood); }
+.nav-btn:hover, .dot:hover, .fs-btn:hover { border-color: var(--mist); }
+button:focus-visible { outline: 2px solid var(--glacier); outline-offset: 2px; }
+.deck { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
+.shell { position: relative; overflow: hidden; border-radius: 14px; box-shadow: 0 30px 80px var(--shadow), 0 0 0 1px var(--line); flex: none; max-width: 100%; }
+.stacked .deck-nav, .stacked .fs-btn { display: none; }
+.hint-keys { font: 500 12px/1 var(--font-mono); color: var(--dim); }
+.stacked .hint-keys { display: none; }
+
+/* ---------- shared slide styles ---------- */
+.slide {
+  position: absolute; left: 0; top: 0; width: 1920px; height: 1080px;
+  transform-origin: 0 0; overflow: hidden; font-size: 16px; color: var(--chalk);
+  background:
+    radial-gradient(1100px 620px at 22% 6%, var(--glow-amber), transparent 62%),
+    radial-gradient(900px 640px at 92% 24%, var(--glow-blue), transparent 60%),
+    var(--ink);
+}
+.deco { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; pointer-events: none; }
+.deco .dl { fill: none; stroke: var(--line); stroke-width: 1.5; }
+.s-head { position: absolute; left: 56px; top: 40px; width: 1180px; }
+.eyebrow { margin: 0 0 12px; font: 600 15px/1 var(--font-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--flood); }
+.s-title { margin: 0; font: 800 62px/.95 var(--font-display); letter-spacing: .01em; text-transform: uppercase; white-space: nowrap; overflow: hidden; }
+.s-lede { margin: 10px 0 0; font: 400 19px/1.4 var(--font-body); color: var(--mist); }
+.ic { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.pin {
+  position: absolute; left: -13px; top: -13px; z-index: 6;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: grid; place-items: center;
+  font: 700 14px/1 var(--font-mono); font-style: normal; color: var(--ink);
+  background: var(--pin, var(--flood));
+  box-shadow: 0 0 0 3px var(--ink), 0 0 18px var(--pin, var(--flood));
+}
+
+.fact {
+  display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+  font: 600 11.5px/1 var(--font-mono); color: var(--chalk);
+  padding: 5px 7px; border-radius: 6px; background: var(--ink-2); border: 1px solid var(--line-2);
+}
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ---------- slide 1 : product ---------- */
+.stage-key { position: absolute; right: 56px; top: 46px; display: grid; grid-template-columns: repeat(3, auto); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.stage-key li {
+  display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+  font: 600 13px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase;
+  border: 1px solid var(--line-2); border-radius: 999px; background: var(--ink-2);
+}
+.stage-key li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); }
+
+.app {
+  position: absolute; left: 56px; top: 184px; width: 1180px; height: 666px;
+  background: var(--ink-2); border: 1px solid var(--line-2); border-radius: 18px;
+  box-shadow: 0 40px 90px var(--shadow);
+}
+.topbar { position: absolute; left: 16px; top: 12px; width: 1148px; height: 44px; display: flex; align-items: center; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 8px; }
+.brand .mark { width: 24px; height: 24px; color: var(--flood); }
+.brand b { font: 800 22px/1 var(--font-display); letter-spacing: .1em; }
+.tb-dim { font: 500 13px/1 var(--font-body); color: var(--mist); white-space: nowrap; }
+.tb-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.pill {
+  position: relative; display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px;
+  border-radius: 999px; background: var(--ink-3); border: 1px solid var(--line-2);
+  font: 600 13px/1 var(--font-body); white-space: nowrap;
+}
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--alert); box-shadow: 0 0 0 4px var(--alert-a); animation: blink 1.6s ease-in-out infinite; }
+.avatar { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--glacier); color: var(--ink); font: 800 12px/1 var(--font-body); }
+.lens { font: 600 11px/1 var(--font-mono); color: var(--flood); border-left: 1px solid var(--line-2); padding-left: 8px; letter-spacing: .04em; }
+.seg { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--ink-3); border: 1px solid var(--line-2); }
+.seg b { padding: 8px 12px; border-radius: 999px; font: 600 12.5px/1 var(--font-body); color: var(--mist); white-space: nowrap; }
+.seg b.on { background: var(--chalk); color: var(--ink); }
+
+.pitch { position: absolute; left: 16px; top: 66px; width: 760px; height: 488px; }
+.pitch-clip { position: absolute; inset: 0; border-radius: 12px; overflow: hidden; background: var(--turf-deep); box-shadow: inset 0 0 0 1px var(--line); }
+.pitch-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.turf { fill: var(--turf-deep); }
+.mow-a { fill: var(--turf-1); }
+.mow-b { fill: var(--turf-2); }
+.pl { fill: none; stroke: var(--pitch-line); stroke-width: .22; }
+.spot { fill: var(--pitch-line); }
+.goal { fill: var(--goal-fill); stroke: var(--pitch-line); stroke-width: .2; }
+.goal.flash { fill: var(--flood-a); stroke: var(--flood); stroke-width: .3; }
+.pp circle { stroke: var(--ink); stroke-width: .25; }
+.pp.home circle { fill: var(--home); }
+.pp.away circle { fill: var(--away); }
+.pp.home.gk circle { fill: var(--home-gk); }
+.pp.away.gk circle { fill: var(--away-gk); }
+.pp.star circle { stroke: var(--chalk); stroke-width: .38; }
+.pp text { font: 700 1.2px var(--font-body); fill: var(--chalk); text-anchor: middle; dominant-baseline: central; }
+.pp.gk text { fill: var(--ink); }
+.trail { fill: none; stroke: var(--glacier); stroke-width: .4; stroke-dasharray: .2 .75; stroke-linecap: round; }
+.passline { fill: none; stroke: var(--flood); stroke-width: .5; stroke-dasharray: 1.4 .8; }
+.passhead { fill: var(--flood); }
+.shotline { fill: none; stroke: var(--chalk); stroke-width: .55; stroke-linecap: round; opacity: .9; }
+.ball { fill: var(--chalk); }
+.ballglow { fill: var(--flood-a); }
+.press-halo { fill: var(--away-a); stroke: var(--away); stroke-width: .2; stroke-dasharray: .6 .5; }
+.stem { fill: none; stroke: var(--chalk); stroke-width: .18; }
+.stemdot { fill: var(--chalk); }
+
+.ov { position: absolute; z-index: 2; }
+.scorebug {
+  left: 12px; top: 12px; height: 46px; display: flex; align-items: center; gap: 10px; padding: 0 6px 0 10px;
+  background: var(--glass); border: 1px solid var(--line-2); border-radius: 10px;
+}
+.crest { width: 22px; height: 22px; flex: none; }
+.sb-team { display: flex; align-items: center; gap: 6px; font: 800 20px/1 var(--font-display); letter-spacing: .05em; }
+.sb-score { font: 800 28px/1 var(--font-display); font-variant-numeric: tabular-nums; padding: 0 2px; }
+.sb-sep { color: var(--mist); margin: 0 4px; }
+.sb-clock { font: 600 14px/1 var(--font-mono); padding: 8px 8px; background: var(--ink-3); border-radius: 6px; font-variant-numeric: tabular-nums; }
+.sb-flag { font: 800 14px/1 var(--font-display); letter-spacing: .14em; color: var(--ink); background: var(--home); padding: 9px 10px; border-radius: 6px; }
+
+.wp { left: 12px; top: 66px; width: 262px; padding: 9px 11px 10px; background: var(--glass); border: 1px solid var(--line-2); border-radius: 10px; }
+.wp-row { display: flex; align-items: baseline; gap: 8px; }
+.wp-label { font: 600 11.5px/1 var(--font-mono); color: var(--mist); text-transform: uppercase; letter-spacing: .06em; }
+.wp-from { margin-left: auto; font: 700 17px/1 var(--font-display); color: var(--mist); }
+.wp-arrow { color: var(--mist); font-size: 13px; }
+.wp-to { font: 800 24px/1 var(--font-display); color: var(--flood); }
+.wp-bar { display: flex; gap: 2px; height: 6px; margin-top: 8px; border-radius: 3px; overflow: hidden; }
+.wp-bar i { display: block; height: 100%; }
+.wp-bar .h { width: 74%; background: var(--home); }
+.wp-bar .d { width: 17%; background: var(--dim); }
+.wp-bar .a { width: 9%; background: var(--away); }
+.wp-legend { display: flex; justify-content: space-between; margin-top: 5px; font: 600 10.5px/1 var(--font-mono); color: var(--mist); }
+
+.pulse { right: 12px; top: 12px; width: 268px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; background: var(--glass); border: 1px solid var(--line-2); border-radius: 12px; }
+.pulse-top { display: flex; align-items: baseline; gap: 8px; }
+.pulse-k { font: 600 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mist); }
+.pulse-v { margin-left: auto; font: 800 27px/1 var(--font-display); color: var(--alert); }
+.pulse-w { font: 700 11.5px/1 var(--font-body); color: var(--alert); text-transform: uppercase; letter-spacing: .1em; }
+.gauge { position: relative; height: 8px; border-radius: 4px; background: linear-gradient(90deg, var(--glacier), var(--flood) 55%, var(--alert)); }
+.gauge .rest { position: absolute; right: 0; top: 0; bottom: 0; width: 28%; background: var(--ink-4); border-radius: 0 4px 4px 0; }
+.gauge .was { position: absolute; left: 41%; top: -4px; width: 2px; height: 16px; background: var(--chalk); border-radius: 1px; }
+.gauge-scale { display: flex; justify-content: space-between; font: 600 10px/1 var(--font-mono); color: var(--dim); margin-top: -2px; }
+.mom { display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: center; }
+.mom-k { font: 600 10px/1.25 var(--font-mono); color: var(--mist); text-transform: uppercase; letter-spacing: .06em; }
+.mom svg { width: 100%; height: 30px; display: block; }
+.mom .base { stroke: var(--line-2); stroke-width: 1; stroke-dasharray: 3 3; }
+.mom .area { fill: var(--away-a); }
+.mom .line { fill: none; stroke: var(--away); stroke-width: 1.6; stroke-linejoin: round; }
+.mom .end { fill: var(--home); stroke: var(--ink); stroke-width: 1.5; }
+.alert-row { display: flex; align-items: flex-start; gap: 7px; font: 600 12px/1.35 var(--font-body); }
+.alert-row svg { width: 15px; height: 15px; color: var(--flood); flex: none; margin-top: 1px; }
+
+.tagov { left: 486px; top: 172px; display: flex; height: 44px; background: var(--glass-strong); border: 1px solid var(--line-2); border-radius: 8px; }
+.tag-num { display: grid; place-items: center; width: 38px; background: var(--home); border-radius: 7px 0 0 7px; font: 800 22px/1 var(--font-display); }
+.tag-name { display: flex; align-items: center; padding: 0 10px; font: 800 19px/1 var(--font-display); letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; }
+.tag-speed { display: flex; align-items: center; gap: 4px; padding: 0 10px; background: var(--glacier); color: var(--ink); border-radius: 0 7px 7px 0; font: 800 21px/1 var(--font-display); white-space: nowrap; }
+.tag-speed small { font: 700 11px/1 var(--font-mono); }
+
+.passov { left: 216px; top: 150px; width: 256px; padding: 10px 11px 11px; background: var(--glass-strong); border: 1px solid var(--line-2); border-radius: 10px; }
+.pass-h { font: 600 13px/1.2 var(--font-body); margin-bottom: 9px; white-space: nowrap; }
+.pass-h span { color: var(--flood); font: 700 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; display: block; margin-bottom: 5px; }
+.pass-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.pass-grid div { display: flex; flex-direction: column; gap: 3px; }
+.pass-grid b { font: 800 23px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.pass-grid b small { font: 700 11px/1 var(--font-mono); color: var(--mist); margin-left: 2px; }
+.pass-grid em { font: 500 10.5px/1.1 var(--font-body); font-style: normal; color: var(--mist); }
+.pass-grid .hi b { color: var(--flood); }
+
+.why {
+  left: 12px; top: 356px; width: 736px; padding: 14px 16px 13px;
+  display: grid; grid-template-columns: 1fr 186px; gap: 6px 18px;
+  background: var(--glass-strong); border: 1px solid var(--line-2); border-radius: 10px;
+}
+.why-kicker {
+  position: absolute; left: 16px; top: -13px; padding: 6px 10px; border-radius: 6px;
+  background: var(--flood); color: var(--ink); font: 800 12.5px/1 var(--font-display); letter-spacing: .16em; text-transform: uppercase;
+}
+.why-main { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.why-head { margin: 4px 0 0; font: 700 21px/1.15 var(--font-body); }
+.why-body { margin: 0; font: 400 14px/1.4 var(--font-body); color: var(--mist); }
+.why .chips { margin-top: 3px; }
+.var-badge {
+  position: relative; align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 6px;
+  padding: 10px 12px; border-radius: 8px; background: var(--ok-a); border: 1px solid var(--ok);
+}
+.var-badge .vb-top { display: flex; align-items: center; gap: 7px; font: 800 16px/1 var(--font-display); letter-spacing: .12em; text-transform: uppercase; color: var(--ok); }
+.var-badge svg { width: 20px; height: 20px; }
+.var-badge p { margin: 0; font: 600 12.5px/1.3 var(--font-body); }
+.var-badge code { font: 400 10.5px/1.4 var(--font-mono); color: var(--mist); }
+
+.underbar { position: absolute; left: 16px; top: 562px; width: 760px; height: 92px; }
+.timeline { position: relative; height: 34px; }
+.tl-track { position: absolute; left: 0; right: 0; top: 6px; height: 10px; border-radius: 5px; background: var(--ink-4); overflow: visible; }
+.tl-chaos {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 70.7%; border-radius: 5px 0 0 5px;
+  background: linear-gradient(90deg, var(--glacier-a) 0%, var(--glacier-a) 50%, var(--flood-a) 56%, var(--alert-a) 61%, var(--alert) 69%, var(--alert-a) 70.7%);
+}
+.tl-m { position: absolute; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; border: 2px solid var(--ink-2); }
+.tl-m.home { background: var(--home); }
+.tl-m.away { background: var(--away); }
+.tl-m.speed { background: var(--glacier); }
+.tl-m.shift { background: var(--violet); }
+.tl-m.fix { background: var(--flood); }
+.tl-m.neutral { background: var(--mist); }
+.tl-head { position: absolute; top: -7px; left: 70.7%; width: 2px; height: 24px; margin-left: -1px; background: var(--chalk); border-radius: 1px; }
+.tl-head b { position: absolute; left: 8px; top: -2px; font: 700 11px/1 var(--font-mono); color: var(--chalk); white-space: nowrap; background: var(--ink-2); padding: 2px 4px; border-radius: 4px; }
+.tl-ticks { position: absolute; left: 0; right: 0; top: 22px; height: 12px; font: 500 10.5px/1 var(--font-mono); color: var(--dim); }
+.tl-ticks span { position: absolute; transform: translateX(-50%); }
+.controls { position: absolute; left: 0; right: 0; top: 44px; height: 48px; display: flex; align-items: center; gap: 12px; }
+.cmu {
+  position: relative; display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 14px 0 12px; border-radius: 10px;
+  background: var(--flood); color: var(--ink); border: 0;
+}
+.cmu svg { width: 22px; height: 22px; }
+.cmu b { display: block; font: 800 16px/1 var(--font-display); letter-spacing: .08em; text-transform: uppercase; }
+.cmu small { display: block; font: 600 11px/1.2 var(--font-body); }
+.audio { position: relative; display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 12px; border-radius: 10px; background: var(--ink-3); border: 1px solid var(--line-2); font: 600 12.5px/1 var(--font-body); white-space: nowrap; }
+.switch { position: relative; width: 30px; height: 18px; border-radius: 9px; background: var(--ink-4); border: 1px solid var(--line-2); flex: none; }
+.switch::after { content: ""; position: absolute; left: 2px; top: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--mist); }
+.switch.on { background: var(--ok); border-color: var(--ok); }
+.switch.on::after { left: 14px; background: var(--ink); }
+.mini-wave { display: flex; align-items: center; gap: 2px; height: 20px; }
+.mini-wave i { display: block; width: 3px; border-radius: 2px; background: var(--ok); }
+.sample { margin-left: auto; font: 500 11px/1.3 var(--font-mono); color: var(--dim); text-align: right; }
+
+.feed { position: absolute; left: 792px; top: 66px; width: 372px; height: 588px; display: flex; flex-direction: column; gap: 10px; }
+.feed-h { position: relative; display: flex; align-items: baseline; gap: 10px; height: 30px; padding-top: 6px; padding-left: 26px; }
+.feed-h b { font: 800 18px/1 var(--font-display); letter-spacing: .12em; text-transform: uppercase; }
+.feed-h span { font: 500 12.5px/1 var(--font-body); color: var(--mist); }
+.card { position: relative; padding: 11px 12px; border-radius: 10px; background: var(--ink-3); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 6px; }
+.card.big { border-color: var(--line-2); background: var(--ink-4); }
+.c-top { display: flex; align-items: center; gap: 8px; }
+.c-min { font: 800 22px/1 var(--font-display); font-variant-numeric: tabular-nums; min-width: 34px; }
+.c-now { margin-left: auto; font: 700 10.5px/1 var(--font-mono); color: var(--alert); text-transform: uppercase; letter-spacing: .1em; }
+.tag { font: 700 10.5px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; padding: 5px 7px; border-radius: 5px; white-space: nowrap; }
+.t-home { background: var(--home-a); color: var(--home); }
+.t-away { background: var(--away-a); color: var(--away); }
+.t-fix { background: var(--flood-a); color: var(--flood); }
+.t-shift { background: var(--violet-a); color: var(--violet); }
+.t-speed { background: var(--glacier-a); color: var(--glacier); }
+.card h4 { margin: 0; font: 700 16px/1.25 var(--font-body); }
+.card p { margin: 0; font: 400 13px/1.4 var(--font-body); color: var(--mist); }
+.card p strong { color: var(--chalk); font-weight: 600; }
+.c-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 2px; }
+.okline { display: inline-flex; align-items: center; gap: 6px; font: 600 12px/1 var(--font-body); color: var(--ok); }
+.okline svg { width: 15px; height: 15px; }
+.why-link { font: 700 12.5px/1 var(--font-body); color: var(--glacier); }
+.card.slim .c-top p { margin: 0 0 0 4px; }
+.ask { position: relative; margin-top: auto; padding: 11px 12px; border-radius: 10px; border: 1px dashed var(--line-2); display: flex; flex-direction: column; gap: 7px; }
+.ask-h { font: 700 11px/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--glacier); }
+.ask .q { margin: 0; align-self: flex-end; max-width: 92%; padding: 7px 10px; border-radius: 10px 10px 2px 10px; background: var(--ink-4); font: 500 12.5px/1.35 var(--font-body); }
+.ask .a { margin: 0; font: 400 12.5px/1.4 var(--font-body); color: var(--chalk); }
+
+.inset { position: absolute; padding: 14px; border-radius: 16px; background: var(--ink-2); border: 1px solid var(--line-2); box-shadow: 0 30px 70px var(--shadow); }
+.in-h { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+.in-h b { font: 800 18px/1 var(--font-display); letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+.in-h > span { font: 500 12.5px/1 var(--font-body); color: var(--mist); white-space: nowrap; }
+.split { left: 1268px; top: 184px; width: 596px; height: 336px; }
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fan { position: relative; display: flex; flex-direction: column; gap: 7px; height: 128px; padding: 10px 12px; border-radius: 10px; background: var(--ink-3); border: 1px solid var(--line); overflow: hidden; }
+.fan-h { display: flex; align-items: center; gap: 8px; font: 600 12.5px/1 var(--font-body); color: var(--mist); }
+.lc { font: 700 11px/1 var(--font-mono); color: var(--ink); background: var(--st-personalize); padding: 4px 6px; border-radius: 4px; letter-spacing: .06em; }
+.fan p { margin: 0; font: 600 13.5px/1.38 var(--font-body); }
+.fan.ar { font-family: var(--font-ar); }
+.fan.ar p { font: 600 14px/1.55 var(--font-ar); }
+.fan.ar .fan-h { font-family: var(--font-ar); }
+.wave { display: flex; align-items: center; gap: 3px; margin-top: auto; }
+.wave i { display: block; width: 3px; border-radius: 2px; background: var(--st-personalize); }
+.wave span { margin-inline-start: auto; font: 600 11px/1 var(--font-mono); color: var(--mist); direction: ltr; }
+
+.producer { left: 1268px; top: 538px; width: 596px; height: 312px; }
+.producer .in-h { margin-bottom: 10px; }
+.chaos-t { margin-left: auto; display: inline-flex; align-items: center; gap: 7px; font: 600 11.5px/1 var(--font-body) !important; color: var(--mist); }
+.pipe { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.node { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 7px 8px; border-radius: 8px; background: var(--ink-3); border: 1px solid var(--line-2); }
+.node b { font: 700 12px/1.1 var(--font-body); white-space: nowrap; }
+.node span { font: 600 11px/1 var(--font-mono); color: var(--ok); }
+.node.ai { border-color: var(--flood); }
+.node.warn span { color: var(--flood); }
+.node + .node::before { content: ""; position: absolute; left: -9px; top: 50%; width: 8px; height: 2px; background: var(--line-2); }
+.varlog { margin: 9px 0 0; padding: 7px 10px; border-radius: 8px; background: var(--flood-a); font: 500 11.5px/1.35 var(--font-mono); color: var(--chalk); }
+.varlog b { color: var(--flood); }
+.approve { position: relative; display: flex; align-items: center; gap: 12px; margin-top: 9px; padding: 10px 12px; border-radius: 10px; background: var(--ink-3); border: 1px solid var(--line-2); }
+.ap-txt { min-width: 0; flex: 1; }
+.ap-k { font: 700 10.5px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--flood); }
+.ap-txt p { margin: 5px 0 0; font: 600 13px/1.35 var(--font-body); }
+.ap-btns { display: flex; align-items: center; gap: 6px; flex: none; }
+.btn { font: 700 12px/1 var(--font-body); padding: 8px 10px; border-radius: 7px; border: 1px solid var(--line-2); color: var(--chalk); }
+.btn.primary { background: var(--ok); border-color: var(--ok); color: var(--ink); }
+.btn.ghost { color: var(--mist); }
+.ap-btns small { font: 500 10.5px/1 var(--font-mono); color: var(--dim); }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+.kpis div { display: flex; flex-direction: column; gap: 4px; padding: 8px 10px; border-radius: 8px; background: var(--ink-3); border: 1px solid var(--line); }
+.kpis b { font: 800 22px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.kpis b.good { color: var(--ok); }
+.kpis span { font: 500 10.5px/1.2 var(--font-body); color: var(--mist); }
+
+.legend { position: absolute; left: 56px; top: 874px; width: 1808px; height: 170px; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 1fr; gap: 9px 20px; }
+.legend li { display: flex; align-items: flex-start; gap: 10px; min-width: 0; }
+.legend i { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font: 700 13px/1 var(--font-mono); font-style: normal; color: var(--ink); background: var(--c); }
+.legend b { display: block; font: 700 15.5px/1.15 var(--font-body); }
+.legend span { display: block; margin-top: 3px; font: 400 13px/1.25 var(--font-body); color: var(--mist); }
+
+/* ---------- slide 2 : architecture ---------- */
+.arch-key { position: absolute; right: 56px; top: 44px; display: grid; grid-template-columns: repeat(3, auto); gap: 9px 22px; margin: 0; padding: 0; list-style: none; }
+.arch-key li { display: flex; align-items: center; gap: 9px; font: 600 13px/1 var(--font-body); color: var(--mist); white-space: nowrap; }
+.k-tile { width: 22px; height: 16px; border-radius: 4px; background: var(--ink-3); border: 1px solid var(--line-2); }
+.k-tile.ai { border-color: var(--flood); box-shadow: 0 0 10px var(--flood-a); }
+.k-tile.svc { background: var(--ink-4); border-color: var(--glacier); }
+.k-tile.human { border: 1.5px dashed var(--st-trust); background: transparent; }
+.k-line { width: 26px; height: 0; border-top: 3px solid var(--flood); }
+.k-line.fast { border-top: 2px solid var(--glacier); }
+.k-line.link { border-top: 2px dotted var(--mist); }
+
+.lanes { position: absolute; left: 56px; top: 184px; width: 1808px; height: 668px; display: flex; gap: 20px; z-index: 2; }
+.lane { position: relative; display: flex; flex-direction: column; height: 100%; }
+.lane-h { margin: 0; height: 40px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid var(--c); font: 800 22px/1 var(--font-display); letter-spacing: .12em; text-transform: uppercase; }
+.lane-h span { font: 600 13px/1 var(--font-mono); color: var(--c); letter-spacing: .06em; }
+.lane-body { display: flex; flex-direction: column; gap: 14px; padding-top: 60px; }
+.lane.l3 .lane-body { padding-top: 96px; gap: 16px; }
+.lane-svc { margin-top: auto; display: flex; gap: 10px; }
+
+.tile { position: relative; display: grid; grid-template-columns: 30px 1fr; gap: 3px 11px; padding: 11px 13px 12px; border-radius: 12px; background: var(--ink-2); border: 1px solid var(--line-2); }
+.tile .tic { grid-row: 1 / span 3; width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; background: var(--ink-4); color: var(--c); }
+.tile .tic svg { width: 18px; height: 18px; }
+.tile h4 { margin: 0; font: 700 16.5px/1.2 var(--font-body); display: flex; align-items: center; gap: 8px; }
+.tile .tech { font: 500 12px/1.35 var(--font-mono); color: var(--mist); }
+.tile ul { margin: 4px 0 0; padding: 0 0 0 15px; font: 400 13px/1.38 var(--font-body); color: var(--chalk); }
+.tile ul li::marker { color: var(--c); }
+.tile.ai { border-color: var(--flood); background: linear-gradient(180deg, var(--flood-a), transparent 70%), var(--ink-2); }
+.tile.ai .tic { background: var(--flood); color: var(--ink); }
+.tile.human { border: 1.5px dashed var(--st-trust); background: transparent; }
+.tile.svc { border-color: var(--glacier); background: linear-gradient(180deg, var(--glacier-a), transparent 75%), var(--ink-2); }
+.tile.svc .tic { background: var(--glacier); color: var(--ink); }
+.aitag { font: 700 10px/1 var(--font-mono); letter-spacing: .1em; color: var(--ink); background: var(--flood); padding: 3px 5px; border-radius: 4px; }
+.svctag { font: 700 10px/1 var(--font-mono); letter-spacing: .1em; color: var(--ink); background: var(--glacier); padding: 3px 5px; border-radius: 4px; }
+.mini { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.mini span { font: 600 10.5px/1 var(--font-mono); padding: 4px 6px; border-radius: 5px; background: var(--ink-4); color: var(--chalk); border: 1px solid var(--line); }
+.mini span.warm { background: var(--flood-a); border-color: var(--flood); color: var(--flood); }
+.codeline { margin-top: 6px; padding: 7px 8px; border-radius: 7px; background: var(--ink); border: 1px solid var(--line); font: 400 10.5px/1.45 var(--font-mono); color: var(--glacier); white-space: pre; overflow: hidden; }
+.outs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; grid-column: 1 / -1; }
+.outs span { display: flex; align-items: center; gap: 6px; padding: 7px 8px; border-radius: 7px; background: var(--ink-3); border: 1px solid var(--line); font: 600 12px/1 var(--font-body); white-space: nowrap; }
+.outs i { font: 700 10px/1 var(--font-mono); font-style: normal; color: var(--ink); background: var(--st-personalize); padding: 3px 4px; border-radius: 3px; }
+
+.svc-badge { flex: 1; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--ink-3); border: 1px solid var(--glacier); min-width: 0; }
+.svc-badge .sic { flex: none; width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; background: linear-gradient(135deg, var(--glacier), var(--violet)); color: var(--ink); }
+.svc-badge .sic svg { width: 19px; height: 19px; }
+.svc-badge b { display: block; font: 700 14.5px/1.15 var(--font-body); }
+.svc-badge small { display: block; margin-top: 3px; font: 500 11.5px/1.3 var(--font-body); color: var(--mist); }
+
+.frame { position: absolute; z-index: 1; border-radius: 16px; pointer-events: none; }
+.frame span { position: absolute; left: 14px; top: 9px; font: 700 11.5px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.frame.core { border: 1.5px dashed var(--glacier); background: var(--glacier-a); }
+.frame.core span { color: var(--glacier); }
+.frame.agents { border: 1.5px solid var(--flood); background: var(--flood-a); border-radius: 14px; }
+.frame.agents span { color: var(--flood); }
+
+.wires { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; z-index: 3; pointer-events: none; overflow: visible; }
+.w { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.w.story { stroke: var(--flood); stroke-width: 2.6; }
+.w.data { stroke: var(--glacier); stroke-width: 2; }
+.w.fast { stroke: var(--glacier); stroke-width: 2.2; stroke-dasharray: 7 6; animation: flow 1.1s linear infinite; }
+.w.link { stroke: var(--mist); stroke-width: 1.6; stroke-dasharray: 2 5; }
+.w.story.flowing { stroke-dasharray: 10 7; animation: flow 1.3s linear infinite; }
+.ah-story { fill: var(--flood); }
+.ah-data { fill: var(--glacier); }
+.ah-link { fill: var(--mist); }
+.wl { font: 600 11.5px/1 var(--font-mono); fill: var(--chalk); paint-order: stroke; stroke: var(--ink); stroke-width: 4px; stroke-linejoin: round; }
+.wl.fast { fill: var(--glacier); }
+.wl.story { fill: var(--flood); }
+
+.trust-band { position: absolute; left: 56px; top: 872px; width: 1808px; height: 172px; display: flex; flex-direction: column; gap: 10px; }
+.tb-h { display: flex; align-items: center; gap: 14px; }
+.tb-h b { font: 800 20px/1 var(--font-display); letter-spacing: .14em; text-transform: uppercase; }
+.slo { font: 600 12px/1 var(--font-mono); color: var(--ok); padding: 6px 9px; border: 1px solid var(--ok); border-radius: 999px; background: var(--ok-a); }
+.tb-cards { flex: 1; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.tbc { display: flex; flex-direction: column; gap: 7px; padding: 12px 14px; border-radius: 12px; background: var(--ink-2); border: 1px solid var(--line-2); min-width: 0; }
+.tbc-h { display: flex; align-items: center; gap: 8px; font: 700 15px/1 var(--font-body); }
+.tbc-h svg { width: 18px; height: 18px; color: var(--st-trust); }
+.tbc p { margin: 0; font: 400 12.5px/1.4 var(--font-body); color: var(--mist); }
+
+@keyframes blink { 50% { opacity: .35; } }
+@keyframes flow { to { stroke-dashoffset: -26; } }
+@media (prefers-reduced-motion: reduce) {
+  .live-dot, .w.fast, .w.story.flowing { animation: none; }
+}
+</style>
+
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-mark" viewBox="0 0 24 24"><path d="M4 9V5h4M16 5h4v4M20 15v4h-4M8 19H4v-4"/><circle cx="12" cy="12" r="2.8" style="fill: currentColor; stroke: none"/></symbol>
+  <symbol id="i-pitch" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M12 5v14"/><circle cx="12" cy="12" r="2.6"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/></symbol>
+  <symbol id="i-stream" viewBox="0 0 24 24"><path d="M3 8c3-3 6 3 9 0s6 3 9 0M3 12c3-3 6 3 9 0s6 3 9 0M3 16c3-3 6 3 9 0s6 3 9 0"/></symbol>
+  <symbol id="i-archive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10h14V9M10 13h4"/></symbol>
+  <symbol id="i-scout" viewBox="0 0 24 24"><path d="M4 6h10M4 12h10M4 18h6"/><path d="M15 16l2.5 2.5L22 14"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M6 8h12v3a6 6 0 0 1-12 0zM12 17v4"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 5v16M8 7h7"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8z"/><path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8z"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-screen" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M6 12h7"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 12h1M7 8v8M11 5v14M15 8v8M19 10v4"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="8" ry="2.8"/><path d="M4 5.5v13c0 1.5 3.6 2.8 8 2.8s8-1.3 8-2.8v-13M4 12c0 1.5 3.6 2.8 8 2.8s8-1.3 8-2.8"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.9-3M4 13a8 8 0 0 0 14.9 3"/><path d="M5 3v5h5M19 21v-5h-5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .9-3 2s1.3 1.8 3 2 3 .9 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></symbol>
+  <symbol id="i-branch" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="8" r="2"/><path d="M6 7v10M18 10c0 4-6 3-11 7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.6-8A6 6 0 0 1 18 9.5a4.3 4.3 0 0 1-.5 8.5z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.5 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.5-3.8-9S9.5 5.5 12 3z"/></symbol>
+  <symbol id="crest-hmr" viewBox="0 0 24 24"><path d="M12 2l8 3v6.5c0 5-3.6 8.8-8 10.5-4.4-1.7-8-5.5-8-10.5V5z" style="fill: var(--home); stroke: var(--chalk); stroke-width: 1.2"/><path d="M7 10l5 4 5-4" style="fill: none; stroke: var(--chalk); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"/></symbol>
+  <symbol id="crest-kba" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" style="fill: var(--away); stroke: var(--chalk); stroke-width: 1.2"/><path d="M6 14c3-1 5-4 6-7 1 3 3 6 6 7-2 .3-4 1-6 3-2-2-4-2.7-6-3z" style="fill: var(--chalk); stroke: none"/></symbol>
+</svg>
+
+<div class="page">
+  <div class="deck-bar" id="deck-bar">
+    <div class="deck-id">
+      <svg class="mark ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mark"/></svg>
+      <span class="deck-name">REGISTA</span>
+      <span class="deck-sub">Vision deck · Inside the Game hackathon</span>
+    </div>
+    <nav class="deck-nav" aria-label="Slides">
+      <span class="hint-keys">← → to switch</span>
+      <button class="nav-btn" id="prev" type="button" aria-label="Previous slide">‹</button>
+      <button class="dot is-on" type="button" data-go="0" aria-current="true">1 · Product preview</button>
+      <button class="dot" type="button" data-go="1" aria-current="false">2 · Architecture</button>
+      <button class="nav-btn" id="next" type="button" aria-label="Next slide">›</button>
+      <button class="fs-btn" id="fs" type="button">Full screen</button>
+    </nav>
+  </div>
+
+  <main class="deck" id="deck">
+    <!-- ===================== SLIDE 1 ===================== -->
+    <section class="shell" id="product" aria-label="Slide 1: Product preview">
+      <div class="slide s1">
+        <svg class="deco" viewBox="0 0 1920 1080" aria-hidden="true">
+          <circle class="dl" cx="1880" cy="1040" r="380" opacity=".5"/>
+          <circle class="dl" cx="1880" cy="1040" r="230" opacity=".35"/>
+        </svg>
+
+        <header class="s-head">
+          <p class="eyebrow">Regista · First release preview</p>
+          <h1 class="s-title">Every fan gets their own broadcast.</h1>
+          <p class="s-lede">Fan view at 67:12 of the synthetic golden match, plus the same goal for four fans and the studio producer. Sample data.</p>
+        </header>
+
+        <ul class="stage-key" aria-label="Pipeline stages">
+          <li style="--c: var(--st-ingest)">Ingest</li>
+          <li style="--c: var(--st-interpret)">Interpret</li>
+          <li style="--c: var(--st-explain)">Explain</li>
+          <li style="--c: var(--st-render)">Render</li>
+          <li style="--c: var(--st-personalize)">Personalize</li>
+          <li style="--c: var(--st-trust)">Trust</li>
+        </ul>
+
+        <div class="app">
+          <div class="topbar">
+            <div class="brand">
+              <svg class="mark ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mark"/></svg>
+              <b>REGISTA</b><span class="tb-dim">Fan view</span>
+            </div>
+            <span class="tb-dim">Matchweek 9 · Ashgrove Park</span>
+            <div class="tb-right">
+              <span class="pill"><i class="pin" style="--pin: var(--st-render)">2</i><span class="live-dot"></span>Your stream −18 s · in sync</span>
+              <span class="pill"><i class="pin" style="--pin: var(--st-personalize)">1</i><span class="avatar">M</span>Maya · EN · Analyst<span class="lens">Lens: Pressing</span></span>
+              <span class="seg"><b class="on">Fan</b><b>Split ×4</b><b>Producer</b></span>
+            </div>
+          </div>
+
+          <div class="pitch">
+            <div class="pitch-clip">
+              <svg class="pitch-svg" viewBox="-2 -2 109 72" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pitch at 67:12: Valdane scores from Quell's through ball">
+                <defs>
+                  <pattern id="mow" width="10.5" height="72" patternUnits="userSpaceOnUse" x="0" y="-2">
+                    <rect width="5.25" height="72" class="mow-a"/>
+                    <rect x="5.25" width="5.25" height="72" class="mow-b"/>
+                  </pattern>
+                </defs>
+                <rect x="-2" y="-2" width="109" height="72" class="turf"/>
+                <rect x="0" y="0" width="105" height="68" fill="url(#mow)"/>
+                <g class="pl">
+                  <rect x="0" y="0" width="105" height="68"/>
+                  <line x1="52.5" y1="0" x2="52.5" y2="68"/>
+                  <circle cx="52.5" cy="34" r="9.15"/>
+                  <rect x="0" y="13.84" width="16.5" height="40.32"/>
+                  <rect x="88.5" y="13.84" width="16.5" height="40.32"/>
+                  <rect x="0" y="24.84" width="5.5" height="18.32"/>
+                  <rect x="99.5" y="24.84" width="5.5" height="18.32"/>
+                  <path d="M16.5,26.69 A9.15,9.15 0 0 1 16.5,41.31"/>
+                  <path d="M88.5,26.69 A9.15,9.15 0 0 0 88.5,41.31"/>
+                  <path d="M0,1 A1,1 0 0 0 1,0 M104,0 A1,1 0 0 0 105,1 M105,67 A1,1 0 0 0 104,68 M1,68 A1,1 0 0 0 0,67"/>
+                </g>
+                <circle class="spot" cx="52.5" cy="34" r=".35"/>
+                <circle class="spot" cx="11" cy="34" r=".35"/>
+                <circle class="spot" cx="94" cy="34" r=".35"/>
+                <rect class="goal" x="-1.6" y="30.34" width="1.6" height="7.32"/>
+                <rect class="goal flash" x="105" y="30.34" width="1.6" height="7.32"/>
+
+                <!-- pressure on the passer -->
+                <circle class="press-halo" cx="74" cy="30" r="3.2"/>
+                <!-- Valdane's run, Quell's pass, the shot -->
+                <path class="trail" d="M85.5,45 Q88,41.6 90,39 L93,37"/>
+                <path class="passline" d="M74.9,30.5 L88.6,38.2"/>
+                <path class="passhead" d="M90,39 L87.9,38.9 L88.9,37.2 Z"/>
+                <path class="shotline" d="M93.6,36.9 L104.2,35.5"/>
+                <circle class="ballglow" cx="104.4" cy="35.4" r="2"/>
+                <circle class="ball" cx="104.4" cy="35.4" r=".7"/>
+                <!-- pass-card leader + name-tag stem -->
+                <path class="stem" d="M64.6,30.5 L78,32.3"/>
+                <circle class="stemdot" cx="78" cy="32.3" r=".45"/>
+                <path class="stem" d="M90.9,29.9 L92.7,35.6"/>
+
+                <!-- Kestrel Bay Athletic (blue) -->
+                <g class="pp away gk"><circle cx="103.4" cy="36.6" r="1.15"/><text x="103.4" y="36.6">1</text></g>
+                <g class="pp away"><circle cx="95.5" cy="33.5" r="1.15"/><text x="95.5" y="33.5">4</text></g>
+                <g class="pp away"><circle cx="92" cy="42" r="1.15"/><text x="92" y="42">5</text></g>
+                <g class="pp away"><circle cx="93" cy="52" r="1.15"/><text x="93" y="52">3</text></g>
+                <g class="pp away"><circle cx="92" cy="24" r="1.15"/><text x="92" y="24">2</text></g>
+                <g class="pp away"><circle cx="82" cy="33" r="1.15"/><text x="82" y="33">6</text></g>
+                <g class="pp away"><circle cx="77.6" cy="27.5" r="1.15"/><text x="77.6" y="27.5">8</text></g>
+                <g class="pp away"><circle cx="80" cy="44" r="1.15"/><text x="80" y="44">15</text></g>
+                <g class="pp away"><circle cx="70" cy="50" r="1.15"/><text x="70" y="50">19</text></g>
+                <g class="pp away"><circle cx="62" cy="18" r="1.15"/><text x="62" y="18">7</text></g>
+                <g class="pp away"><circle cx="58" cy="31" r="1.15"/><text x="58" y="31">11</text></g>
+                <!-- Harrowmere FC (red) -->
+                <g class="pp home gk"><circle cx="14" cy="34" r="1.15"/><text x="14" y="34">1</text></g>
+                <g class="pp home"><circle cx="62" cy="60" r="1.15"/><text x="62" y="60">2</text></g>
+                <g class="pp home"><circle cx="66" cy="9" r="1.15"/><text x="66" y="9">3</text></g>
+                <g class="pp home"><circle cx="46" cy="42" r="1.15"/><text x="46" y="42">4</text></g>
+                <g class="pp home"><circle cx="47" cy="25" r="1.15"/><text x="47" y="25">5</text></g>
+                <g class="pp home"><circle cx="60" cy="37" r="1.15"/><text x="60" y="37">6</text></g>
+                <g class="pp home"><circle cx="79" cy="22" r="1.15"/><text x="79" y="22">8</text></g>
+                <g class="pp home star"><circle cx="74" cy="30" r="1.35"/><text x="74" y="30">10</text></g>
+                <g class="pp home"><circle cx="95" cy="56" r="1.15"/><text x="95" y="56">7</text></g>
+                <g class="pp home"><circle cx="96" cy="20" r="1.15"/><text x="96" y="20">11</text></g>
+                <g class="pp home star"><circle cx="93" cy="37" r="1.35"/><text x="93" y="37">9</text></g>
+              </svg>
+            </div>
+            <i class="pin" style="--pin: var(--st-ingest); left: -13px; top: 286px">3</i>
+
+            <div class="ov scorebug"><i class="pin" style="--pin: var(--st-render)">4</i>
+              <span class="sb-team"><svg class="crest" viewBox="0 0 24 24" aria-hidden="true"><use href="#crest-hmr"/></svg>HMR</span>
+              <span class="sb-score">2<span class="sb-sep">–</span>1</span>
+              <span class="sb-team">KBA<svg class="crest" viewBox="0 0 24 24" aria-hidden="true"><use href="#crest-kba"/></svg></span>
+              <span class="sb-clock">67:12</span>
+              <span class="sb-flag">Goal</span>
+            </div>
+
+            <div class="ov wp"><i class="pin" style="--pin: var(--st-interpret)">5</i>
+              <div class="wp-row"><span class="wp-label">Harrowmere win</span><span class="wp-from">41%</span><span class="wp-arrow">→</span><span class="wp-to">74%</span></div>
+              <div class="wp-bar"><i class="h"></i><i class="d"></i><i class="a"></i></div>
+              <div class="wp-legend"><span>HMR 74</span><span>Draw 17</span><span>KBA 9</span></div>
+            </div>
+
+            <div class="ov pulse"><i class="pin" style="--pin: var(--st-interpret)">6</i>
+              <div class="pulse-top"><span class="pulse-k">Control ↔ Chaos</span><span class="pulse-v">72</span><span class="pulse-w">Stormy</span></div>
+              <div class="gauge"><span class="rest"></span><span class="was" title="41 before the shift"></span></div>
+              <div class="gauge-scale"><span>Control</span><span>was 41</span><span>Chaos</span></div>
+              <div class="mom">
+                <span class="mom-k">Momentum<br>last 15′</span>
+                <svg viewBox="0 0 248 30" preserveAspectRatio="none" aria-hidden="true">
+                  <line class="base" x1="0" y1="15" x2="248" y2="15"/>
+                  <path class="area" d="M0,13.7 L17.4,15 L34.9,16.3 L52.3,18.25 L69.7,20.2 L87.1,22.15 L104.6,22.8 L122,23.45 L139.4,22.15 L156.9,24.1 L174.3,21.5 L191.7,20.85 L209.1,20.2 L226.6,17.6 L244,7.85 L244,15 L0,15 Z"/>
+                  <path class="line" d="M0,13.7 L17.4,15 L34.9,16.3 L52.3,18.25 L69.7,20.2 L87.1,22.15 L104.6,22.8 L122,23.45 L139.4,22.15 L156.9,24.1 L174.3,21.5 L191.7,20.85 L209.1,20.2 L226.6,17.6 L244,7.85"/>
+                  <circle class="end" cx="243" cy="7.85" r="3.5"/>
+                </svg>
+              </div>
+              <div class="alert-row"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg><span>58′ pressure shift: Kestrel Bay press 11 m higher · PPDA 13.8 → 7.2</span></div>
+            </div>
+
+            <div class="ov tagov"><i class="pin" style="--pin: var(--st-interpret)">7</i>
+              <span class="tag-num">9</span><span class="tag-name">I. Valdane</span><span class="tag-speed">32.8 <small>km/h</small></span>
+            </div>
+
+            <div class="ov passov"><i class="pin" style="--pin: var(--st-interpret); left: auto; right: -13px">8</i>
+              <div class="pass-h"><span>Through ball</span>M. Quell → I. Valdane</div>
+              <div class="pass-grid">
+                <div><b>31<small>m</small></b><em>Distance</em></div>
+                <div class="hi"><b>8.7<small>/10</small></b><em>Difficulty</em></div>
+                <div><b>3</b><em>Lines broken</em></div>
+                <div><b>62<small>km/h</small></b><em>Ball speed</em></div>
+              </div>
+            </div>
+
+            <div class="ov why"><i class="pin" style="--pin: var(--st-explain)">9</i>
+              <span class="why-kicker">Why it matters · 67′</span>
+              <div class="why-main">
+                <p class="why-head">Valdane's 50th career goal flips the match</p>
+                <p class="why-body">Harrowmere's win probability jumps from 41% to 74% against the run of play: Kestrel Bay had pressed 11 m higher since 58′.</p>
+                <div class="chips"><span class="fact">WP 41% → 74%</span><span class="fact">Pass 8.7/10</span><span class="fact">Shot 98 km/h</span><span class="fact">xG 0.31</span><span class="fact">50th goal</span></div>
+              </div>
+              <div class="var-badge"><i class="pin" style="--pin: var(--st-trust)">10</i>
+                <div class="vb-top"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg>VAR verified</div>
+                <p>5 of 5 claims match the data</p>
+                <code>f-884 · f-885 · f-886 · f-887 · f-891</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="underbar">
+            <div class="timeline">
+              <div class="tl-track">
+                <div class="tl-chaos"></div>
+                <span class="tl-m home" style="left: 14.7%" title="14′ goal Harrowmere"></span>
+                <span class="tl-m speed" style="left: 32.6%" title="31′ speed record"></span>
+                <span class="tl-m neutral" style="left: 47.4%" title="Half time"></span>
+                <span class="tl-m neutral" style="left: 54.7%" title="52′ double substitution"></span>
+                <span class="tl-m shift" style="left: 61.1%" title="58′ pressure shift"></span>
+                <span class="tl-m away" style="left: 66.3%" title="63′ goal Kestrel Bay"></span>
+                <span class="tl-m fix" style="left: 68.4%" title="65′ data correction"></span>
+                <span class="tl-m home" style="left: 70.7%" title="67′ goal Harrowmere"></span>
+                <span class="tl-head"><b>67:12 · −18 s</b></span>
+              </div>
+              <div class="tl-ticks">
+                <span style="left: 0%">0′</span><span style="left: 15.8%">15′</span><span style="left: 31.6%">30′</span><span style="left: 47.4%">HT</span><span style="left: 63.2%">60′</span><span style="left: 78.9%">75′</span><span style="left: 94.7%">90′</span>
+              </div>
+            </div>
+            <div class="controls">
+              <span class="cmu"><i class="pin" style="--pin: var(--st-personalize)">13</i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-refresh"/></svg><span><b>Catch me up</b><small>30 s recap · audio</small></span></span>
+              <span class="audio"><i class="pin" style="--pin: var(--st-personalize)">15</i>
+                <span class="switch on"></span>Voice commentary · EN
+                <span class="mini-wave" aria-hidden="true"><i style="height:6px"></i><i style="height:14px"></i><i style="height:9px"></i><i style="height:18px"></i><i style="height:11px"></i><i style="height:15px"></i><i style="height:7px"></i></span>
+                <span class="switch"></span>Audio description
+              </span>
+              <span class="sample">Timeline: chaos ribbon<br>+ moments so far</span>
+            </div>
+          </div>
+
+          <aside class="feed">
+            <div class="feed-h"><i class="pin" style="--pin: var(--st-personalize); left: -6px; top: 4px">11</i><b>Your feed</b><span>Ranked for Maya · Analyst</span></div>
+            <article class="card big">
+              <div class="c-top"><span class="c-min">67′</span><span class="tag t-home">Goal</span><span class="c-now">● now</span></div>
+              <h4>Valdane's 50th career goal flips the match</h4>
+              <p>Win probability 41% → 74%. Quell's through ball broke three lines.</p>
+              <div class="chips"><span class="fact">WP +33 pts</span><span class="fact">Pass 8.7/10</span><span class="fact">xG 0.31</span></div>
+              <div class="c-foot"><span class="okline"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>VAR verified · 5 facts</span><span class="why-link">Why? ›</span></div>
+            </article>
+            <article class="card"><i class="pin" style="--pin: var(--st-trust)">12</i>
+              <div class="c-top"><span class="c-min">63′</span><span class="tag t-away">Goal</span><span class="tag t-fix">Corrected 65′</span></div>
+              <p>Equaliser now credited to <strong>Y. Belkora</strong> after a deflection review (was O. Vennholm).</p>
+            </article>
+            <article class="card">
+              <div class="c-top"><span class="c-min">58′</span><span class="tag t-shift">Tactical shift</span></div>
+              <p>Kestrel Bay press 11 m higher after the 52′ double substitution.</p>
+              <div class="chips"><span class="fact">PPDA 13.8 → 7.2</span><span class="fact">Chaos 41 → 72</span></div>
+            </article>
+            <div class="ask"><i class="pin" style="--pin: var(--st-personalize)">14</i>
+              <div class="ask-h">Ask the Pundit</div>
+              <p class="q">Why did Kestrel Bay concede after their best spell?</p>
+              <p class="a">Their high press left space behind it. Quell's 31 m pass broke three lines into that space.</p>
+              <div class="chips"><span class="fact">Press +11 m</span><span class="fact">Pass 31 m · 8.7/10</span></div>
+            </div>
+          </aside>
+        </div>
+
+        <section class="inset split" aria-label="Same goal for four fans"><i class="pin" style="--pin: var(--st-personalize)">16</i>
+          <div class="in-h"><b>Same goal · 4 fans</b><span>One event, four live renderings</span></div>
+          <div class="tiles">
+            <article class="fan" lang="en">
+              <div class="fan-h"><span class="lc">EN</span>Maya · Analyst</div>
+              <p>Quell's through ball broke three lines; Kestrel Bay's press had peaked at 58′.</p>
+              <div class="chips"><span class="fact">xG 0.31</span><span class="fact">WP +33 pts</span></div>
+            </article>
+            <article class="fan" lang="fr">
+              <div class="fan-h"><span class="lc">FR</span>Léa · fan de Kestrel Bay</div>
+              <p>Coup dur : on pressait fort depuis la 58e, et Valdane punit à la première occasion.</p>
+              <div class="chips"><span class="fact">Victoire 26 % → 9 %</span></div>
+            </article>
+            <article class="fan" lang="es">
+              <div class="fan-h"><span class="lc">ES</span>Diego · sigue al #9</div>
+              <p>¡50.º gol de Iker Valdane! Sprint de 32,8 km/h antes del remate.</p>
+              <div class="chips"><span class="fact">7,6 km recorridos</span><span class="fact">4 tiros</span></div>
+            </article>
+            <article class="fan ar" lang="ar" dir="rtl">
+              <div class="fan-h"><span class="lc">AR</span>يوسف · وصف صوتي</div>
+              <p>هدف لهارومير! فالدان يسجّل في الدقيقة 67 بعد تمريرة بينية من كويل، والنتيجة الآن 2–1.</p>
+              <div class="wave" aria-hidden="true"><i style="height:6px"></i><i style="height:12px"></i><i style="height:18px"></i><i style="height:9px"></i><i style="height:15px"></i><i style="height:20px"></i><i style="height:11px"></i><i style="height:7px"></i><i style="height:14px"></i><i style="height:9px"></i><span>▶ 0:06</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="inset producer" aria-label="Studio producer console">
+          <div class="in-h"><b>Studio producer</b><span>mo-017 · 67′ goal</span><span class="chaos-t"><span class="switch"></span>Chaos test: stop Storyteller</span></div>
+          <div class="pipe"><i class="pin" style="--pin: var(--st-trust); left: -26px; top: 8px">18</i>
+            <div class="node"><b>Spotter</b><span>12 ms ✓</span></div>
+            <div class="node"><b>Archivist</b><span>8 ms ✓</span></div>
+            <div class="node ai"><b>Tactician</b><span>1.4 s ✓</span></div>
+            <div class="node ai"><b>Storyteller ×4</b><span>1.1 s ✓</span></div>
+            <div class="node ai warn"><b>VAR</b><span>1 revised</span></div>
+            <div class="node"><b>Director</b><span>4 ms ✓</span></div>
+          </div>
+          <p class="varlog"><b>VAR</b> · ES draft said “49.º gol” · contradicts fact f-886 (50) · revised ✓</p>
+          <div class="approve"><i class="pin" style="--pin: var(--st-trust)">17</i>
+            <div class="ap-txt"><span class="ap-k">Broadcast feed · awaiting approval</span><p>Valdane's 50th career goal flips the match: win probability 41% → 74%.</p></div>
+            <div class="ap-btns"><span class="btn primary">Approve</span><span class="btn">Edit</span><span class="btn ghost">Reject</span><small>auto 6 s</small></div>
+          </div>
+          <div class="kpis">
+            <div><b>3.1 s</b><span>p95 event → overlay</span></div>
+            <div><b class="good">0</b><span>unsupported claims on air</span></div>
+            <div><b>2</b><span>fallbacks this match</span></div>
+            <div><b>$0.42</b><span>model cost this match</span></div>
+          </div>
+        </section>
+
+        <ol class="legend" aria-label="Feature key">
+          <li style="--c: var(--st-personalize)"><i>1</i><div><b>Profile &amp; metric lens</b><span>Language, level, club, focus, metric</span></div></li>
+          <li style="--c: var(--st-render)"><i>2</i><div><b>Spoiler-safe sync</b><span>Overlays follow your stream delay</span></div></li>
+          <li style="--c: var(--st-ingest)"><i>3</i><div><b>Live synthetic feed</b><span>Events + 10 Hz tracking via Event Hubs</span></div></li>
+          <li style="--c: var(--st-render)"><i>4</i><div><b>Broadcast overlays</b><span>EBU OGraf graphics on timed cues</span></div></li>
+          <li style="--c: var(--st-interpret)"><i>5</i><div><b>Win-probability swing</b><span>Live model, before → after</span></div></li>
+          <li style="--c: var(--st-interpret)"><i>6</i><div><b>Control vs chaos</b><span>Pressing, tilt, rhythm, shifts</span></div></li>
+          <li style="--c: var(--st-interpret)"><i>7</i><div><b>Speed trigger</b><span>Name tag when a sprint tops 32 km/h</span></div></li>
+          <li style="--c: var(--st-interpret)"><i>8</i><div><b>Pass quality</b><span>Distance, accuracy, difficulty, lines</span></div></li>
+          <li style="--c: var(--st-explain)"><i>9</i><div><b>Why it matters</b><span>Tactician agent, claims cite facts</span></div></li>
+          <li style="--c: var(--st-trust)"><i>10</i><div><b>VAR verified</b><span>Every number checked before air</span></div></li>
+          <li style="--c: var(--st-personalize)"><i>11</i><div><b>Your feed &amp; timeline</b><span>Moments ranked for you, chaos ribbon</span></div></li>
+          <li style="--c: var(--st-trust)"><i>12</i><div><b>Live data correction</b><span>One fix updates every story</span></div></li>
+          <li style="--c: var(--st-personalize)"><i>13</i><div><b>Catch me up</b><span>30 s recap of what you missed</span></div></li>
+          <li style="--c: var(--st-personalize)"><i>14</i><div><b>Ask the Pundit</b><span>Grounded answers via match MCP</span></div></li>
+          <li style="--c: var(--st-personalize)"><i>15</i><div><b>Voice &amp; audio description</b><span>Azure AI Speech voices, captions</span></div></li>
+          <li style="--c: var(--st-personalize)"><i>16</i><div><b>Same goal, 4 fans</b><span>EN · FR · ES · AR, rendered live</span></div></li>
+          <li style="--c: var(--st-trust)"><i>17</i><div><b>Producer approval</b><span>Human in the loop before broadcast</span></div></li>
+          <li style="--c: var(--st-trust)"><i>18</i><div><b>Agents &amp; chaos test</b><span>Stop an agent, watch it recover</span></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 2 ===================== -->
+    <section class="shell" id="architecture" aria-label="Slide 2: Architecture" hidden>
+      <div class="slide s2">
+        <svg class="deco" viewBox="0 0 1920 1080" aria-hidden="true">
+          <circle class="dl" cx="40" cy="1060" r="300" opacity=".4"/>
+        </svg>
+
+        <header class="s-head">
+          <p class="eyebrow">Regista · Solution architecture</p>
+          <h1 class="s-title">One stream in. Every fan's broadcast out.</h1>
+          <p class="s-lede">Code computes every number. Agents explain, verify and direct. Built on Microsoft Foundry, Agent Framework and Azure.</p>
+        </header>
+
+        <ul class="arch-key" aria-label="Diagram key">
+          <li><span class="k-tile"></span>Deterministic code</li>
+          <li><span class="k-tile ai"></span>AI agent</li>
+          <li><span class="k-tile svc"></span>Azure / Microsoft service</li>
+          <li><span class="k-tile human"></span>Human in the loop</li>
+          <li><span class="k-line"></span>Story path (agents)</li>
+          <li><span class="k-line fast"></span>Fast path (stats)</li>
+        </ul>
+
+        <div class="frame core" id="f-core"><span>Azure Container Apps · regista-core · Python + FastAPI</span></div>
+        <div class="frame agents" id="f-agents"><span>Microsoft Agent Framework · workflow</span></div>
+
+        <div class="lanes">
+          <!-- 01 INGEST -->
+          <div class="lane" style="--c: var(--st-ingest); width: 300px">
+            <h3 class="lane-h"><span>01</span>Ingest</h3>
+            <div class="lane-body">
+              <div class="tile" id="t-engine">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-pitch"/></svg></span>
+                <h4>Synthetic match engine</h4>
+                <div class="tech">Python · seeded · open source</div>
+                <ul><li>20 clubs, 500 players, career stats</li><li>Events + 10 Hz tracking (22 players + ball)</li><li>Scripted golden match, ground truth</li></ul>
+              </div>
+              <div class="tile" id="t-replay">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-play"/></svg></span>
+                <h4>Replayer</h4>
+                <div class="tech">real time or ×10 · seek to any minute</div>
+              </div>
+              <div class="tile svc" id="t-eh">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-stream"/></svg></span>
+                <h4>Azure Event Hubs <span class="svctag">AZURE</span></h4>
+                <div class="tech">hubs: events · tracking</div>
+                <div class="tech">offsets let us replay after a crash</div>
+              </div>
+              <div class="tile" id="t-data">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-archive"/></svg></span>
+                <h4>Open synthetic dataset</h4>
+                <div class="tech">data card · calibration report</div>
+              </div>
+            </div>
+            <div class="lane-svc">
+              <div class="svc-badge" id="s-blob"><span class="sic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-cloud"/></svg></span><div><b>Azure Blob Storage</b><small>checkpoints · dataset · audio cache</small></div></div>
+            </div>
+          </div>
+
+          <!-- 02 INTERPRET -->
+          <div class="lane" style="--c: var(--st-interpret); width: 340px">
+            <h3 class="lane-h"><span>02</span>Interpret</h3>
+            <div class="lane-body">
+              <div class="tile in-core" id="t-scout">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-scout"/></svg></span>
+                <h4>Scout</h4>
+                <div class="tech">validate · dedupe · order · corrections</div>
+              </div>
+              <div class="tile in-core" id="t-analyst">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chart"/></svg></span>
+                <h4>Analyst</h4>
+                <div class="tech">pure functions · unit-tested</div>
+                <ul><li>Pass quality: distance, accuracy, xPass difficulty, lines broken</li><li>Ball, shot and sprint speeds, 32 km/h trigger</li><li>xG, win probability, momentum</li><li>PPDA, field tilt, control vs chaos, rhythm</li></ul>
+              </div>
+              <div class="tile in-core" id="t-spotter">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-target"/></svg></span>
+                <h4>Spotter</h4>
+                <div class="tech">moments + significance · model budget gate</div>
+              </div>
+              <div class="tile in-core" id="t-mcp">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-plug"/></svg></span>
+                <h4>Match MCP server</h4>
+                <div class="tech">get_stats · compare_periods · get_player_tracker · get_moments</div>
+              </div>
+            </div>
+            <div class="lane-svc">
+              <div class="svc-badge" id="s-cosmos"><span class="sic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-db"/></svg></span><div><b>Azure Cosmos DB</b><small>moments · cues · profiles · audit trail</small></div></div>
+            </div>
+          </div>
+
+          <!-- 03 EXPLAIN -->
+          <div class="lane l3" style="--c: var(--st-explain); width: 420px">
+            <h3 class="lane-h"><span>03</span>Explain</h3>
+            <div class="lane-body">
+              <div class="tile in-core in-agents" id="t-archivist">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-book"/></svg></span>
+                <h4>Archivist</h4>
+                <div class="tech">career history → milestones (“50th goal”)</div>
+              </div>
+              <div class="tile ai in-core in-agents" id="t-tactician">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-spark"/></svg></span>
+                <h4>Tactician <span class="aitag">AI</span></h4>
+                <div class="tech">why it matters → evidence pack; each claim cites a fact ID</div>
+                <div class="mini"><span>MCP tools</span><span>handoffs from Fan Agent</span></div>
+              </div>
+              <div class="tile ai in-core in-agents" id="t-story">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-pen"/></svg></span>
+                <h4>Storyteller ×N <span class="aitag">AI</span></h4>
+                <div class="tech">one call per audience segment, run in parallel</div>
+                <div class="mini"><span>EN</span><span>FR</span><span>ES</span><span>AR</span><span>…</span></div>
+              </div>
+              <div class="tile ai in-core in-agents" id="t-var">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-shield"/></svg></span>
+                <h4>VAR <span class="aitag">AI + RULES</span></h4>
+                <div class="tech">checks every number and name against facts · Azure AI Content Safety</div>
+                <div class="mini"><span class="warm">↺ revise ×1</span><span>fallback: template</span></div>
+              </div>
+              <div class="tile human in-core in-agents" id="t-producer">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-user"/></svg></span>
+                <h4>Studio producer</h4>
+                <div class="tech">approves broadcast cues · edit · reject</div>
+              </div>
+            </div>
+            <div class="lane-svc">
+              <div class="svc-badge" id="s-foundry"><span class="sic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-spark"/></svg></span><div><b>Microsoft Foundry</b><small>models for every agent · tracing · evaluations</small></div></div>
+            </div>
+          </div>
+
+          <!-- 04 RENDER -->
+          <div class="lane" style="--c: var(--st-render); width: 330px">
+            <h3 class="lane-h"><span>04</span>Render</h3>
+            <div class="lane-body">
+              <div class="tile in-core" id="t-director">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-layers"/></svg></span>
+                <h4>Director</h4>
+                <div class="tech">picks the graphic · waits for a dead ball · spacing and priority · corrections</div>
+              </div>
+              <div class="tile in-core" id="t-cue">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-bolt"/></svg></span>
+                <h4>Cue stream</h4>
+                <div class="tech">WebSocket · timed, machine-readable</div>
+                <div class="codeline">{"graphic":"regista-why-card",
+ "video_ts_ms":4029000,"lang":"fr"}</div>
+              </div>
+              <div class="tile in-core" id="t-ograf">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-screen"/></svg></span>
+                <h4>OGraf graphics</h4>
+                <div class="tech">EBU open HTML standard for broadcast graphics</div>
+                <div class="mini"><span>scorebug</span><span>name tag</span><span>pass</span><span>why</span><span>pulse</span><span>player focus</span></div>
+              </div>
+              <div class="tile in-core" id="t-sched">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-clock"/></svg></span>
+                <h4>Spoiler-safe scheduler</h4>
+                <div class="tech">shows a cue when the viewer's stream reaches it</div>
+              </div>
+            </div>
+            <div class="lane-svc">
+              <div class="svc-badge" id="s-swa"><span class="sic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-screen"/></svg></span><div><b>Azure Static Web Apps</b><small>fan app · split view · producer console</small></div></div>
+            </div>
+          </div>
+
+          <!-- 05 PERSONALIZE -->
+          <div class="lane" style="--c: var(--st-personalize); width: 338px">
+            <h3 class="lane-h"><span>05</span>Personalize</h3>
+            <div class="lane-body">
+              <div class="tile" id="t-seg">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-sliders"/></svg></span>
+                <h4>Segments</h4>
+                <div class="tech">language × level × club × mode</div>
+                <div class="mini"><span>write once per segment</span><span>personalize at the edge</span></div>
+              </div>
+              <div class="tile ai" id="t-fan">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-chat"/></svg></span>
+                <h4>Fan Agent <span class="aitag">AI</span></h4>
+                <div class="tech">Catch me up · Ask the Pundit · hands deep “why” questions to Tactician</div>
+              </div>
+              <div class="tile" id="t-out">
+                <span class="tic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-globe"/></svg></span>
+                <h4>Every fan's broadcast</h4>
+                <div class="tech">same facts, rendered per fan</div>
+                <div class="outs"><span><i>EN</i>Analyst</span><span><i>FR</i>Club fan</span><span><i>ES</i>Player focus</span><span><i>AR</i>Audio description</span></div>
+              </div>
+            </div>
+            <div class="lane-svc">
+              <div class="svc-badge" id="s-speech"><span class="sic"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wave"/></svg></span><div><b>Azure AI Speech</b><small>neural voices · EN · FR · ES · AR</small></div></div>
+            </div>
+          </div>
+        </div>
+
+        <svg class="wires" id="wires" viewBox="0 0 1920 1080" aria-hidden="true"></svg>
+
+        <section class="trust-band" aria-label="Trust and operations">
+          <div class="tb-h"><b>Trust &amp; operations</b><span class="slo">stat overlay &lt; 300 ms</span><span class="slo">why-card p95 &lt; 4 s</span><span class="slo">0 unsupported claims on air</span></div>
+          <div class="tb-cards">
+            <div class="tbc"><div class="tbc-h"><svg class="ic" viewBox="0 0 24 24"><use href="#i-eye"/></svg>Observability</div><p>Application Insights and Foundry tracing, one span per agent call, continuous evaluation.</p></div>
+            <div class="tbc"><div class="tbc-h"><svg class="ic" viewBox="0 0 24 24"><use href="#i-refresh"/></svg>Resilience</div><p>Timeouts, circuit breakers, template fallback, workflow checkpoints, replay from offsets.</p></div>
+            <div class="tbc"><div class="tbc-h"><svg class="ic" viewBox="0 0 24 24"><use href="#i-shield"/></svg>Trust</div><p>Evidence chain behind every overlay, human approval before broadcast.</p></div>
+            <div class="tbc"><div class="tbc-h"><svg class="ic" viewBox="0 0 24 24"><use href="#i-lock"/></svg>Security</div><p>Managed Identity and RBAC, no keys in code, secret scanning in CI.</p></div>
+            <div class="tbc"><div class="tbc-h"><svg class="ic" viewBox="0 0 24 24"><use href="#i-coin"/></svg>Cost control</div><p>Model cache, one call per segment, daily budget that falls back to templates.</p></div>
+            <div class="tbc"><div class="tbc-h"><svg class="ic" viewBox="0 0 24 24"><use href="#i-branch"/></svg>Delivery</div><p>Bicep + azd, GitHub Actions, Microsoft Learn MCP and Azure MCP in development.</p></div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  var W = 1920, H = 1080;
+  var root = document.documentElement;
+  var deck = document.getElementById('deck');
+  var bar = document.getElementById('deck-bar');
+  var shells = Array.prototype.slice.call(document.querySelectorAll('.shell'));
+  var dots = Array.prototype.slice.call(document.querySelectorAll('.dot'));
+  var current = 0;
+  var NS = 'http://www.w3.org/2000/svg';
+
+  var initial = (location.hash || '').replace('#', '');
+  shells.forEach(function (sh, i) { if (sh.id === initial) current = i; });
+
+  function isStacked() { return deck.clientWidth < 760; }
+
+  function fit() {
+    var stacked = isStacked();
+    root.classList.toggle('stacked', stacked);
+    var avW = deck.clientWidth;
+    var avH = stacked ? Infinity : Math.max(260, window.innerHeight - bar.offsetHeight - 60);
+    var s = Math.min(avW / W, avH / H);
+    shells.forEach(function (sh, i) {
+      sh.hidden = !stacked && i !== current;
+      sh.style.width = (W * s) + 'px';
+      sh.style.height = (H * s) + 'px';
+      sh.firstElementChild.style.transform = 'scale(' + s + ')';
+    });
+    dots.forEach(function (d, k) {
+      d.classList.toggle('is-on', k === current);
+      d.setAttribute('aria-current', k === current ? 'true' : 'false');
+    });
+    fitTitles();
+    drawArchitecture();
+  }
+
+  /* keep each headline on one line, whatever font actually loaded */
+  function fitTitles() {
+    Array.prototype.forEach.call(document.querySelectorAll('.s-title'), function (el) {
+      if (el.offsetParent === null) return;
+      var size = 62;
+      el.style.fontSize = size + 'px';
+      while (el.scrollWidth > el.clientWidth + 1 && size > 34) {
+        size -= 2;
+        el.style.fontSize = size + 'px';
+      }
+    });
+  }
+
+  function show(i) {
+    current = (i + shells.length) % shells.length;
+    fit();
+  }
+
+  document.getElementById('prev').addEventListener('click', function () { show(current - 1); });
+  document.getElementById('next').addEventListener('click', function () { show(current + 1); });
+  dots.forEach(function (d) { d.addEventListener('click', function () { show(+d.getAttribute('data-go')); }); });
+  document.addEventListener('keydown', function (e) {
+    if (isStacked()) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { show(current + 1); e.preventDefault(); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { show(current - 1); e.preventDefault(); }
+  });
+  document.getElementById('fs').addEventListener('click', function () {
+    var el = document.documentElement;
+    try {
+      if (document.fullscreenElement) { document.exitFullscreen().catch(function () {}); }
+      else if (el.requestFullscreen) { el.requestFullscreen().catch(function () {}); }
+    } catch (err) { /* full screen is optional */ }
+  });
+  document.addEventListener('fullscreenchange', fit);
+  window.addEventListener('resize', fit);
+
+  /* ---------- architecture wires (computed from live layout, in stage pixels) ---------- */
+  function box(el, stage) {
+    var x = 0, y = 0, n = el;
+    while (n && n !== stage) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
+    return { x: x, y: y, w: el.offsetWidth, h: el.offsetHeight };
+  }
+  function anchor(b, side, t) {
+    if (t == null) t = 0.5;
+    if (side === 'l') return [b.x, b.y + b.h * t];
+    if (side === 'r') return [b.x + b.w, b.y + b.h * t];
+    if (side === 't') return [b.x + b.w * t, b.y];
+    return [b.x + b.w * t, b.y + b.h];
+  }
+  function roundedPath(pts, r) {
+    var d = 'M' + pts[0][0] + ',' + pts[0][1];
+    for (var i = 1; i < pts.length - 1; i++) {
+      var p0 = pts[i - 1], p1 = pts[i], p2 = pts[i + 1];
+      var d1 = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]);
+      var d2 = Math.hypot(p2[0] - p1[0], p2[1] - p1[1]);
+      var rr = Math.min(r, d1 / 2, d2 / 2);
+      var a = [p1[0] + (p0[0] - p1[0]) * rr / d1, p1[1] + (p0[1] - p1[1]) * rr / d1];
+      var b = [p1[0] + (p2[0] - p1[0]) * rr / d2, p1[1] + (p2[1] - p1[1]) * rr / d2];
+      d += ' L' + a[0] + ',' + a[1] + ' Q' + p1[0] + ',' + p1[1] + ' ' + b[0] + ',' + b[1];
+    }
+    var last = pts[pts.length - 1];
+    return d + ' L' + last[0] + ',' + last[1];
+  }
+  function arrowHead(svg, tip, dir, cls) {
+    var s = 7, w = 4.5, ux = dir[0], uy = dir[1];
+    var bx = tip[0] - ux * s, by = tip[1] - uy * s;
+    var p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', 'M' + tip[0] + ',' + tip[1] + ' L' + (bx - uy * w) + ',' + (by + ux * w) + ' L' + (bx + uy * w) + ',' + (by - ux * w) + ' Z');
+    p.setAttribute('class', cls);
+    svg.appendChild(p);
+  }
+  function addPath(svg, d, cls) {
+    var p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', d); p.setAttribute('class', 'w ' + cls);
+    svg.appendChild(p);
+  }
+  function addLabel(svg, x, y, text, cls, anchorPos) {
+    var t = document.createElementNS(NS, 'text');
+    t.setAttribute('x', x); t.setAttribute('y', y);
+    t.setAttribute('class', 'wl ' + (cls || ''));
+    t.setAttribute('text-anchor', anchorPos || 'middle');
+    t.textContent = text;
+    svg.appendChild(t);
+  }
+  function placeFrame(frame, members, stage, pad) {
+    if (!members.length) return null;
+    var x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
+    members.forEach(function (m) {
+      var b = box(m, stage);
+      x1 = Math.min(x1, b.x); y1 = Math.min(y1, b.y);
+      x2 = Math.max(x2, b.x + b.w); y2 = Math.max(y2, b.y + b.h);
+    });
+    var r = { x: x1 - pad.l, y: y1 - pad.t, w: (x2 - x1) + pad.l + pad.r, h: (y2 - y1) + pad.t + pad.b };
+    frame.style.left = r.x + 'px'; frame.style.top = r.y + 'px';
+    frame.style.width = r.w + 'px'; frame.style.height = r.h + 'px';
+    return r;
+  }
+
+  function drawArchitecture() {
+    var stage = document.querySelector('.s2');
+    if (!stage || stage.offsetWidth === 0) return;
+    var svg = document.getElementById('wires');
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var $ = function (id) { return document.getElementById(id); };
+    var B = function (id) { return box($(id), stage); };
+
+    var core = placeFrame($('f-core'), Array.prototype.slice.call(stage.querySelectorAll('.in-core')), stage, { l: 9, r: 9, t: 34, b: 10 });
+    var agents = placeFrame($('f-agents'), Array.prototype.slice.call(stage.querySelectorAll('.in-agents')), stage, { l: 5, r: 5, t: 30, b: 8 });
+
+    function vertical(aId, bId, cls, headCls) {
+      var a = anchor(B(aId), 'b'), b = anchor(B(bId), 't');
+      var end = [b[0], b[1] - 1];
+      addPath(svg, 'M' + a[0] + ',' + a[1] + ' L' + end[0] + ',' + end[1], cls);
+      arrowHead(svg, end, [0, 1], headCls);
+    }
+    function elbow(pts, cls, headCls) {
+      addPath(svg, roundedPath(pts, 9), cls);
+      var p = pts[pts.length - 1], q = pts[pts.length - 2];
+      var len = Math.hypot(p[0] - q[0], p[1] - q[1]) || 1;
+      arrowHead(svg, p, [(p[0] - q[0]) / len, (p[1] - q[1]) / len], headCls);
+    }
+
+    // 01 ingest
+    vertical('t-engine', 't-replay', 'data', 'ah-data');
+    vertical('t-replay', 't-eh', 'data', 'ah-data');
+    var eh = anchor(B('t-eh'), 'r'), scout = anchor(B('t-scout'), 'l');
+    var gx1 = (B('t-eh').x + B('t-eh').w + B('t-scout').x) / 2 - 4;
+    elbow([eh, [gx1, eh[1]], [gx1, scout[1]], [scout[0] - 1, scout[1]]], 'data', 'ah-data');
+
+    // 02 interpret
+    vertical('t-scout', 't-analyst', 'data', 'ah-data');
+    vertical('t-analyst', 't-spotter', 'data', 'ah-data');
+
+    // fast path: analyst -> director along a corridor under the core frame label
+    var an = B('t-analyst'), dir = B('t-director'), sc = B('t-scout');
+    var gap23 = (an.x + an.w + B('t-archivist').x) / 2;
+    var corridorY = core ? core.y + 25 : sc.y - 18;
+    var fStart = [an.x + an.w, an.y + an.h * 0.12];
+    var fx = gap23 - 5;
+    var fEnd = [dir.x + dir.w * 0.62, dir.y - 1];
+    elbow([fStart, [fx, fStart[1]], [fx, corridorY], [fEnd[0], corridorY], fEnd], 'fast', 'ah-data');
+    addLabel(svg, (fx + fEnd[0]) / 2 + 40, corridorY - 6, 'fast path · stat overlays < 300 ms', 'fast');
+
+    // story path: spotter -> tactician
+    var sp = B('t-spotter'), ta = B('t-tactician');
+    var sStart = [sp.x + sp.w, sp.y + sp.h * 0.5];
+    var sx = gap23 + 4;
+    var sEnd = [ta.x - 1, ta.y + ta.h * 0.4];
+    elbow([sStart, [sx, sStart[1]], [sx, sEnd[1]], sEnd], 'story flowing', 'ah-story');
+
+    // 03 explain
+    vertical('t-archivist', 't-tactician', 'data', 'ah-data');
+    vertical('t-tactician', 't-story', 'story', 'ah-story');
+    vertical('t-story', 't-var', 'story', 'ah-story');
+    vertical('t-var', 't-producer', 'story', 'ah-story');
+
+    // var -> director
+    var va = B('t-var');
+    var gap34 = (va.x + va.w + dir.x) / 2;
+    var vStart = [va.x + va.w, va.y + va.h * 0.45];
+    var vEnd = [dir.x - 1, dir.y + dir.h * 0.62];
+    elbow([vStart, [gap34 + 1, vStart[1]], [gap34 + 1, vEnd[1]], vEnd], 'story flowing', 'ah-story');
+
+    // 04 render
+    vertical('t-director', 't-cue', 'story', 'ah-story');
+    vertical('t-cue', 't-ograf', 'story', 'ah-story');
+    vertical('t-ograf', 't-sched', 'story', 'ah-story');
+
+    // render -> personalize
+    var sh = B('t-sched'), out = B('t-out');
+    var gap45 = (sh.x + sh.w + out.x) / 2 + 2;
+    var oStart = [sh.x + sh.w, sh.y + sh.h * 0.5];
+    var oEnd = [out.x - 1, out.y + out.h * 0.5];
+    elbow([oStart, [gap45, oStart[1]], [gap45, oEnd[1]], oEnd], 'story flowing', 'ah-story');
+
+    // 05 personalize
+    vertical('t-seg', 't-fan', 'data', 'ah-data');
+    vertical('t-fan', 't-out', 'story', 'ah-story');
+
+    // service links (dotted)
+    function link(fromId, toBox, label) {
+      var a = anchor(B(fromId), 't');
+      var b = [a[0], toBox.y + toBox.h + 1];
+      if (a[1] - b[1] < 10) return;
+      addPath(svg, 'M' + a[0] + ',' + a[1] + ' L' + b[0] + ',' + b[1], 'link');
+      arrowHead(svg, b, [0, -1], 'ah-link');
+      if (label && a[1] - b[1] > 26) addLabel(svg, a[0] + 8, (a[1] + b[1]) / 2 + 4, label, '', 'start');
+    }
+    link('s-blob', B('t-data'), 'checkpoints');
+    link('s-cosmos', B('t-mcp'), 'state');
+    if (agents) link('s-foundry', agents, 'models');
+    link('s-swa', B('t-sched'), 'web player');
+    link('s-speech', B('t-out'), 'voices');
+  }
+
+  fit();
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fit); }
+  window.addEventListener('load', fit);
+})();
+</script>
+
+</body>
+</html>

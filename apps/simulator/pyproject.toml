@@ -1,0 +1,20 @@
+[project]
+name = "regista-sim"
+version = "0.1.0"
+description = "Synthetic football league, 10 Hz match engine and golden-match scenario for REGISTA."
+license = "MIT"
+authors = [{ name = "aliamrrr" }]
+requires-python = ">=3.12,<3.13"
+# Pure Python by design: no Azure SDKs, ever (see docs/ARCHITECTURE.md §2).
+dependencies = []
+
+[project.scripts]
+regista-sim = "regista_sim.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "regista_sim"
+module-root = ""

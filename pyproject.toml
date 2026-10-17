@@ -1,0 +1,75 @@
+[project]
+name = "regista"
+version = "0.1.0"
+description = "REGISTA: one match, every fan gets their own broadcast (uv workspace root)."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "aliamrrr" }]
+requires-python = ">=3.12,<3.13"
+dependencies = ["regista-sim", "regista-core"]
+
+[tool.uv]
+# The root only ties the workspace together; it is never built or installed itself.
+package = false
+
+[tool.uv.workspace]
+members = ["apps/simulator", "apps/core"]
+
+[tool.uv.sources]
+regista-sim = { workspace = true }
+regista-core = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.13.1",
+    "pre-commit>=4.7.0",
+    "pytest>=9.1.1",
+    "ruff==0.17.1",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["hackathon"]  # local, untracked reference material
+
+[tool.ruff.format]
+exclude = ["*.md"]  # ruff ≥ 0.17 formats Markdown code blocks; the docs are the spec, keep them verbatim
+
+[tool.ruff.lint]
+select = [
+  "E", "W", "F",  # pycodestyle, pyflakes
+  "I",            # import order
+  "N",            # naming
+  "UP",           # modern syntax for 3.12
+  "B",            # bugbear
+  "C4",           # comprehensions
+  "SIM",          # simplifications
+  "PT",           # pytest style
+  "PTH",          # pathlib
+  "DTZ",          # timezone-aware datetimes (wall_ts is UTC)
+  "ASYNC",        # async I/O pitfalls
+  "T20",          # no print(): structured logs only
+  "ANN",          # type hints everywhere
+  "D",            # docstrings on public functions
+  "RUF",
+]
+ignore = [
+  "ANN401",              # Any is sometimes the honest type at I/O boundaries
+  "D100", "D104",        # module/package docstrings are encouraged, not required
+  "D105", "D107",        # magic methods and __init__ are self-describing
+  "RUF001", "RUF002", "RUF003",  # primes (67′), dashes, × and Arabic text are product copy
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = ["ANN", "D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["regista_sim", "regista_core"]
+
+[tool.pytest.ini_options]
+testpaths = ["apps/simulator/tests", "apps/core/tests"]
+addopts = ["-ra", "--import-mode=importlib", "--strict-markers", "--strict-config"]
+xfail_strict = true

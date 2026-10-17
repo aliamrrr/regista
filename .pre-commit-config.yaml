@@ -1,0 +1,24 @@
+# Install once with `uv run pre-commit install` (or `make hooks`).
+# The first run builds gitleaks; pre-commit downloads a Go toolchain itself if none is installed.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.1 # keep equal to the ruff pin in pyproject.toml
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1 # keep equal to GITLEAKS_VERSION in .github/workflows/ci.yml
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+        args: [--allow-multiple-documents] # pnpm 12 lockfiles are multi-document YAML

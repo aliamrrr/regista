@@ -1,0 +1,46 @@
+# secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+
+# node
+node_modules/
+apps/web/dist/
+.pnpm-store/
+
+# azd / azure
+.azure/
+
+# local data & caches (the golden match and league stay committed under data/)
+.cache/
+data/runs/
+data/llm_cache/
+data/audio_cache/
+evals/out/
+
+# os / editors
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.log
+
+# local only: hackathon rules/briefs (third-party, not ours to publish), tool telemetry,
+# personal Claude Code settings
+/hackathon/
+ali-harness-telemetry.jsonl
+.claude/settings.local.json

@@ -1,0 +1,60 @@
+/*
+ * REGISTA design tokens: copied verbatim from the :root block of docs/design/regista-vision.html.
+ * The deck is the source of truth (tests/tokens.test.ts checks every token still matches it);
+ * change both together when the design references arrive (docs/ROADMAP.md, Phase 5).
+ */
+:root {
+  color-scheme: dark;
+  /* night-match neutrals, biased toward stadium blue */
+  --ink: #070b14;
+  --ink-2: #0c1322;
+  --ink-3: #121b2e;
+  --ink-4: #1a2540;
+  --line: #1f2b44;
+  --line-2: #2c3b5c;
+  --chalk: #eef2f8;
+  --mist: #9ba9c2;
+  --dim: #5d6b87;
+  /* accent + data colours */
+  --flood: #ffb547;
+  --flood-a: rgba(255, 181, 71, .16);
+  --glacier: #86cfff;
+  --glacier-a: rgba(134, 207, 255, .14);
+  --violet: #a99bff;
+  --violet-a: rgba(169, 155, 255, .16);
+  --ok: #3fd29b;
+  --ok-a: rgba(63, 210, 155, .16);
+  --alert: #ff6b5e;
+  --alert-a: rgba(255, 107, 94, .22);
+  /* fictional clubs */
+  --home: #ef4f5c;
+  --home-a: rgba(239, 79, 92, .18);
+  --home-gk: #e9c46a;
+  --away: #4d86ff;
+  --away-a: rgba(77, 134, 255, .18);
+  --away-gk: #b9a6ff;
+  /* pitch */
+  --turf-deep: #0a271d;
+  --turf-1: #0e3224;
+  --turf-2: #113a2a;
+  --pitch-line: rgba(238, 242, 248, .5);
+  --goal-fill: rgba(238, 242, 248, .08);
+  /* surfaces */
+  --glass: rgba(9, 14, 26, .8);
+  --glass-strong: rgba(9, 14, 26, .92);
+  --shadow: rgba(0, 0, 0, .55);
+  --glow-amber: rgba(255, 181, 71, .09);
+  --glow-blue: rgba(77, 134, 255, .10);
+  /* pipeline stages */
+  --st-ingest: #86cfff;
+  --st-interpret: #a99bff;
+  --st-explain: #ffb547;
+  --st-render: #ff8a73;
+  --st-personalize: #48d6a0;
+  --st-trust: #e8edf5;
+  /* type */
+  --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-body: "Figtree", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-ar: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+}

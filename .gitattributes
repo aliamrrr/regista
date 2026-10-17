@@ -1,0 +1,9 @@
+# LF everywhere, also on Windows checkouts, so ruff/oxlint/CI see the same bytes.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.gz binary
+*.zip binary
+*.mp3 binary
+*.wav binary

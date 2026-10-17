@@ -1,0 +1,105 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/*
+ * Tailwind reads the REGISTA tokens instead of its defaults. The default palette and font
+ * stacks are switched off, so every colour and face on screen comes from tokens.css
+ * (CLAUDE.md conventions). Utilities: bg-ink-2, text-mist, border-line-2, font-display…
+ * `inline` makes utilities read the tokens directly; `reference` stops Tailwind re-emitting
+ * same-named variables (`--font-display: var(--font-display)` would be a cycle).
+ */
+@theme inline reference {
+  --color-*: initial;
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-4: var(--ink-4);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-chalk: var(--chalk);
+  --color-mist: var(--mist);
+  --color-dim: var(--dim);
+  --color-flood: var(--flood);
+  --color-flood-a: var(--flood-a);
+  --color-glacier: var(--glacier);
+  --color-glacier-a: var(--glacier-a);
+  --color-violet: var(--violet);
+  --color-violet-a: var(--violet-a);
+  --color-ok: var(--ok);
+  --color-ok-a: var(--ok-a);
+  --color-alert: var(--alert);
+  --color-alert-a: var(--alert-a);
+  --color-home: var(--home);
+  --color-home-a: var(--home-a);
+  --color-home-gk: var(--home-gk);
+  --color-away: var(--away);
+  --color-away-a: var(--away-a);
+  --color-away-gk: var(--away-gk);
+  --color-turf-deep: var(--turf-deep);
+  --color-turf-1: var(--turf-1);
+  --color-turf-2: var(--turf-2);
+  --color-pitch-line: var(--pitch-line);
+  --color-goal-fill: var(--goal-fill);
+  --color-glass: var(--glass);
+  --color-glass-strong: var(--glass-strong);
+  --color-st-ingest: var(--st-ingest);
+  --color-st-interpret: var(--st-interpret);
+  --color-st-explain: var(--st-explain);
+  --color-st-render: var(--st-render);
+  --color-st-personalize: var(--st-personalize);
+  --color-st-trust: var(--st-trust);
+
+  --font-*: initial;
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+  --font-ar: var(--font-ar);
+}
+
+/* Broadcast motion (docs/SPEC.md §7): the deck's live-dot blink. */
+@theme {
+  --animate-live: live-blink 1.6s ease-in-out infinite;
+
+  @keyframes live-blink {
+    50% {
+      opacity: 0.35;
+    }
+  }
+}
+
+/* The night-match backdrop of the vision deck: floodlight amber top-left, stadium blue right. */
+@utility stadium-glow {
+  background:
+    radial-gradient(1100px 620px at 22% 6%, var(--glow-amber), transparent 62%),
+    radial-gradient(900px 640px at 92% 24%, var(--glow-blue), transparent 60%), var(--ink);
+}
+
+@layer base {
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--chalk);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :lang(ar) {
+    font-family: var(--font-ar);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--glacier);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
