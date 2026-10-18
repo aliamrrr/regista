@@ -51,6 +51,24 @@ calibration report that shows the data is football-realistic.
 - **Performance**: one full match with tracking in under 60 s on a laptop (vectorize movement
   with numpy). Calibration can run an events-only fast mode.
 
+**As built (Phase 1).** Positions are stored at 0.01 m. Displayed minutes are floored
+(`clock_ms` 14:25 → `14′`; first-half stoppage 46:10 → `45+1′`). A ball carrier never aims closer
+than 0.8 m to a line and the ball at his feet stays inside the lines; a carrier hemmed in on the
+touchline loses it out of play (a lost ground duel). The simulator's true goal model is a
+logistic on distance, angle (radians), header, through-ball and cut-back assists, defenders in
+the shooting cone and penalties, fitted to these anchors: penalty 0.76, central 6 m open play
+0.45, 15 m with one defender in the cone 0.10, 25 m 0.04. "In the cone" = inside the triangle
+ball → posts widened by 1.0 m, or goal-side within 2.5 m of the ball. Shots then score with
+`σ(logit(xG) + 0.2·(finishing − 77)/10 − 0.25·(goalkeeping − 78)/10)`, centred on the league's
+shot-weighted finishing and its keepers' rating, so an average duel scores with probability xG.
+The scenario DSL (`regista_sim/scenario/dsl.py`) offers: **regimes** (dial overrides per team and
+time window, with a ramp, plus a *nervy* `completion < 1` or *steady* `completion > 1` passing
+spell); **beats** that acquire the ball (by possession, or by a turnover in a zone: the beat team
+goes long and must win the ball back there), then run scripted steps (pass, carry, shot), runs
+and holds (fixed spots, or shadowing a player), optionally clearing the shooter's cone for a big
+chance; **guards** (no unscripted goals or reds, protected players, speed cap, shot bans);
+scripted **substitutions** and **corrections**.
+
 ## 3. Golden match script (`scenarios/golden.yaml`)
 Numbers are **targets for the scenario designer**. On screen, numbers always come from analytics;
 tune geometry until computed values land within the tolerance.
@@ -115,7 +133,7 @@ Types and payloads:
 | `duel` | `kind (aerial/ground), outcome, opponent_id` |
 | `foul` | `victim_id, card (none/yellow/red), advantage` |
 | `substitution` | `player_out, player_in` |
-| `stoppage` | `reason (ball_out/foul/goal/substitution/treatment), restart_type` |
+| `stoppage` | `reason (ball_out/foul/offside/goal/substitution/treatment), restart_type` |
 | `score_update` | `home, away` |
 | `data_correction` | `target_event_id, field, old_value, new_value, reason` |
 
@@ -141,6 +159,13 @@ One frame per 100 ms; the replayer publishes batches of 10 frames (one per secon
 ## 6. Outputs and dataset
 Per match folder: `metadata.json`, `events.jsonl`, `tracking.jsonl.gz`, `ground_truth.json`
 (true probabilities, beat timings, true scorers), `summary.json`.
+
+**In git (Phase 1).** The pre-commit hook rejects files over 1 MB, so `data/golden` commits
+`events.jsonl.gz` (gzip, mtime 0; ~90 KB) and `tracking.npz` (lossless: second-order int16 deltas
+packed with LZMA; ~0.9 MB) instead of the two large files. `regista-sim match run` writes all of
+them locally; `regista-sim tracking export DIR` rebuilds `tracking.jsonl.gz` from `tracking.npz`.
+`events.jsonl` and `tracking.jsonl.gz` are gitignored; readers (`regista_sim.jsonio.read_jsonl`,
+`regista_sim.tracking.iter_frames`) take either form.
 Publish the golden match + league + calibration report as an open dataset in the repo
 (`data/`, licence CC BY 4.0) with `data/DATA_CARD.md` (how it was generated, schema, intended use,
 limitations, "synthetic, no real match data").
@@ -215,6 +240,13 @@ Team-relative coordinates: flip `x` so each team attacks towards 105 when comput
   `−` share of possessions with ≥ 6 passes, `−` completion under pressure.
   `chaos = clip(50 + 15 × weighted_sum, 0, 100)`; labels: 0–33 Control (Calm), 34–66 Contested
   (Breezy), 67–100 Chaos (Stormy). Keep component values for explanations.
+  Exact definitions (Phase 1, `regista_sim/chaos.py`; the core must match): window
+  `[t − 5 min, t)` within a period, sampled every minute from `t = 5 min`; per-minute rates divide
+  by 5; possession shares count possessions that *start* in the window; a component with no data
+  (no possession started, no pressured pass) counts as average (z = 0). `weighted_sum =
+  (Σ w·sign·z − sum_mean) / sum_std` with equal weights `w = 1`, where `sum_mean` and `sum_std`
+  come from the calibration windows (`baselines.json → chaos_index`), so free play averages 50
+  with 15 points per standard deviation.
 - **Rhythm**: tempo = passes per minute of possession; effective playing time %; stoppages per
   5 min. *Rhythm break* when ≥ 3 stoppages in 5 min, or tempo drops > 30% versus the previous
   window, or effective time < 50% over 5 min.

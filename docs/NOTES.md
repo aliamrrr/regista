@@ -3,6 +3,30 @@
 Facts verified against primary sources, dated, so later phases don't have to re-research them.
 Re-check anything older than a few days before coding against it: these libraries ship weekly.
 
+## Simulator (Phase 1, 2026-10-18)
+
+- **Synthetic names, web-checked 2026-10-18.** Besides the five stars (checked earlier), the
+  generated names that appear on screen in the demo: Mehdi Amezi (HMR #11), Toby Bramhollow
+  (HMR #8), Ross Ashenmere (HMR #1), Emanuele Maresi (KBA #1), Pietro Vinucci (KBA #15), Connor
+  Dornfell (KBA #19), Ethan Merrbrook (KBA #17) and referee Halvar Nyby. No real footballer or
+  referee carries any of them (nearest hits: different people such as Mehdi Amini, Glenn Nyberg).
+  Every generated name is also screened against the hashed blocklist (`test_blocklist.py`).
+- **Chaos index scale** (decided in Phase 1, implemented in `regista_sim/chaos.py`; the core must
+  match): equal weights, `weighted_sum = (Σ sign·z − sum_mean) / sum_std` with both stats in
+  `data/calibration/baselines.json → chaos_index`. Free play then averages 50 with 15 points per
+  standard deviation (Control 12% / Contested 73% / Chaos 15% of 5-minute windows).
+- **Golden targets left to Phase 2.** Phase 1 checks direction and size with simple fixed
+  windows (`apps/simulator/tests/sim_helpers.py`): KBA press height 18.4 → 42.6 m and PPDA
+  31.0 → 3.4 (45′–54′ vs 56′–65′). DATA_AND_METRICS §3 asks for +11 m (±2) and 13.8 → 7.2 (±1)
+  with Phase 2's rolling 10-minute definitions; tune them there by moving the 45′–75′ regimes in
+  `golden.yaml` (KBA's pre-shift `defensive_line` is the main lever), then re-run the golden tests.
+  Win probability 41% → 74% (67′) is also Phase 2's.
+- **Golden tuning is per realisation.** Any change to engine code or to a regime reshuffles every
+  random draw after it; the beats are robust (seeds 1–8), the chaos and press numbers are not, so
+  re-check `test_golden.py` after every simulator change and adjust a regime ramp if one slips.
+- **Test time:** the 2-match calibration sample starts in worker processes at collection and its
+  tests run last (`conftest.py`), so it overlaps the golden simulation: ~45 s locally on 4 cores.
+
 ## Azure AI resources (created 2026-10-17, Azure CLI)
 
 Subscription upgraded to pay-as-you-go the same day (spending limit off); monthly budget

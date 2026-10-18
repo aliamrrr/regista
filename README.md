@@ -18,8 +18,15 @@ uv sync                                           # Python 3.12 workspace + dev 
 uv run regista-core serve                         # API on :8000 (BUS=memory, LLM_MODE=template)
 pnpm -C apps/web install && pnpm -C apps/web dev  # web on http://localhost:5173
 ```
-The simulator (`uv run regista-sim match run --scenario golden --seed 7 --out data/golden`)
-arrives in Phase 1.
+
+### Synthetic data (`apps/simulator`)
+```bash
+uv run regista-sim league generate --seed 7 --out data/league                # 20 clubs, 500 players
+uv run regista-sim match run --scenario golden --seed 7 --out data/golden    # the demo match, ~15 s
+uv run regista-sim calibrate --matches 40 --out data/calibration             # plausibility report
+uv run regista-sim tracking export data/golden                               # tracking.jsonl.gz
+```
+The committed dataset and how it was made: `data/DATA_CARD.md`.
 
 ## Develop
 ```bash
