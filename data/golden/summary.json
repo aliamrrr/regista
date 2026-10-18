@@ -1,0 +1,311 @@
+{
+  "schema": "regista.summary.v1",
+  "match_id": "m001",
+  "note": "Simulator summary for dataset users, computed from the feed, ground truth and tracking. Not part of the live feed; the core recomputes everything itself.",
+  "home": "HMR",
+  "away": "KBA",
+  "final_score": {
+    "home": 2,
+    "away": 1
+  },
+  "half_time_score": {
+    "home": 1,
+    "away": 0
+  },
+  "goals": [
+    {
+      "minute": "14′",
+      "team": "HMR",
+      "player": "HMR-11",
+      "event_id": "m001-e000413"
+    },
+    {
+      "minute": "63′",
+      "team": "KBA",
+      "player": "KBA-7",
+      "event_id": "m001-e001785"
+    },
+    {
+      "minute": "67′",
+      "team": "HMR",
+      "player": "HMR-9",
+      "event_id": "m001-e001845"
+    }
+  ],
+  "cards": [
+    {
+      "minute": "4′",
+      "team": "KBA",
+      "player": "KBA-11",
+      "card": "yellow"
+    },
+    {
+      "minute": "5′",
+      "team": "KBA",
+      "player": "KBA-3",
+      "card": "yellow"
+    },
+    {
+      "minute": "8′",
+      "team": "KBA",
+      "player": "KBA-8",
+      "card": "yellow"
+    },
+    {
+      "minute": "62′",
+      "team": "HMR",
+      "player": "HMR-8",
+      "card": "yellow"
+    },
+    {
+      "minute": "76′",
+      "team": "KBA",
+      "player": "KBA-6",
+      "card": "yellow"
+    }
+  ],
+  "substitutions": [
+    {
+      "minute": "52′",
+      "team": "KBA",
+      "out": "KBA-8",
+      "in": "KBA-15"
+    },
+    {
+      "minute": "52′",
+      "team": "KBA",
+      "out": "KBA-9",
+      "in": "KBA-19"
+    },
+    {
+      "minute": "53′",
+      "team": "HMR",
+      "out": "HMR-5",
+      "in": "HMR-15"
+    },
+    {
+      "minute": "61′",
+      "team": "HMR",
+      "out": "HMR-4",
+      "in": "HMR-16"
+    },
+    {
+      "minute": "69′",
+      "team": "HMR",
+      "out": "HMR-2",
+      "in": "HMR-22"
+    },
+    {
+      "minute": "72′",
+      "team": "KBA",
+      "out": "KBA-3",
+      "in": "KBA-24"
+    }
+  ],
+  "team_stats": {
+    "HMR": {
+      "passes": 476.0,
+      "pass_completion": 0.847,
+      "shots": 13.0,
+      "on_target_ratio": 0.615,
+      "goals": 2.0,
+      "xg_per_shot": 0.126,
+      "possession": 0.572,
+      "fouls": 9.0,
+      "corners": 8.0,
+      "yellow_cards": 1.0,
+      "distance_km": 11.081,
+      "sprints": 34.311,
+      "top_speed_kmh": 34.66,
+      "pass_speed_kmh": 43.66,
+      "shot_speed_kmh": 97.54
+    },
+    "KBA": {
+      "passes": 363.0,
+      "pass_completion": 0.775,
+      "shots": 17.0,
+      "on_target_ratio": 0.412,
+      "goals": 1.0,
+      "xg_per_shot": 0.116,
+      "possession": 0.428,
+      "fouls": 7.0,
+      "corners": 4.0,
+      "yellow_cards": 4.0,
+      "distance_km": 11.041,
+      "sprints": 35.335,
+      "top_speed_kmh": 33.86,
+      "pass_speed_kmh": 45.998,
+      "shot_speed_kmh": 97.247
+    }
+  },
+  "players": {
+    "HMR-1": {
+      "minutes": 96.0,
+      "distance_km": 6.37,
+      "top_speed_kmh": 22.98,
+      "sprints": 0
+    },
+    "HMR-10": {
+      "minutes": 96.0,
+      "distance_km": 12.43,
+      "top_speed_kmh": 33.03,
+      "sprints": 64
+    },
+    "HMR-11": {
+      "minutes": 96.0,
+      "distance_km": 12.41,
+      "top_speed_kmh": 33.86,
+      "sprints": 58
+    },
+    "HMR-15": {
+      "minutes": 40.1,
+      "distance_km": 4.67,
+      "top_speed_kmh": 32.62,
+      "sprints": 7
+    },
+    "HMR-16": {
+      "minutes": 32.7,
+      "distance_km": 4.05,
+      "top_speed_kmh": 32.84,
+      "sprints": 12
+    },
+    "HMR-2": {
+      "minutes": 71.3,
+      "distance_km": 8.66,
+      "top_speed_kmh": 33.82,
+      "sprints": 20
+    },
+    "HMR-22": {
+      "minutes": 24.7,
+      "distance_km": 3.11,
+      "top_speed_kmh": 32.86,
+      "sprints": 10
+    },
+    "HMR-3": {
+      "minutes": 96.0,
+      "distance_km": 11.7,
+      "top_speed_kmh": 32.54,
+      "sprints": 23
+    },
+    "HMR-4": {
+      "minutes": 63.3,
+      "distance_km": 8.14,
+      "top_speed_kmh": 33.39,
+      "sprints": 13
+    },
+    "HMR-5": {
+      "minutes": 55.9,
+      "distance_km": 6.6,
+      "top_speed_kmh": 30.2,
+      "sprints": 5
+    },
+    "HMR-6": {
+      "minutes": 96.0,
+      "distance_km": 11.34,
+      "top_speed_kmh": 32.51,
+      "sprints": 12
+    },
+    "HMR-7": {
+      "minutes": 96.0,
+      "distance_km": 12.47,
+      "top_speed_kmh": 34.66,
+      "sprints": 71
+    },
+    "HMR-8": {
+      "minutes": 96.0,
+      "distance_km": 12.51,
+      "top_speed_kmh": 32.62,
+      "sprints": 62
+    },
+    "HMR-9": {
+      "minutes": 96.0,
+      "distance_km": 10.58,
+      "top_speed_kmh": 33.85,
+      "sprints": 42
+    },
+    "KBA-1": {
+      "minutes": 96.0,
+      "distance_km": 6.41,
+      "top_speed_kmh": 23.41,
+      "sprints": 0
+    },
+    "KBA-11": {
+      "minutes": 96.0,
+      "distance_km": 10.57,
+      "top_speed_kmh": 32.55,
+      "sprints": 21
+    },
+    "KBA-15": {
+      "minutes": 41.3,
+      "distance_km": 5.19,
+      "top_speed_kmh": 33.29,
+      "sprints": 23
+    },
+    "KBA-17": {
+      "minutes": 96.0,
+      "distance_km": 12.95,
+      "top_speed_kmh": 33.86,
+      "sprints": 77
+    },
+    "KBA-19": {
+      "minutes": 41.3,
+      "distance_km": 4.81,
+      "top_speed_kmh": 33.7,
+      "sprints": 25
+    },
+    "KBA-2": {
+      "minutes": 96.0,
+      "distance_km": 11.67,
+      "top_speed_kmh": 32.61,
+      "sprints": 22
+    },
+    "KBA-24": {
+      "minutes": 21.8,
+      "distance_km": 2.6,
+      "top_speed_kmh": 32.82,
+      "sprints": 4
+    },
+    "KBA-3": {
+      "minutes": 74.2,
+      "distance_km": 9.18,
+      "top_speed_kmh": 32.58,
+      "sprints": 13
+    },
+    "KBA-4": {
+      "minutes": 96.0,
+      "distance_km": 12.38,
+      "top_speed_kmh": 31.78,
+      "sprints": 44
+    },
+    "KBA-5": {
+      "minutes": 96.0,
+      "distance_km": 11.47,
+      "top_speed_kmh": 31.38,
+      "sprints": 14
+    },
+    "KBA-6": {
+      "minutes": 96.0,
+      "distance_km": 11.46,
+      "top_speed_kmh": 32.28,
+      "sprints": 16
+    },
+    "KBA-7": {
+      "minutes": 96.0,
+      "distance_km": 13.01,
+      "top_speed_kmh": 33.86,
+      "sprints": 86
+    },
+    "KBA-8": {
+      "minutes": 54.7,
+      "distance_km": 7.18,
+      "top_speed_kmh": 32.22,
+      "sprints": 19
+    },
+    "KBA-9": {
+      "minutes": 54.7,
+      "distance_km": 5.75,
+      "top_speed_kmh": 30.14,
+      "sprints": 6
+    }
+  }
+}

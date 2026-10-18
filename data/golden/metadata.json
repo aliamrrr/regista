@@ -1,0 +1,344 @@
+{
+  "schema": "regista.metadata.v1",
+  "match_id": "m001",
+  "competition": "Northwind League",
+  "season": "2026-27",
+  "matchweek": 9,
+  "date": "2026-10-24",
+  "kickoff_wall_ts": "2026-10-24T16:30:00.000Z",
+  "venue": "Ashgrove Park",
+  "referee": {
+    "id": "REF-03",
+    "name": "Halvar Nyby"
+  },
+  "weather": {
+    "condition": "clear",
+    "temperature_c": 11,
+    "wind_kmh": 9
+  },
+  "teams": {
+    "home": {
+      "team_id": "HMR",
+      "name": "Harrowmere FC",
+      "short_name": "Harrowmere",
+      "formation": "4-3-3",
+      "kit": {
+        "primary": "#ef4f5c",
+        "secondary": "#ffffff"
+      },
+      "lineup": [
+        {
+          "player_id": "HMR-1",
+          "role": "GK",
+          "name": "Ross Ashenmere",
+          "shirt_number": 1,
+          "position": "GK"
+        },
+        {
+          "player_id": "HMR-22",
+          "role": "RB",
+          "name": "Ethan Quarhollow",
+          "shirt_number": 22,
+          "position": "RB"
+        },
+        {
+          "player_id": "HMR-15",
+          "role": "RCB",
+          "name": "Connor Pennfell",
+          "shirt_number": 15,
+          "position": "CB"
+        },
+        {
+          "player_id": "HMR-6",
+          "role": "LCB",
+          "name": "Clément Dumoux",
+          "shirt_number": 6,
+          "position": "CB"
+        },
+        {
+          "player_id": "HMR-3",
+          "role": "LB",
+          "name": "Maël Armot",
+          "shirt_number": 3,
+          "position": "LB"
+        },
+        {
+          "player_id": "HMR-16",
+          "role": "DM",
+          "name": "Florian Dumcourt",
+          "shirt_number": 16,
+          "position": "DM"
+        },
+        {
+          "player_id": "HMR-8",
+          "role": "RCM",
+          "name": "Toby Bramhollow",
+          "shirt_number": 8,
+          "position": "CM"
+        },
+        {
+          "player_id": "HMR-10",
+          "role": "LCM",
+          "name": "Mattis Quell",
+          "shirt_number": 10,
+          "position": "AM"
+        },
+        {
+          "player_id": "HMR-7",
+          "role": "RW",
+          "name": "Kian Sorvali",
+          "shirt_number": 7,
+          "position": "RW"
+        },
+        {
+          "player_id": "HMR-9",
+          "role": "ST",
+          "name": "Iker Valdane",
+          "shirt_number": 9,
+          "position": "ST"
+        },
+        {
+          "player_id": "HMR-11",
+          "role": "LW",
+          "name": "Mehdi Amezi",
+          "shirt_number": 11,
+          "position": "LW"
+        }
+      ],
+      "bench": [
+        {
+          "player_id": "HMR-13",
+          "name": "Íñigo Veruga",
+          "shirt_number": 13,
+          "position": "GK"
+        },
+        {
+          "player_id": "HMR-14",
+          "name": "Jamie Dorngate",
+          "shirt_number": 14,
+          "position": "CM"
+        },
+        {
+          "player_id": "HMR-18",
+          "name": "Ville Saaronen",
+          "shirt_number": 18,
+          "position": "CM"
+        },
+        {
+          "player_id": "HMR-21",
+          "name": "Andrea Feresi",
+          "shirt_number": 21,
+          "position": "AM"
+        },
+        {
+          "player_id": "HMR-17",
+          "name": "Edoardo Pardi",
+          "shirt_number": 17,
+          "position": "RW"
+        },
+        {
+          "player_id": "HMR-24",
+          "name": "Corentin Durot",
+          "shirt_number": 24,
+          "position": "ST"
+        }
+      ]
+    },
+    "away": {
+      "team_id": "KBA",
+      "name": "Kestrel Bay Athletic",
+      "short_name": "Kestrel Bay",
+      "formation": "4-4-2",
+      "kit": {
+        "primary": "#1b2a4a",
+        "secondary": "#ffffff"
+      },
+      "lineup": [
+        {
+          "player_id": "KBA-1",
+          "role": "GK",
+          "name": "Emanuele Maresi",
+          "shirt_number": 1,
+          "position": "GK"
+        },
+        {
+          "player_id": "KBA-2",
+          "role": "RB",
+          "name": "Íñigo Ibeda",
+          "shirt_number": 2,
+          "position": "RB"
+        },
+        {
+          "player_id": "KBA-5",
+          "role": "RCB",
+          "name": "Callum Stellcombe",
+          "shirt_number": 5,
+          "position": "CB"
+        },
+        {
+          "player_id": "KBA-6",
+          "role": "LCB",
+          "name": "Gaël Lancourt",
+          "shirt_number": 6,
+          "position": "CB"
+        },
+        {
+          "player_id": "KBA-24",
+          "role": "LB",
+          "name": "Filippo Maroni",
+          "shirt_number": 24,
+          "position": "RB"
+        },
+        {
+          "player_id": "KBA-7",
+          "role": "RM",
+          "name": "Yanis Belkora",
+          "shirt_number": 7,
+          "position": "RW"
+        },
+        {
+          "player_id": "KBA-15",
+          "role": "RCM",
+          "name": "Pietro Vinucci",
+          "shirt_number": 15,
+          "position": "CM"
+        },
+        {
+          "player_id": "KBA-4",
+          "role": "LCM",
+          "name": "Ethan Bramstead",
+          "shirt_number": 4,
+          "position": "DM"
+        },
+        {
+          "player_id": "KBA-17",
+          "role": "LM",
+          "name": "Ethan Merrbrook",
+          "shirt_number": 17,
+          "position": "LW"
+        },
+        {
+          "player_id": "KBA-11",
+          "role": "RST",
+          "name": "Oskar Vennholm",
+          "shirt_number": 11,
+          "position": "ST"
+        },
+        {
+          "player_id": "KBA-19",
+          "role": "LST",
+          "name": "Connor Dornfell",
+          "shirt_number": 19,
+          "position": "LW"
+        }
+      ],
+      "bench": [
+        {
+          "player_id": "KBA-13",
+          "name": "Florian Lecoux",
+          "shirt_number": 13,
+          "position": "GK"
+        },
+        {
+          "player_id": "KBA-16",
+          "name": "Yaw Olankiri",
+          "shirt_number": 16,
+          "position": "CB"
+        },
+        {
+          "player_id": "KBA-21",
+          "name": "Sander Velang",
+          "shirt_number": 21,
+          "position": "DM"
+        },
+        {
+          "player_id": "KBA-14",
+          "name": "Kian Elmlowe",
+          "shirt_number": 14,
+          "position": "CM"
+        },
+        {
+          "player_id": "KBA-10",
+          "name": "Pablo Aldrosa",
+          "shirt_number": 10,
+          "position": "AM"
+        },
+        {
+          "player_id": "KBA-22",
+          "name": "Jamie Larkfell",
+          "shirt_number": 22,
+          "position": "RW"
+        }
+      ]
+    }
+  },
+  "attacking_directions": [
+    {
+      "period": 1,
+      "towards_x_105": "HMR"
+    },
+    {
+      "period": 2,
+      "towards_x_105": "KBA"
+    }
+  ],
+  "periods": [
+    {
+      "period": 1,
+      "added_time_min": 2,
+      "length_ms": 2820000,
+      "video_start_ms": 0
+    },
+    {
+      "period": 2,
+      "added_time_min": 4,
+      "length_ms": 2940000,
+      "video_start_ms": 3720000
+    }
+  ],
+  "half_time_break_ms": 900000,
+  "final_score": {
+    "home": 2,
+    "away": 1
+  },
+  "pitch": {
+    "length_m": 105.0,
+    "width_m": 68.0,
+    "origin": "top-left corner of the broadcast view",
+    "x": "0 → 105 along the length",
+    "y": "0 → 68 across"
+  },
+  "time": {
+    "clock_ms": "period clock: 0 at each period's kick-off",
+    "video_ts_ms": "broadcast timeline: 0 at kick-off, continuous through stoppage time and the half-time break",
+    "wall_ts": "UTC ISO 8601: kick-off time + video_ts_ms",
+    "minute": "45 × (period − 1) + clock_ms // 60000, shown as 45+n′ / 90+n′ in stoppage time",
+    "tracking_frame": "clock_ms / 100 within the period (10 Hz)"
+  },
+  "units": {
+    "distance": "m",
+    "positions": "m (events 0.1 m, tracking 0.01 m)",
+    "time": "ms",
+    "speed_shown_to_fans": "km/h (computed by analytics, never in the feed)"
+  },
+  "schemas": {
+    "events": "regista.event.v1",
+    "tracking": "regista.tracking.v1"
+  },
+  "files": {
+    "events": "events.jsonl",
+    "events_gz": "events.jsonl.gz",
+    "tracking": "tracking.npz",
+    "tracking_jsonl": "tracking.jsonl.gz",
+    "ground_truth": "ground_truth.json",
+    "summary": "summary.json"
+  },
+  "generator": {
+    "name": "regista-sim",
+    "version": "0.1.0",
+    "seed": 7,
+    "scenario": "golden"
+  },
+  "licence": "CC BY 4.0",
+  "synthetic": true
+}

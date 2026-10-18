@@ -1,0 +1,199 @@
+# REGISTA golden match: Harrowmere FC v Kestrel Bay Athletic, Matchweek 9, Ashgrove Park.
+# Implements every beat of docs/DATA_AND_METRICS.md §3. Coordinates are team-relative to the
+# beat's team (it attacks towards x = 105, its left touchline is y = 0). Times are match clocks;
+# a beat's `at` is when its key action (the shot) should happen, `minute` the minute it must show.
+# The chaos targets are met through the regimes (checked with the §8 index against the committed
+# calibration baselines). Model-dependent targets of Phase 2 (win probability, PPDA values) are
+# tuned by moving this geometry, never by changing the metric formulas.
+schema: regista.scenario.v1
+name: golden
+description: >-
+  Harrowmere control the first 20 minutes and score through #11; Sorvali sets the season's speed
+  record on a counter; Kestrel Bay's double substitution and press equalise after a high turnover
+  (first credited to Vennholm, re-credited to Belkora); Quell's through ball sends Valdane clear
+  for his 50th career goal; Kestrel Bay besiege the box late on. Harrowmere win 2-1.
+
+match:
+  match_id: m001
+  home: HMR
+  away: KBA
+  matchweek: 9
+  kickoff: "2026-10-24T16:30:00Z"
+  referee: REF-03
+  weather: {condition: clear, temperature_c: 11, wind_kmh: 9}
+  added_time_min: [2, 4]
+  half_time_break_s: 900
+  home_attacks_right_first: true
+
+guards:
+  unscripted_goals: false
+  unscripted_red_cards: false
+  protected_players: [HMR-7, HMR-8, HMR-9, HMR-10, HMR-11, KBA-7, KBA-11]
+  max_unscripted_speed_kmh: 33.8          # Sorvali's 34.6 stays the match's (and season's) best
+  no_unscripted_shots:
+    - {player: HMR-9, until: "67:00"}     # Valdane's 4 shots by 67' are the scripted ones
+
+regimes:
+  # completion < 1: a nervy spell (some would-be completions fail); > 1: a steady spell (some
+  # would-be failures still arrive). Dials override the club's tactics, with a linear ramp.
+  # 0-20': Harrowmere keep the ball in long, patient spells; Kestrel Bay sit deep, rushed on the ball
+  - {team: HMR, from: "00:00", to: "21:00", ramp_s: 30, completion: 1.9, set: {tempo: 0.25, directness: 0.05, pressing_intensity: 0.6, defensive_line: 0.55}}
+  - {team: KBA, from: "00:00", to: "21:00", ramp_s: 30, completion: 0.75, set: {pressing_intensity: 0.1, defensive_line: 0.15, directness: 0.6, tempo: 0.9}}
+  # 45'-54': the same control to start the second half (chaos ~41)
+  - {team: HMR, from: "45:00", to: "54:00", ramp_s: 35, completion: 1.9, set: {tempo: 0.25, directness: 0.05, pressing_intensity: 0.56, defensive_line: 0.55}}
+  - {team: KBA, from: "45:00", to: "54:00", ramp_s: 35, completion: 0.72, set: {pressing_intensity: 0.1, defensive_line: 0.15, directness: 0.49, tempo: 0.9}}
+  # from 54': Kestrel Bay press high after the double substitution (shift detected ~58'); Harrowmere
+  # get nervy on the ball and press back (chaos ~72)
+  - {team: KBA, from: "54:00", to: "75:00", ramp_s: 90, set: {pressing_intensity: 0.95, defensive_line: 0.9, tempo: 0.8}}
+  - {team: HMR, from: "55:00", to: "75:00", ramp_s: 60, completion: 0.8, set: {pressing_intensity: 0.87}}
+  # 79'-FT: Kestrel Bay siege; Harrowmere defend deep, contest every ball and clear it in a hurry
+  - {team: KBA, from: "79:00", to: "95:00", ramp_s: 70, completion: 0.75, set: {pressing_intensity: 0.95, defensive_line: 0.85, tempo: 0.9, directness: 0.75}}
+  - {team: HMR, from: "79:00", to: "95:00", ramp_s: 70, completion: 0.6, set: {defensive_line: 0.1, pressing_intensity: 0.95, directness: 1.0, tempo: 0.6}}
+
+substitutions:
+  - {at: "52:05", team: KBA, out: KBA-8, in: KBA-15}
+  - {at: "52:05", team: KBA, out: KBA-9, in: KBA-19}
+
+corrections:
+  - at: "65:20"
+    beat: goal_kba_63
+    field: player_id
+    old: KBA-11
+    new: KBA-7
+    reason: "Deflection review: the ball did not touch KBA-11; goal credited to KBA-7"
+
+beats:
+  - id: goal_hmr_14
+    minute: "14′"
+    at: "14:25"
+    team: HMR
+    kind: goal
+    acquire: {mode: possession, hub: [62, 46]}
+    steps:
+      - {action: pass, to: HMR-8, at: [76, 56]}
+      - {action: carry, player: HMR-8, at: [97, 60], speed_kmh: 23}
+      - {action: pass, player: HMR-8, to: HMR-11, at: [93, 37], pass_type: cutback}
+      - {action: shot, player: HMR-11, first_time: true, aim: [31.0, 0.4], speed_kmh: 96, outcome: goal}
+    runs:
+      - {player: HMR-11, start_step: 1, to: [93, 37], urgency: 0.9}
+      - {player: HMR-9, start_step: 1, to: [99, 33], urgency: 0.9}
+    targets: {score: "1-0", scorer: HMR-11, assist: HMR-8, assist_type: cutback}
+
+  - id: valdane_shot_23
+    minute: "23′"
+    at: "23:25"
+    team: HMR
+    kind: chance
+    acquire: {mode: possession, hub: [62, 30]}
+    steps:
+      - {action: pass, to: HMR-10, at: [72, 30]}
+      - {action: pass, player: HMR-10, to: HMR-9, at: [86, 37]}
+      - {action: shot, player: HMR-9, aim: [40.8, 0.6], speed_kmh: 92, outcome: off_target}
+    targets: {valdane_shot: 1}
+
+  - id: sorvali_record_31
+    minute: "31′"
+    at: "31:25"
+    team: HMR
+    kind: speed_record
+    acquire: {mode: turnover, zone: [5, 72]}
+    steps:
+      - {action: pass, to: HMR-10, at: [44, 40]}
+      - {action: pass, player: HMR-10, to: HMR-7, at: [86, 56], pass_type: through_ball}
+      - {action: carry, player: HMR-7, at: [93, 48], speed_kmh: 27}
+      - {action: shot, player: HMR-7, aim: [35.5, 0.8], speed_kmh: 101, outcome: saved}
+    runs:
+      - {player: HMR-7, start_step: 0, to: [96, 56], speed_kmh: 34.6, urgency: 1.0}
+    holds:
+      - {player: HMR-7, at: [44, 60], until_step: 0, urgency: 0.6, from_start: true}
+    targets: {top_speed_kmh: 34.6, tolerance_kmh: 0.3, record: "fastest sprint of the season"}
+
+  - id: valdane_shot_40
+    minute: "40′"
+    at: "40:25"
+    team: HMR
+    kind: chance
+    acquire: {mode: possession, hub: [64, 34]}
+    steps:
+      - {action: pass, to: HMR-10, at: [76, 30]}
+      - {action: pass, player: HMR-10, to: HMR-9, at: [85, 33]}
+      - {action: shot, player: HMR-9, aim: [34.0, 0.3], speed_kmh: 94, outcome: blocked}
+    targets: {valdane_shot: 2}
+
+  - id: valdane_shot_49
+    minute: "49′"
+    at: "49:25"
+    team: HMR
+    kind: chance
+    acquire: {mode: possession, hub: [60, 50]}
+    steps:
+      - {action: pass, to: HMR-7, at: [80, 57]}
+      - {action: pass, player: HMR-7, to: HMR-9, at: [90, 38]}
+      - {action: shot, player: HMR-9, aim: [31.5, 1.0], speed_kmh: 97, outcome: saved}
+    targets: {valdane_shot: 3}
+
+  - id: goal_kba_63
+    minute: "63′"
+    at: "63:30"
+    team: KBA
+    kind: goal
+    acquire: {mode: turnover, zone: [52, 98]}
+    steps:
+      - {action: pass, to: KBA-7, at: [84, 41]}
+      - {action: shot, player: KBA-7, aim: [36.5, 0.5], speed_kmh: 92, outcome: goal, credit_to: KBA-11}
+    holds:
+      - {player: KBA-11, at: [90, 38.9], until_step: 1, urgency: 1.0}
+    targets: {score: "1-1", high_turnover: true, first_credited: KBA-11, true_scorer: KBA-7}
+
+  - id: goal_hmr_67
+    minute: "67′"
+    at: "67:25"
+    team: HMR
+    kind: goal
+    acquire: {mode: possession, hub: [38, 30]}
+    steps:
+      - {action: pass, to: HMR-10, at: [40, 32]}
+      - {action: pass, player: HMR-10, to: HMR-9, at: [71.5, 39.75], pass_type: through_ball, speed_kmh: 63}
+      - {action: carry, player: HMR-9, at: [95, 35.5], speed_kmh: 32.8}
+      - {action: shot, player: HMR-9, aim: [31.0, 0.5], speed_kmh: 99, outcome: goal}
+    runs:
+      - {player: HMR-9, start_step: 0, to: [66.5, 39.2], speed_kmh: 31.0, urgency: 0.9}
+      - {player: HMR-9, start_step: 1, at_launch: true, to: [72.5, 39.95], speed_kmh: 31.0, urgency: 1.0}
+    holds:  # Kestrel Bay's three lines between Quell and the space behind them (HMR frame)
+      - {player: HMR-9, at: [56, 37], until_step: 0, urgency: 0.7}
+      - {player: KBA-19, at: [1.2, -0.6], near: HMR-10, until_step: 1, urgency: 1.0}
+      - {player: KBA-11, at: [46, 41], until_step: 1}
+      - {player: KBA-17, at: [56, 12], until_step: 1}
+      - {player: KBA-15, at: [52, 34.6], until_step: 1}
+      - {player: KBA-4, at: [56.5, 36.5], until_step: 1}
+      - {player: KBA-7, at: [57, 55], until_step: 1}
+      - {player: KBA-3, at: [65, 16], until_step: 1}
+      - {player: KBA-6, at: [61, 36.8], until_step: 1}
+      - {player: KBA-5, at: [68.8, 39.85], until_step: 1}
+      - {player: KBA-2, at: [65.5, 52], until_step: 1}
+    targets:
+      score: "2-1"
+      pass_distance_m: [31, 2]
+      pass_difficulty: [8.7, 0.4]
+      lines_broken: 3
+      ball_speed_kmh: [62, 5]
+      valdane_sprint_kmh: [32.8, 0.5]
+      shot_speed_kmh: [98, 6]
+      xg: [0.31, 0.05]
+      win_probability_hmr: {before: [0.41, 0.04], after: [0.74, 0.04]}
+      milestone: "Valdane's 50th career goal"
+
+  - id: chance_kba_88
+    minute: "88′"
+    at: "88:25"
+    team: KBA
+    kind: big_chance
+    acquire: {mode: possession, hub: [76, 20]}
+    steps:
+      - {action: pass, to: KBA-17, at: [88, 10]}
+      - {action: carry, player: KBA-17, at: [99, 14], speed_kmh: 22}
+      - {action: pass, player: KBA-17, to: KBA-19, at: [98.5, 34], pass_type: cutback}
+      - {action: shot, player: KBA-19, first_time: true, aim: [36.5, 0.6], speed_kmh: 90, outcome: saved, clear_cone: true}
+    runs:
+      - {player: KBA-19, start_step: 1, to: [98.5, 34], urgency: 0.9}
+    targets: {xg_min: 0.4}
