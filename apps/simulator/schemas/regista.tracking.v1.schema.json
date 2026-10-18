@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:regista:schema:tracking:v1",
+  "title": "regista.tracking.v1",
+  "description": "One 10 Hz tracking frame (docs/DATA_AND_METRICS.md §5): ball and every player on the pitch, absolute metres, origin at the top-left corner of the broadcast view. frame = clock_ms / 100 within the period.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "match_id", "frame", "period", "clock_ms", "video_ts_ms", "ball", "players"],
+  "properties": {
+    "schema": {"const": "regista.tracking.v1"},
+    "match_id": {"type": "string", "pattern": "^[a-z0-9]+$"},
+    "frame": {"type": "integer", "minimum": 0},
+    "period": {"enum": [1, 2]},
+    "clock_ms": {"type": "integer", "minimum": 0, "multipleOf": 100},
+    "video_ts_ms": {"type": "integer", "minimum": 0},
+    "ball": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "z"],
+      "properties": {
+        "x": {"type": "number", "minimum": -5, "maximum": 110},
+        "y": {"type": "number", "minimum": -5, "maximum": 73},
+        "z": {"type": "number", "minimum": 0, "maximum": 40}
+      }
+    },
+    "players": {
+      "type": "array",
+      "minItems": 14,
+      "maxItems": 22,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "x", "y"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[A-Z]{3}-[0-9]{1,2}$"},
+          "x": {"type": "number", "minimum": -3, "maximum": 108},
+          "y": {"type": "number", "minimum": -3, "maximum": 71}
+        }
+      }
+    }
+  }
+}

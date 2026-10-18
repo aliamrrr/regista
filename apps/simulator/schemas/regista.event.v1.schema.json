@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:regista:schema:event:v1",
+  "title": "regista.event.v1",
+  "description": "One event of the REGISTA synthetic match feed (docs/DATA_AND_METRICS.md §4). The feed never carries derived metrics (no xG, no speeds).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "event_id", "match_id", "seq", "type", "period", "clock_ms", "video_ts_ms",
+               "wall_ts", "team_id", "player_id", "location", "possession_id", "under_pressure",
+               "payload", "provenance"],
+  "properties": {
+    "schema": {"const": "regista.event.v1"},
+    "event_id": {"type": "string", "pattern": "^[a-z0-9]+-e[0-9]{6}$"},
+    "match_id": {"type": "string", "pattern": "^[a-z0-9]+$"},
+    "seq": {"type": "integer", "minimum": 1},
+    "type": {"enum": ["match_metadata", "period_start", "period_end", "match_end", "pass", "carry",
+                      "dribble", "shot", "pressure", "tackle", "interception", "clearance", "block",
+                      "ball_recovery", "duel", "foul", "substitution", "stoppage", "score_update",
+                      "data_correction"]},
+    "period": {"enum": [1, 2]},
+    "clock_ms": {"type": "integer", "minimum": 0},
+    "video_ts_ms": {"type": "integer", "minimum": 0},
+    "wall_ts": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z$"},
+    "team_id": {"type": ["string", "null"], "pattern": "^[A-Z]{3}$"},
+    "player_id": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/player_id"}]},
+    "location": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/point"}]},
+    "possession_id": {"type": ["string", "null"], "pattern": "^[a-z0-9]+-p[0-9]{4}$"},
+    "under_pressure": {"type": "boolean"},
+    "payload": {"type": "object"},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "version"],
+      "properties": {"source": {"const": "simulator"}, "version": {"type": "string"}}
+    }
+  },
+  "allOf": [
+    {"if": {"properties": {"type": {"const": "match_metadata"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/match_metadata"}}}},
+    {"if": {"properties": {"type": {"enum": ["period_start", "period_end", "match_end"]}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/empty"}}}},
+    {"if": {"properties": {"type": {"const": "pass"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/pass"}}}},
+    {"if": {"properties": {"type": {"const": "carry"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/carry"}}}},
+    {"if": {"properties": {"type": {"const": "dribble"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/dribble"}}}},
+    {"if": {"properties": {"type": {"const": "shot"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/shot"}}}},
+    {"if": {"properties": {"type": {"const": "pressure"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/pressure"}}}},
+    {"if": {"properties": {"type": {"const": "tackle"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/tackle"}}}},
+    {"if": {"properties": {"type": {"enum": ["interception", "clearance", "ball_recovery"]}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/simple_outcome"}}}},
+    {"if": {"properties": {"type": {"const": "block"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/block"}}}},
+    {"if": {"properties": {"type": {"const": "duel"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/duel"}}}},
+    {"if": {"properties": {"type": {"const": "foul"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/foul"}}}},
+    {"if": {"properties": {"type": {"const": "substitution"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/substitution"}}}},
+    {"if": {"properties": {"type": {"const": "stoppage"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/stoppage"}}}},
+    {"if": {"properties": {"type": {"const": "score_update"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/score_update"}}}},
+    {"if": {"properties": {"type": {"const": "data_correction"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/data_correction"}}}},
+    {"if": {"properties": {"type": {"enum": ["pass", "carry", "dribble", "shot", "pressure", "tackle", "interception", "clearance", "block", "ball_recovery", "duel", "foul"]}}},
+     "then": {"properties": {"team_id": {"type": "string"}, "player_id": {"$ref": "#/$defs/player_id"}, "location": {"$ref": "#/$defs/point"}, "possession_id": {"type": "string"}}}}
+  ],
+  "$defs": {
+    "player_id": {"type": "string", "pattern": "^[A-Z]{3}-[0-9]{1,2}$"},
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {"x": {"type": "number", "minimum": -2, "maximum": 107}, "y": {"type": "number", "minimum": -2, "maximum": 70}}
+    },
+    "point3": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "z"],
+      "properties": {"x": {"type": "number", "minimum": -2, "maximum": 107}, "y": {"type": "number", "minimum": -2, "maximum": 70}, "z": {"type": "number", "minimum": 0, "maximum": 30}}
+    },
+    "empty": {"type": "object", "maxProperties": 0},
+    "match_metadata": {
+      "type": "object",
+      "required": ["teams", "venue", "referee", "attacking_directions", "weather"],
+      "properties": {
+        "teams": {
+          "type": "object",
+          "required": ["home", "away"],
+          "properties": {"home": {"$ref": "#/$defs/team_sheet"}, "away": {"$ref": "#/$defs/team_sheet"}}
+        },
+        "venue": {"type": "string"},
+        "referee": {"type": ["object", "null"]},
+        "attacking_directions": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"type": "object", "required": ["period", "towards_x_105"]}
+        },
+        "weather": {"type": ["object", "null"]}
+      }
+    },
+    "team_sheet": {
+      "type": "object",
+      "required": ["team_id", "name", "formation", "kit", "lineup", "bench"],
+      "properties": {
+        "team_id": {"type": "string", "pattern": "^[A-Z]{3}$"},
+        "kit": {"type": "object", "required": ["primary", "secondary"]},
+        "lineup": {"type": "array", "minItems": 11, "maxItems": 11},
+        "bench": {"type": "array"}
+      }
+    },
+    "pass": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["end_location", "recipient_id", "outcome", "height", "pass_type", "body_part"],
+      "properties": {
+        "end_location": {"$ref": "#/$defs/point"},
+        "recipient_id": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/player_id"}]},
+        "outcome": {"enum": ["complete", "incomplete", "out", "offside"]},
+        "height": {"enum": ["ground", "low", "high"]},
+        "pass_type": {"enum": ["open_play", "cross", "through_ball", "switch", "cutback", "throw_in", "corner", "free_kick", "goal_kick"]},
+        "body_part": {"enum": ["right_foot", "left_foot", "head", "hands"]}
+      }
+    },
+    "carry": {
+      "type": "object", "additionalProperties": false, "required": ["end_location"],
+      "properties": {"end_location": {"$ref": "#/$defs/point"}}
+    },
+    "dribble": {
+      "type": "object", "additionalProperties": false, "required": ["opponent_id", "outcome"],
+      "properties": {"opponent_id": {"$ref": "#/$defs/player_id"}, "outcome": {"enum": ["complete", "incomplete"]}}
+    },
+    "shot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["end_location", "outcome", "body_part", "shot_type"],
+      "properties": {
+        "end_location": {"$ref": "#/$defs/point3"},
+        "outcome": {"enum": ["goal", "saved", "off_target", "blocked", "post"]},
+        "body_part": {"enum": ["right_foot", "left_foot", "head"]},
+        "shot_type": {"enum": ["open_play", "header", "free_kick", "penalty"]}
+      }
+    },
+    "pressure": {
+      "type": "object", "additionalProperties": false, "required": ["target_player_id", "duration_ms"],
+      "properties": {"target_player_id": {"$ref": "#/$defs/player_id"}, "duration_ms": {"type": "integer", "minimum": 0}}
+    },
+    "tackle": {
+      "type": "object", "additionalProperties": false, "required": ["outcome", "opponent_id"],
+      "properties": {"outcome": {"enum": ["won", "lost"]}, "opponent_id": {"$ref": "#/$defs/player_id"}}
+    },
+    "simple_outcome": {
+      "type": "object", "additionalProperties": false, "required": ["outcome"],
+      "properties": {"outcome": {"enum": ["success", "lost"]}, "opponent_id": {"$ref": "#/$defs/player_id"}}
+    },
+    "block": {
+      "type": "object", "additionalProperties": false, "required": ["outcome", "opponent_id"],
+      "properties": {"outcome": {"enum": ["success"]}, "opponent_id": {"$ref": "#/$defs/player_id"}}
+    },
+    "duel": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "outcome", "opponent_id"],
+      "properties": {"kind": {"enum": ["aerial", "ground"]}, "outcome": {"enum": ["won", "lost"]}, "opponent_id": {"$ref": "#/$defs/player_id"}}
+    },
+    "foul": {
+      "type": "object", "additionalProperties": false, "required": ["victim_id", "card", "advantage"],
+      "properties": {"victim_id": {"$ref": "#/$defs/player_id"}, "card": {"enum": ["none", "yellow", "red"]}, "advantage": {"type": "boolean"}}
+    },
+    "substitution": {
+      "type": "object", "additionalProperties": false, "required": ["player_out", "player_in"],
+      "properties": {"player_out": {"$ref": "#/$defs/player_id"}, "player_in": {"$ref": "#/$defs/player_id"}}
+    },
+    "stoppage": {
+      "type": "object", "additionalProperties": false, "required": ["reason", "restart_type"],
+      "properties": {
+        "reason": {"enum": ["ball_out", "foul", "goal", "substitution", "treatment", "offside"]},
+        "restart_type": {"enum": ["throw_in", "goal_kick", "corner", "free_kick", "penalty", "kick_off", "drop_ball"]}
+      }
+    },
+    "score_update": {
+      "type": "object", "additionalProperties": false, "required": ["home", "away"],
+      "properties": {"home": {"type": "integer", "minimum": 0}, "away": {"type": "integer", "minimum": 0}}
+    },
+    "data_correction": {
+      "type": "object", "additionalProperties": false,
+      "required": ["target_event_id", "field", "old_value", "new_value", "reason"],
+      "properties": {
+        "target_event_id": {"type": "string", "pattern": "^[a-z0-9]+-e[0-9]{6}$"},
+        "field": {"type": "string"},
+        "old_value": {},
+        "new_value": {},
+        "reason": {"type": "string"}
+      }
+    }
+  }
+}
