@@ -1,0 +1,2162 @@
+[
+  {
+    "code": "HMR",
+    "name": "Harrowmere FC",
+    "short_name": "Harrowmere",
+    "venue": "Ashgrove Park",
+    "home_kit": {
+      "primary": "#ef4f5c",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#f4f4f4",
+      "secondary": "#ef4f5c"
+    },
+    "tactics": {
+      "formation": "4-3-3",
+      "pressing_intensity": 0.62,
+      "defensive_line": 0.6,
+      "tempo": 0.55,
+      "directness": 0.35,
+      "width": 0.65,
+      "attack_rating": 81.3,
+      "defence_rating": 77.4
+    },
+    "squad": [
+      "HMR-1",
+      "HMR-2",
+      "HMR-3",
+      "HMR-4",
+      "HMR-5",
+      "HMR-6",
+      "HMR-7",
+      "HMR-8",
+      "HMR-9",
+      "HMR-10",
+      "HMR-11",
+      "HMR-13",
+      "HMR-14",
+      "HMR-15",
+      "HMR-16",
+      "HMR-17",
+      "HMR-18",
+      "HMR-19",
+      "HMR-20",
+      "HMR-21",
+      "HMR-22",
+      "HMR-23",
+      "HMR-24",
+      "HMR-26",
+      "HMR-31"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "HMR-1"
+      },
+      {
+        "role": "RB",
+        "player_id": "HMR-2"
+      },
+      {
+        "role": "RCB",
+        "player_id": "HMR-5"
+      },
+      {
+        "role": "LCB",
+        "player_id": "HMR-6"
+      },
+      {
+        "role": "LB",
+        "player_id": "HMR-3"
+      },
+      {
+        "role": "DM",
+        "player_id": "HMR-4"
+      },
+      {
+        "role": "RCM",
+        "player_id": "HMR-8"
+      },
+      {
+        "role": "LCM",
+        "player_id": "HMR-10"
+      },
+      {
+        "role": "RW",
+        "player_id": "HMR-7"
+      },
+      {
+        "role": "ST",
+        "player_id": "HMR-9"
+      },
+      {
+        "role": "LW",
+        "player_id": "HMR-11"
+      }
+    ],
+    "bench": [
+      "HMR-13",
+      "HMR-22",
+      "HMR-15",
+      "HMR-16",
+      "HMR-14",
+      "HMR-18",
+      "HMR-21",
+      "HMR-17",
+      "HMR-24"
+    ]
+  },
+  {
+    "code": "KBA",
+    "name": "Kestrel Bay Athletic",
+    "short_name": "Kestrel Bay",
+    "venue": "Harbour Lane",
+    "home_kit": {
+      "primary": "#4d86ff",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#1b2a4a",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-4-2",
+      "pressing_intensity": 0.42,
+      "defensive_line": 0.45,
+      "tempo": 0.58,
+      "directness": 0.55,
+      "width": 0.55,
+      "attack_rating": 76.4,
+      "defence_rating": 70.7
+    },
+    "squad": [
+      "KBA-1",
+      "KBA-2",
+      "KBA-3",
+      "KBA-4",
+      "KBA-5",
+      "KBA-6",
+      "KBA-7",
+      "KBA-8",
+      "KBA-9",
+      "KBA-10",
+      "KBA-11",
+      "KBA-13",
+      "KBA-14",
+      "KBA-15",
+      "KBA-16",
+      "KBA-17",
+      "KBA-18",
+      "KBA-19",
+      "KBA-20",
+      "KBA-21",
+      "KBA-22",
+      "KBA-23",
+      "KBA-24",
+      "KBA-25",
+      "KBA-30"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "KBA-1"
+      },
+      {
+        "role": "RB",
+        "player_id": "KBA-2"
+      },
+      {
+        "role": "RCB",
+        "player_id": "KBA-5"
+      },
+      {
+        "role": "LCB",
+        "player_id": "KBA-6"
+      },
+      {
+        "role": "LB",
+        "player_id": "KBA-3"
+      },
+      {
+        "role": "RM",
+        "player_id": "KBA-7"
+      },
+      {
+        "role": "RCM",
+        "player_id": "KBA-8"
+      },
+      {
+        "role": "LCM",
+        "player_id": "KBA-4"
+      },
+      {
+        "role": "LM",
+        "player_id": "KBA-17"
+      },
+      {
+        "role": "RST",
+        "player_id": "KBA-11"
+      },
+      {
+        "role": "LST",
+        "player_id": "KBA-9"
+      }
+    ],
+    "bench": [
+      "KBA-13",
+      "KBA-24",
+      "KBA-16",
+      "KBA-21",
+      "KBA-15",
+      "KBA-14",
+      "KBA-10",
+      "KBA-22",
+      "KBA-19"
+    ]
+  },
+  {
+    "code": "BRA",
+    "name": "Brackbrook Rovers",
+    "short_name": "Brackbrook",
+    "venue": "Weaver Meadow",
+    "home_kit": {
+      "primary": "#e67e22",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#1a5276",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-2-3-1",
+      "pressing_intensity": 0.56,
+      "defensive_line": 0.33,
+      "tempo": 0.27,
+      "directness": 0.32,
+      "width": 0.46,
+      "attack_rating": 78.3,
+      "defence_rating": 74.3
+    },
+    "squad": [
+      "BRA-1",
+      "BRA-2",
+      "BRA-3",
+      "BRA-4",
+      "BRA-5",
+      "BRA-6",
+      "BRA-7",
+      "BRA-8",
+      "BRA-9",
+      "BRA-10",
+      "BRA-11",
+      "BRA-12",
+      "BRA-13",
+      "BRA-15",
+      "BRA-17",
+      "BRA-18",
+      "BRA-22",
+      "BRA-24",
+      "BRA-26",
+      "BRA-28",
+      "BRA-30",
+      "BRA-35",
+      "BRA-36",
+      "BRA-39",
+      "BRA-40"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "BRA-13"
+      },
+      {
+        "role": "RB",
+        "player_id": "BRA-18"
+      },
+      {
+        "role": "RCB",
+        "player_id": "BRA-5"
+      },
+      {
+        "role": "LCB",
+        "player_id": "BRA-40"
+      },
+      {
+        "role": "LB",
+        "player_id": "BRA-3"
+      },
+      {
+        "role": "RDM",
+        "player_id": "BRA-22"
+      },
+      {
+        "role": "LDM",
+        "player_id": "BRA-4"
+      },
+      {
+        "role": "RW",
+        "player_id": "BRA-39"
+      },
+      {
+        "role": "CAM",
+        "player_id": "BRA-10"
+      },
+      {
+        "role": "LW",
+        "player_id": "BRA-7"
+      },
+      {
+        "role": "ST",
+        "player_id": "BRA-15"
+      }
+    ],
+    "bench": [
+      "BRA-1",
+      "BRA-24",
+      "BRA-17",
+      "BRA-12",
+      "BRA-30",
+      "BRA-9",
+      "BRA-6",
+      "BRA-35",
+      "BRA-2"
+    ]
+  },
+  {
+    "code": "TAR",
+    "name": "Tarrstead City",
+    "short_name": "Tarrstead",
+    "venue": "Saltmarsh Park",
+    "home_kit": {
+      "primary": "#1b5e20",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#145a32",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-1-4-1",
+      "pressing_intensity": 0.47,
+      "defensive_line": 0.55,
+      "tempo": 0.36,
+      "directness": 0.8,
+      "width": 0.39,
+      "attack_rating": 77.0,
+      "defence_rating": 74.4
+    },
+    "squad": [
+      "TAR-1",
+      "TAR-2",
+      "TAR-3",
+      "TAR-4",
+      "TAR-5",
+      "TAR-6",
+      "TAR-7",
+      "TAR-8",
+      "TAR-9",
+      "TAR-10",
+      "TAR-11",
+      "TAR-13",
+      "TAR-16",
+      "TAR-18",
+      "TAR-21",
+      "TAR-23",
+      "TAR-27",
+      "TAR-30",
+      "TAR-31",
+      "TAR-32",
+      "TAR-33",
+      "TAR-35",
+      "TAR-37",
+      "TAR-38",
+      "TAR-39"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "TAR-1"
+      },
+      {
+        "role": "RB",
+        "player_id": "TAR-35"
+      },
+      {
+        "role": "RCB",
+        "player_id": "TAR-16"
+      },
+      {
+        "role": "LCB",
+        "player_id": "TAR-6"
+      },
+      {
+        "role": "LB",
+        "player_id": "TAR-3"
+      },
+      {
+        "role": "DM",
+        "player_id": "TAR-4"
+      },
+      {
+        "role": "RM",
+        "player_id": "TAR-32"
+      },
+      {
+        "role": "RCM",
+        "player_id": "TAR-27"
+      },
+      {
+        "role": "LCM",
+        "player_id": "TAR-18"
+      },
+      {
+        "role": "LM",
+        "player_id": "TAR-11"
+      },
+      {
+        "role": "ST",
+        "player_id": "TAR-38"
+      }
+    ],
+    "bench": [
+      "TAR-13",
+      "TAR-7",
+      "TAR-10",
+      "TAR-31",
+      "TAR-33",
+      "TAR-8",
+      "TAR-37",
+      "TAR-9",
+      "TAR-21"
+    ]
+  },
+  {
+    "code": "FAL",
+    "name": "Falhaven Borough",
+    "short_name": "Falhaven",
+    "venue": "Harbour Stadium",
+    "home_kit": {
+      "primary": "#8d99ae",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#f2c14e",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "3-4-3",
+      "pressing_intensity": 0.29,
+      "defensive_line": 0.43,
+      "tempo": 0.64,
+      "directness": 0.39,
+      "width": 0.59,
+      "attack_rating": 75.7,
+      "defence_rating": 75.4
+    },
+    "squad": [
+      "FAL-1",
+      "FAL-2",
+      "FAL-3",
+      "FAL-4",
+      "FAL-5",
+      "FAL-6",
+      "FAL-7",
+      "FAL-8",
+      "FAL-9",
+      "FAL-10",
+      "FAL-11",
+      "FAL-13",
+      "FAL-15",
+      "FAL-16",
+      "FAL-18",
+      "FAL-19",
+      "FAL-20",
+      "FAL-23",
+      "FAL-26",
+      "FAL-27",
+      "FAL-28",
+      "FAL-29",
+      "FAL-31",
+      "FAL-33",
+      "FAL-39"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "FAL-16"
+      },
+      {
+        "role": "RCB3",
+        "player_id": "FAL-5"
+      },
+      {
+        "role": "CB3",
+        "player_id": "FAL-31"
+      },
+      {
+        "role": "LCB3",
+        "player_id": "FAL-19"
+      },
+      {
+        "role": "RWB",
+        "player_id": "FAL-2"
+      },
+      {
+        "role": "RCM",
+        "player_id": "FAL-26"
+      },
+      {
+        "role": "LCM",
+        "player_id": "FAL-27"
+      },
+      {
+        "role": "LWB",
+        "player_id": "FAL-20"
+      },
+      {
+        "role": "RW",
+        "player_id": "FAL-7"
+      },
+      {
+        "role": "ST",
+        "player_id": "FAL-9"
+      },
+      {
+        "role": "LW",
+        "player_id": "FAL-11"
+      }
+    ],
+    "bench": [
+      "FAL-1",
+      "FAL-10",
+      "FAL-18",
+      "FAL-15",
+      "FAL-4",
+      "FAL-6",
+      "FAL-29",
+      "FAL-28",
+      "FAL-39"
+    ]
+  },
+  {
+    "code": "ASH",
+    "name": "Ash Cross Town",
+    "short_name": "Ash Cross",
+    "venue": "Lantern Meadow",
+    "home_kit": {
+      "primary": "#2e7d32",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#0b6e4f",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-2-3-1",
+      "pressing_intensity": 0.52,
+      "defensive_line": 0.5,
+      "tempo": 0.59,
+      "directness": 0.77,
+      "width": 0.47,
+      "attack_rating": 76.0,
+      "defence_rating": 76.0
+    },
+    "squad": [
+      "ASH-1",
+      "ASH-2",
+      "ASH-3",
+      "ASH-4",
+      "ASH-5",
+      "ASH-6",
+      "ASH-7",
+      "ASH-8",
+      "ASH-9",
+      "ASH-10",
+      "ASH-11",
+      "ASH-13",
+      "ASH-14",
+      "ASH-16",
+      "ASH-20",
+      "ASH-22",
+      "ASH-24",
+      "ASH-26",
+      "ASH-28",
+      "ASH-32",
+      "ASH-33",
+      "ASH-34",
+      "ASH-36",
+      "ASH-38",
+      "ASH-40"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "ASH-13"
+      },
+      {
+        "role": "RB",
+        "player_id": "ASH-2"
+      },
+      {
+        "role": "RCB",
+        "player_id": "ASH-5"
+      },
+      {
+        "role": "LCB",
+        "player_id": "ASH-26"
+      },
+      {
+        "role": "LB",
+        "player_id": "ASH-3"
+      },
+      {
+        "role": "RDM",
+        "player_id": "ASH-4"
+      },
+      {
+        "role": "LDM",
+        "player_id": "ASH-40"
+      },
+      {
+        "role": "RW",
+        "player_id": "ASH-14"
+      },
+      {
+        "role": "CAM",
+        "player_id": "ASH-10"
+      },
+      {
+        "role": "LW",
+        "player_id": "ASH-11"
+      },
+      {
+        "role": "ST",
+        "player_id": "ASH-16"
+      }
+    ],
+    "bench": [
+      "ASH-1",
+      "ASH-22",
+      "ASH-7",
+      "ASH-20",
+      "ASH-28",
+      "ASH-24",
+      "ASH-8",
+      "ASH-9",
+      "ASH-33"
+    ]
+  },
+  {
+    "code": "ULM",
+    "name": "Ulmbrook United",
+    "short_name": "Ulmbrook",
+    "venue": "Weaver Yard",
+    "home_kit": {
+      "primary": "#d64541",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#7b1e2c",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-2-3-1",
+      "pressing_intensity": 0.27,
+      "defensive_line": 0.73,
+      "tempo": 0.31,
+      "directness": 0.29,
+      "width": 0.74,
+      "attack_rating": 77.3,
+      "defence_rating": 70.6
+    },
+    "squad": [
+      "ULM-1",
+      "ULM-2",
+      "ULM-3",
+      "ULM-4",
+      "ULM-5",
+      "ULM-6",
+      "ULM-7",
+      "ULM-8",
+      "ULM-9",
+      "ULM-10",
+      "ULM-11",
+      "ULM-13",
+      "ULM-14",
+      "ULM-15",
+      "ULM-17",
+      "ULM-21",
+      "ULM-24",
+      "ULM-25",
+      "ULM-27",
+      "ULM-32",
+      "ULM-34",
+      "ULM-36",
+      "ULM-38",
+      "ULM-39",
+      "ULM-40"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "ULM-32"
+      },
+      {
+        "role": "RB",
+        "player_id": "ULM-24"
+      },
+      {
+        "role": "RCB",
+        "player_id": "ULM-21"
+      },
+      {
+        "role": "LCB",
+        "player_id": "ULM-6"
+      },
+      {
+        "role": "LB",
+        "player_id": "ULM-39"
+      },
+      {
+        "role": "RDM",
+        "player_id": "ULM-27"
+      },
+      {
+        "role": "LDM",
+        "player_id": "ULM-4"
+      },
+      {
+        "role": "RW",
+        "player_id": "ULM-7"
+      },
+      {
+        "role": "CAM",
+        "player_id": "ULM-10"
+      },
+      {
+        "role": "LW",
+        "player_id": "ULM-11"
+      },
+      {
+        "role": "ST",
+        "player_id": "ULM-9"
+      }
+    ],
+    "bench": [
+      "ULM-1",
+      "ULM-36",
+      "ULM-34",
+      "ULM-17",
+      "ULM-38",
+      "ULM-15",
+      "ULM-14",
+      "ULM-40",
+      "ULM-25"
+    ]
+  },
+  {
+    "code": "COL",
+    "name": "Coldholt FC",
+    "short_name": "Coldholt",
+    "venue": "Saltmarsh Field",
+    "home_kit": {
+      "primary": "#5dade2",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#16325c",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-2-3-1",
+      "pressing_intensity": 0.56,
+      "defensive_line": 0.63,
+      "tempo": 0.55,
+      "directness": 0.26,
+      "width": 0.39,
+      "attack_rating": 73.3,
+      "defence_rating": 70.2
+    },
+    "squad": [
+      "COL-1",
+      "COL-2",
+      "COL-3",
+      "COL-4",
+      "COL-5",
+      "COL-6",
+      "COL-7",
+      "COL-8",
+      "COL-9",
+      "COL-10",
+      "COL-11",
+      "COL-13",
+      "COL-14",
+      "COL-16",
+      "COL-17",
+      "COL-18",
+      "COL-19",
+      "COL-24",
+      "COL-26",
+      "COL-27",
+      "COL-28",
+      "COL-30",
+      "COL-32",
+      "COL-33",
+      "COL-37"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "COL-13"
+      },
+      {
+        "role": "RB",
+        "player_id": "COL-2"
+      },
+      {
+        "role": "RCB",
+        "player_id": "COL-27"
+      },
+      {
+        "role": "LCB",
+        "player_id": "COL-5"
+      },
+      {
+        "role": "LB",
+        "player_id": "COL-3"
+      },
+      {
+        "role": "RDM",
+        "player_id": "COL-19"
+      },
+      {
+        "role": "LDM",
+        "player_id": "COL-4"
+      },
+      {
+        "role": "RW",
+        "player_id": "COL-33"
+      },
+      {
+        "role": "CAM",
+        "player_id": "COL-26"
+      },
+      {
+        "role": "LW",
+        "player_id": "COL-18"
+      },
+      {
+        "role": "ST",
+        "player_id": "COL-9"
+      }
+    ],
+    "bench": [
+      "COL-1",
+      "COL-32",
+      "COL-7",
+      "COL-17",
+      "COL-11",
+      "COL-10",
+      "COL-16",
+      "COL-28",
+      "COL-14"
+    ]
+  },
+  {
+    "code": "YAR",
+    "name": "Yarmoor City",
+    "short_name": "Yarmoor",
+    "venue": "Orchard Meadow",
+    "home_kit": {
+      "primary": "#b8860b",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#1f4e9c",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-3-3",
+      "pressing_intensity": 0.68,
+      "defensive_line": 0.68,
+      "tempo": 0.74,
+      "directness": 0.38,
+      "width": 0.64,
+      "attack_rating": 74.7,
+      "defence_rating": 73.2
+    },
+    "squad": [
+      "YAR-1",
+      "YAR-2",
+      "YAR-3",
+      "YAR-4",
+      "YAR-5",
+      "YAR-6",
+      "YAR-7",
+      "YAR-8",
+      "YAR-9",
+      "YAR-10",
+      "YAR-11",
+      "YAR-13",
+      "YAR-15",
+      "YAR-20",
+      "YAR-23",
+      "YAR-24",
+      "YAR-26",
+      "YAR-27",
+      "YAR-28",
+      "YAR-29",
+      "YAR-30",
+      "YAR-31",
+      "YAR-33",
+      "YAR-34",
+      "YAR-39"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "YAR-39"
+      },
+      {
+        "role": "RB",
+        "player_id": "YAR-20"
+      },
+      {
+        "role": "RCB",
+        "player_id": "YAR-30"
+      },
+      {
+        "role": "LCB",
+        "player_id": "YAR-5"
+      },
+      {
+        "role": "LB",
+        "player_id": "YAR-3"
+      },
+      {
+        "role": "DM",
+        "player_id": "YAR-4"
+      },
+      {
+        "role": "RCM",
+        "player_id": "YAR-24"
+      },
+      {
+        "role": "LCM",
+        "player_id": "YAR-29"
+      },
+      {
+        "role": "RW",
+        "player_id": "YAR-15"
+      },
+      {
+        "role": "ST",
+        "player_id": "YAR-27"
+      },
+      {
+        "role": "LW",
+        "player_id": "YAR-34"
+      }
+    ],
+    "bench": [
+      "YAR-1",
+      "YAR-33",
+      "YAR-10",
+      "YAR-11",
+      "YAR-31",
+      "YAR-7",
+      "YAR-8",
+      "YAR-6",
+      "YAR-23"
+    ]
+  },
+  {
+    "code": "WYN",
+    "name": "Wynbrook Borough",
+    "short_name": "Wynbrook",
+    "venue": "Orchard Field",
+    "home_kit": {
+      "primary": "#1a5276",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#6d4c41",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-4-2",
+      "pressing_intensity": 0.68,
+      "defensive_line": 0.5,
+      "tempo": 0.26,
+      "directness": 0.71,
+      "width": 0.36,
+      "attack_rating": 71.3,
+      "defence_rating": 74.2
+    },
+    "squad": [
+      "WYN-1",
+      "WYN-2",
+      "WYN-3",
+      "WYN-4",
+      "WYN-5",
+      "WYN-6",
+      "WYN-7",
+      "WYN-8",
+      "WYN-9",
+      "WYN-10",
+      "WYN-11",
+      "WYN-12",
+      "WYN-13",
+      "WYN-15",
+      "WYN-16",
+      "WYN-19",
+      "WYN-22",
+      "WYN-23",
+      "WYN-25",
+      "WYN-32",
+      "WYN-35",
+      "WYN-36",
+      "WYN-38",
+      "WYN-39",
+      "WYN-40"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "WYN-32"
+      },
+      {
+        "role": "RB",
+        "player_id": "WYN-2"
+      },
+      {
+        "role": "RCB",
+        "player_id": "WYN-40"
+      },
+      {
+        "role": "LCB",
+        "player_id": "WYN-6"
+      },
+      {
+        "role": "LB",
+        "player_id": "WYN-3"
+      },
+      {
+        "role": "RM",
+        "player_id": "WYN-7"
+      },
+      {
+        "role": "RCM",
+        "player_id": "WYN-8"
+      },
+      {
+        "role": "LCM",
+        "player_id": "WYN-25"
+      },
+      {
+        "role": "LM",
+        "player_id": "WYN-11"
+      },
+      {
+        "role": "RST",
+        "player_id": "WYN-9"
+      },
+      {
+        "role": "LST",
+        "player_id": "WYN-35"
+      }
+    ],
+    "bench": [
+      "WYN-1",
+      "WYN-4",
+      "WYN-23",
+      "WYN-10",
+      "WYN-12",
+      "WYN-39",
+      "WYN-16",
+      "WYN-19",
+      "WYN-5"
+    ]
+  },
+  {
+    "code": "BRY",
+    "name": "Brynwick County",
+    "short_name": "Brynwick",
+    "venue": "Ferry Ground",
+    "home_kit": {
+      "primary": "#145a32",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#b03a2e",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-2-3-1",
+      "pressing_intensity": 0.29,
+      "defensive_line": 0.51,
+      "tempo": 0.37,
+      "directness": 0.44,
+      "width": 0.37,
+      "attack_rating": 72.8,
+      "defence_rating": 69.9
+    },
+    "squad": [
+      "BRY-1",
+      "BRY-2",
+      "BRY-3",
+      "BRY-4",
+      "BRY-5",
+      "BRY-6",
+      "BRY-7",
+      "BRY-8",
+      "BRY-9",
+      "BRY-10",
+      "BRY-11",
+      "BRY-13",
+      "BRY-15",
+      "BRY-16",
+      "BRY-19",
+      "BRY-21",
+      "BRY-24",
+      "BRY-27",
+      "BRY-28",
+      "BRY-30",
+      "BRY-32",
+      "BRY-33",
+      "BRY-35",
+      "BRY-37",
+      "BRY-38"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "BRY-38"
+      },
+      {
+        "role": "RB",
+        "player_id": "BRY-27"
+      },
+      {
+        "role": "RCB",
+        "player_id": "BRY-5"
+      },
+      {
+        "role": "LCB",
+        "player_id": "BRY-32"
+      },
+      {
+        "role": "LB",
+        "player_id": "BRY-3"
+      },
+      {
+        "role": "RDM",
+        "player_id": "BRY-4"
+      },
+      {
+        "role": "LDM",
+        "player_id": "BRY-28"
+      },
+      {
+        "role": "RW",
+        "player_id": "BRY-19"
+      },
+      {
+        "role": "CAM",
+        "player_id": "BRY-24"
+      },
+      {
+        "role": "LW",
+        "player_id": "BRY-15"
+      },
+      {
+        "role": "ST",
+        "player_id": "BRY-9"
+      }
+    ],
+    "bench": [
+      "BRY-1",
+      "BRY-7",
+      "BRY-11",
+      "BRY-35",
+      "BRY-8",
+      "BRY-6",
+      "BRY-21",
+      "BRY-2",
+      "BRY-10"
+    ]
+  },
+  {
+    "code": "DRA",
+    "name": "Draywick Athletic",
+    "short_name": "Draywick",
+    "venue": "Granary Park",
+    "home_kit": {
+      "primary": "#f2c14e",
+      "secondary": "#111111"
+    },
+    "away_kit": {
+      "primary": "#ffd23f",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "3-4-3",
+      "pressing_intensity": 0.64,
+      "defensive_line": 0.36,
+      "tempo": 0.59,
+      "directness": 0.28,
+      "width": 0.6,
+      "attack_rating": 72.5,
+      "defence_rating": 70.8
+    },
+    "squad": [
+      "DRA-1",
+      "DRA-2",
+      "DRA-3",
+      "DRA-4",
+      "DRA-5",
+      "DRA-6",
+      "DRA-7",
+      "DRA-8",
+      "DRA-9",
+      "DRA-10",
+      "DRA-11",
+      "DRA-12",
+      "DRA-13",
+      "DRA-14",
+      "DRA-15",
+      "DRA-16",
+      "DRA-17",
+      "DRA-19",
+      "DRA-22",
+      "DRA-24",
+      "DRA-25",
+      "DRA-28",
+      "DRA-36",
+      "DRA-37",
+      "DRA-38"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "DRA-12"
+      },
+      {
+        "role": "RCB3",
+        "player_id": "DRA-19"
+      },
+      {
+        "role": "CB3",
+        "player_id": "DRA-5"
+      },
+      {
+        "role": "LCB3",
+        "player_id": "DRA-38"
+      },
+      {
+        "role": "RWB",
+        "player_id": "DRA-15"
+      },
+      {
+        "role": "RCM",
+        "player_id": "DRA-28"
+      },
+      {
+        "role": "LCM",
+        "player_id": "DRA-37"
+      },
+      {
+        "role": "LWB",
+        "player_id": "DRA-3"
+      },
+      {
+        "role": "RW",
+        "player_id": "DRA-17"
+      },
+      {
+        "role": "ST",
+        "player_id": "DRA-25"
+      },
+      {
+        "role": "LW",
+        "player_id": "DRA-11"
+      }
+    ],
+    "bench": [
+      "DRA-1",
+      "DRA-10",
+      "DRA-36",
+      "DRA-4",
+      "DRA-8",
+      "DRA-9",
+      "DRA-7",
+      "DRA-14",
+      "DRA-2"
+    ]
+  },
+  {
+    "code": "COR",
+    "name": "Corrwater Albion",
+    "short_name": "Corrwater",
+    "venue": "Ferry Road",
+    "home_kit": {
+      "primary": "#0b6e4f",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#111111",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-2-3-1",
+      "pressing_intensity": 0.54,
+      "defensive_line": 0.78,
+      "tempo": 0.41,
+      "directness": 0.32,
+      "width": 0.38,
+      "attack_rating": 77.4,
+      "defence_rating": 72.2
+    },
+    "squad": [
+      "COR-1",
+      "COR-2",
+      "COR-3",
+      "COR-4",
+      "COR-5",
+      "COR-6",
+      "COR-7",
+      "COR-8",
+      "COR-9",
+      "COR-10",
+      "COR-11",
+      "COR-12",
+      "COR-13",
+      "COR-17",
+      "COR-20",
+      "COR-22",
+      "COR-23",
+      "COR-28",
+      "COR-29",
+      "COR-30",
+      "COR-31",
+      "COR-33",
+      "COR-36",
+      "COR-38",
+      "COR-40"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "COR-1"
+      },
+      {
+        "role": "RB",
+        "player_id": "COR-36"
+      },
+      {
+        "role": "RCB",
+        "player_id": "COR-40"
+      },
+      {
+        "role": "LCB",
+        "player_id": "COR-6"
+      },
+      {
+        "role": "LB",
+        "player_id": "COR-3"
+      },
+      {
+        "role": "RDM",
+        "player_id": "COR-17"
+      },
+      {
+        "role": "LDM",
+        "player_id": "COR-20"
+      },
+      {
+        "role": "RW",
+        "player_id": "COR-28"
+      },
+      {
+        "role": "CAM",
+        "player_id": "COR-29"
+      },
+      {
+        "role": "LW",
+        "player_id": "COR-11"
+      },
+      {
+        "role": "ST",
+        "player_id": "COR-9"
+      }
+    ],
+    "bench": [
+      "COR-13",
+      "COR-12",
+      "COR-7",
+      "COR-10",
+      "COR-23",
+      "COR-30",
+      "COR-4",
+      "COR-38",
+      "COR-8"
+    ]
+  },
+  {
+    "code": "GAR",
+    "name": "Garr Heath FC",
+    "short_name": "Garr Heath",
+    "venue": "Signal Road",
+    "home_kit": {
+      "primary": "#7b1e2c",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#a93226",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-2-3-1",
+      "pressing_intensity": 0.73,
+      "defensive_line": 0.34,
+      "tempo": 0.76,
+      "directness": 0.59,
+      "width": 0.65,
+      "attack_rating": 73.0,
+      "defence_rating": 70.9
+    },
+    "squad": [
+      "GAR-1",
+      "GAR-2",
+      "GAR-3",
+      "GAR-4",
+      "GAR-5",
+      "GAR-6",
+      "GAR-7",
+      "GAR-8",
+      "GAR-9",
+      "GAR-10",
+      "GAR-11",
+      "GAR-13",
+      "GAR-16",
+      "GAR-19",
+      "GAR-21",
+      "GAR-25",
+      "GAR-27",
+      "GAR-29",
+      "GAR-30",
+      "GAR-31",
+      "GAR-33",
+      "GAR-34",
+      "GAR-38",
+      "GAR-39",
+      "GAR-40"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "GAR-39"
+      },
+      {
+        "role": "RB",
+        "player_id": "GAR-2"
+      },
+      {
+        "role": "RCB",
+        "player_id": "GAR-5"
+      },
+      {
+        "role": "LCB",
+        "player_id": "GAR-6"
+      },
+      {
+        "role": "LB",
+        "player_id": "GAR-27"
+      },
+      {
+        "role": "RDM",
+        "player_id": "GAR-16"
+      },
+      {
+        "role": "LDM",
+        "player_id": "GAR-4"
+      },
+      {
+        "role": "RW",
+        "player_id": "GAR-40"
+      },
+      {
+        "role": "CAM",
+        "player_id": "GAR-31"
+      },
+      {
+        "role": "LW",
+        "player_id": "GAR-21"
+      },
+      {
+        "role": "ST",
+        "player_id": "GAR-30"
+      }
+    ],
+    "bench": [
+      "GAR-1",
+      "GAR-8",
+      "GAR-11",
+      "GAR-25",
+      "GAR-10",
+      "GAR-7",
+      "GAR-9",
+      "GAR-33",
+      "GAR-38"
+    ]
+  },
+  {
+    "code": "NET",
+    "name": "Nethemoor Wanderers",
+    "short_name": "Nethemoor",
+    "venue": "Cooper Stadium",
+    "home_kit": {
+      "primary": "#16325c",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#2c3e50",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-4-2",
+      "pressing_intensity": 0.7,
+      "defensive_line": 0.36,
+      "tempo": 0.42,
+      "directness": 0.76,
+      "width": 0.63,
+      "attack_rating": 76.7,
+      "defence_rating": 72.2
+    },
+    "squad": [
+      "NET-1",
+      "NET-2",
+      "NET-3",
+      "NET-4",
+      "NET-5",
+      "NET-6",
+      "NET-7",
+      "NET-8",
+      "NET-9",
+      "NET-10",
+      "NET-11",
+      "NET-13",
+      "NET-14",
+      "NET-19",
+      "NET-21",
+      "NET-22",
+      "NET-23",
+      "NET-24",
+      "NET-25",
+      "NET-28",
+      "NET-29",
+      "NET-30",
+      "NET-34",
+      "NET-39",
+      "NET-40"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "NET-24"
+      },
+      {
+        "role": "RB",
+        "player_id": "NET-2"
+      },
+      {
+        "role": "RCB",
+        "player_id": "NET-6"
+      },
+      {
+        "role": "LCB",
+        "player_id": "NET-28"
+      },
+      {
+        "role": "LB",
+        "player_id": "NET-3"
+      },
+      {
+        "role": "RM",
+        "player_id": "NET-7"
+      },
+      {
+        "role": "RCM",
+        "player_id": "NET-22"
+      },
+      {
+        "role": "LCM",
+        "player_id": "NET-40"
+      },
+      {
+        "role": "LM",
+        "player_id": "NET-19"
+      },
+      {
+        "role": "RST",
+        "player_id": "NET-9"
+      },
+      {
+        "role": "LST",
+        "player_id": "NET-25"
+      }
+    ],
+    "bench": [
+      "NET-1",
+      "NET-4",
+      "NET-30",
+      "NET-10",
+      "NET-11",
+      "NET-29",
+      "NET-34",
+      "NET-23",
+      "NET-21"
+    ]
+  },
+  {
+    "code": "MAR",
+    "name": "Marlfell Town",
+    "short_name": "Marlfell",
+    "venue": "Mariner Road",
+    "home_kit": {
+      "primary": "#1f4e9c",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#e67e22",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-3-3",
+      "pressing_intensity": 0.68,
+      "defensive_line": 0.39,
+      "tempo": 0.5,
+      "directness": 0.39,
+      "width": 0.47,
+      "attack_rating": 72.7,
+      "defence_rating": 70.1
+    },
+    "squad": [
+      "MAR-1",
+      "MAR-2",
+      "MAR-3",
+      "MAR-4",
+      "MAR-5",
+      "MAR-6",
+      "MAR-7",
+      "MAR-8",
+      "MAR-9",
+      "MAR-10",
+      "MAR-11",
+      "MAR-13",
+      "MAR-15",
+      "MAR-18",
+      "MAR-19",
+      "MAR-24",
+      "MAR-26",
+      "MAR-27",
+      "MAR-29",
+      "MAR-30",
+      "MAR-31",
+      "MAR-32",
+      "MAR-33",
+      "MAR-39",
+      "MAR-40"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "MAR-27"
+      },
+      {
+        "role": "RB",
+        "player_id": "MAR-33"
+      },
+      {
+        "role": "RCB",
+        "player_id": "MAR-5"
+      },
+      {
+        "role": "LCB",
+        "player_id": "MAR-6"
+      },
+      {
+        "role": "LB",
+        "player_id": "MAR-26"
+      },
+      {
+        "role": "DM",
+        "player_id": "MAR-39"
+      },
+      {
+        "role": "RCM",
+        "player_id": "MAR-19"
+      },
+      {
+        "role": "LCM",
+        "player_id": "MAR-31"
+      },
+      {
+        "role": "RW",
+        "player_id": "MAR-7"
+      },
+      {
+        "role": "ST",
+        "player_id": "MAR-9"
+      },
+      {
+        "role": "LW",
+        "player_id": "MAR-32"
+      }
+    ],
+    "bench": [
+      "MAR-1",
+      "MAR-10",
+      "MAR-15",
+      "MAR-40",
+      "MAR-18",
+      "MAR-8",
+      "MAR-29",
+      "MAR-4",
+      "MAR-11"
+    ]
+  },
+  {
+    "code": "VEL",
+    "name": "Velfell Borough",
+    "short_name": "Velfell",
+    "venue": "Lantern Lane",
+    "home_kit": {
+      "primary": "#6d4c41",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#1b5e20",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-4-2",
+      "pressing_intensity": 0.35,
+      "defensive_line": 0.78,
+      "tempo": 0.43,
+      "directness": 0.73,
+      "width": 0.61,
+      "attack_rating": 80.0,
+      "defence_rating": 76.4
+    },
+    "squad": [
+      "VEL-1",
+      "VEL-2",
+      "VEL-3",
+      "VEL-4",
+      "VEL-5",
+      "VEL-6",
+      "VEL-7",
+      "VEL-8",
+      "VEL-9",
+      "VEL-10",
+      "VEL-11",
+      "VEL-12",
+      "VEL-13",
+      "VEL-14",
+      "VEL-16",
+      "VEL-18",
+      "VEL-19",
+      "VEL-20",
+      "VEL-22",
+      "VEL-25",
+      "VEL-26",
+      "VEL-28",
+      "VEL-29",
+      "VEL-30",
+      "VEL-35"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "VEL-13"
+      },
+      {
+        "role": "RB",
+        "player_id": "VEL-30"
+      },
+      {
+        "role": "RCB",
+        "player_id": "VEL-28"
+      },
+      {
+        "role": "LCB",
+        "player_id": "VEL-5"
+      },
+      {
+        "role": "LB",
+        "player_id": "VEL-12"
+      },
+      {
+        "role": "RM",
+        "player_id": "VEL-16"
+      },
+      {
+        "role": "RCM",
+        "player_id": "VEL-8"
+      },
+      {
+        "role": "LCM",
+        "player_id": "VEL-14"
+      },
+      {
+        "role": "LM",
+        "player_id": "VEL-35"
+      },
+      {
+        "role": "RST",
+        "player_id": "VEL-26"
+      },
+      {
+        "role": "LST",
+        "player_id": "VEL-9"
+      }
+    ],
+    "bench": [
+      "VEL-1",
+      "VEL-11",
+      "VEL-4",
+      "VEL-29",
+      "VEL-7",
+      "VEL-22",
+      "VEL-10",
+      "VEL-20",
+      "VEL-18"
+    ]
+  },
+  {
+    "code": "RAV",
+    "name": "Ravmere Town",
+    "short_name": "Ravmere",
+    "venue": "Harbour Park",
+    "home_kit": {
+      "primary": "#b03a2e",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#8d99ae",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "3-4-3",
+      "pressing_intensity": 0.48,
+      "defensive_line": 0.7,
+      "tempo": 0.43,
+      "directness": 0.51,
+      "width": 0.33,
+      "attack_rating": 71.2,
+      "defence_rating": 67.0
+    },
+    "squad": [
+      "RAV-1",
+      "RAV-2",
+      "RAV-3",
+      "RAV-4",
+      "RAV-5",
+      "RAV-6",
+      "RAV-7",
+      "RAV-8",
+      "RAV-9",
+      "RAV-10",
+      "RAV-11",
+      "RAV-12",
+      "RAV-13",
+      "RAV-14",
+      "RAV-18",
+      "RAV-19",
+      "RAV-21",
+      "RAV-23",
+      "RAV-24",
+      "RAV-27",
+      "RAV-29",
+      "RAV-30",
+      "RAV-37",
+      "RAV-39",
+      "RAV-40"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "RAV-1"
+      },
+      {
+        "role": "RCB3",
+        "player_id": "RAV-6"
+      },
+      {
+        "role": "CB3",
+        "player_id": "RAV-24"
+      },
+      {
+        "role": "LCB3",
+        "player_id": "RAV-5"
+      },
+      {
+        "role": "RWB",
+        "player_id": "RAV-29"
+      },
+      {
+        "role": "RCM",
+        "player_id": "RAV-12"
+      },
+      {
+        "role": "LCM",
+        "player_id": "RAV-40"
+      },
+      {
+        "role": "LWB",
+        "player_id": "RAV-3"
+      },
+      {
+        "role": "RW",
+        "player_id": "RAV-21"
+      },
+      {
+        "role": "ST",
+        "player_id": "RAV-37"
+      },
+      {
+        "role": "LW",
+        "player_id": "RAV-11"
+      }
+    ],
+    "bench": [
+      "RAV-13",
+      "RAV-10",
+      "RAV-7",
+      "RAV-19",
+      "RAV-9",
+      "RAV-39",
+      "RAV-14",
+      "RAV-18",
+      "RAV-2"
+    ]
+  },
+  {
+    "code": "ELM",
+    "name": "Elmer Cross Rovers",
+    "short_name": "Elmer Cross",
+    "venue": "Weaver Road",
+    "home_kit": {
+      "primary": "#ffd23f",
+      "secondary": "#111111"
+    },
+    "away_kit": {
+      "primary": "#2e7d32",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "4-2-3-1",
+      "pressing_intensity": 0.29,
+      "defensive_line": 0.43,
+      "tempo": 0.35,
+      "directness": 0.4,
+      "width": 0.32,
+      "attack_rating": 77.0,
+      "defence_rating": 73.9
+    },
+    "squad": [
+      "ELM-1",
+      "ELM-2",
+      "ELM-3",
+      "ELM-4",
+      "ELM-5",
+      "ELM-6",
+      "ELM-7",
+      "ELM-8",
+      "ELM-9",
+      "ELM-10",
+      "ELM-11",
+      "ELM-13",
+      "ELM-16",
+      "ELM-17",
+      "ELM-18",
+      "ELM-20",
+      "ELM-22",
+      "ELM-23",
+      "ELM-24",
+      "ELM-25",
+      "ELM-26",
+      "ELM-29",
+      "ELM-35",
+      "ELM-38",
+      "ELM-40"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "ELM-13"
+      },
+      {
+        "role": "RB",
+        "player_id": "ELM-18"
+      },
+      {
+        "role": "RCB",
+        "player_id": "ELM-6"
+      },
+      {
+        "role": "LCB",
+        "player_id": "ELM-38"
+      },
+      {
+        "role": "LB",
+        "player_id": "ELM-23"
+      },
+      {
+        "role": "RDM",
+        "player_id": "ELM-35"
+      },
+      {
+        "role": "LDM",
+        "player_id": "ELM-4"
+      },
+      {
+        "role": "RW",
+        "player_id": "ELM-7"
+      },
+      {
+        "role": "CAM",
+        "player_id": "ELM-40"
+      },
+      {
+        "role": "LW",
+        "player_id": "ELM-17"
+      },
+      {
+        "role": "ST",
+        "player_id": "ELM-25"
+      }
+    ],
+    "bench": [
+      "ELM-1",
+      "ELM-26",
+      "ELM-20",
+      "ELM-11",
+      "ELM-8",
+      "ELM-29",
+      "ELM-9",
+      "ELM-16",
+      "ELM-10"
+    ]
+  },
+  {
+    "code": "HOB",
+    "name": "Hob Vale City",
+    "short_name": "Hob Vale",
+    "venue": "Ropewalk Ground",
+    "home_kit": {
+      "primary": "#111111",
+      "secondary": "#ffffff"
+    },
+    "away_kit": {
+      "primary": "#d64541",
+      "secondary": "#ffffff"
+    },
+    "tactics": {
+      "formation": "3-5-2",
+      "pressing_intensity": 0.57,
+      "defensive_line": 0.56,
+      "tempo": 0.64,
+      "directness": 0.26,
+      "width": 0.39,
+      "attack_rating": 72.3,
+      "defence_rating": 71.3
+    },
+    "squad": [
+      "HOB-1",
+      "HOB-2",
+      "HOB-3",
+      "HOB-4",
+      "HOB-5",
+      "HOB-6",
+      "HOB-7",
+      "HOB-8",
+      "HOB-9",
+      "HOB-10",
+      "HOB-11",
+      "HOB-12",
+      "HOB-13",
+      "HOB-18",
+      "HOB-20",
+      "HOB-22",
+      "HOB-24",
+      "HOB-25",
+      "HOB-26",
+      "HOB-28",
+      "HOB-32",
+      "HOB-34",
+      "HOB-36",
+      "HOB-37",
+      "HOB-40"
+    ],
+    "lineup": [
+      {
+        "role": "GK",
+        "player_id": "HOB-13"
+      },
+      {
+        "role": "RCB3",
+        "player_id": "HOB-6"
+      },
+      {
+        "role": "CB3",
+        "player_id": "HOB-24"
+      },
+      {
+        "role": "LCB3",
+        "player_id": "HOB-5"
+      },
+      {
+        "role": "RWB",
+        "player_id": "HOB-22"
+      },
+      {
+        "role": "RCM",
+        "player_id": "HOB-8"
+      },
+      {
+        "role": "DM",
+        "player_id": "HOB-4"
+      },
+      {
+        "role": "LCM",
+        "player_id": "HOB-34"
+      },
+      {
+        "role": "LWB",
+        "player_id": "HOB-3"
+      },
+      {
+        "role": "RST",
+        "player_id": "HOB-9"
+      },
+      {
+        "role": "LST",
+        "player_id": "HOB-18"
+      }
+    ],
+    "bench": [
+      "HOB-1",
+      "HOB-36",
+      "HOB-7",
+      "HOB-11",
+      "HOB-40",
+      "HOB-10",
+      "HOB-20",
+      "HOB-28",
+      "HOB-12"
+    ]
+  }
+]

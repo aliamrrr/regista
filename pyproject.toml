@@ -22,6 +22,8 @@ regista-core = { workspace = true }
 [dependency-groups]
 dev = [
     "httpx2>=2.13.1",
+    "jsonschema>=4.26.0",
+    "matplotlib>=3.11.2",
     "pre-commit>=4.7.0",
     "pytest>=9.1.1",
     "ruff==0.17.1",
@@ -71,5 +73,6 @@ known-first-party = ["regista_sim", "regista_core"]
 
 [tool.pytest.ini_options]
 testpaths = ["apps/simulator/tests", "apps/core/tests"]
+pythonpath = ["apps/simulator/tests"]  # lets simulator tests import their sim_helpers module
 addopts = ["-ra", "--import-mode=importlib", "--strict-markers", "--strict-config"]
 xfail_strict = true

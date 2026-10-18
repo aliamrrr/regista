@@ -1,0 +1,600 @@
+{
+  "schema": "regista.league.v1",
+  "name": "Northwind League",
+  "season": "2026-27",
+  "seed": 7,
+  "generator": "regista-sim 0.1.0",
+  "next_matchweek": 9,
+  "fixtures": [
+    {
+      "matchweek": 1,
+      "date": "2026-08-15",
+      "home": "MAR",
+      "away": "WYN"
+    },
+    {
+      "matchweek": 1,
+      "date": "2026-08-15",
+      "home": "ASH",
+      "away": "VEL"
+    },
+    {
+      "matchweek": 1,
+      "date": "2026-08-15",
+      "home": "COL",
+      "away": "KBA"
+    },
+    {
+      "matchweek": 1,
+      "date": "2026-08-15",
+      "home": "FAL",
+      "away": "RAV"
+    },
+    {
+      "matchweek": 1,
+      "date": "2026-08-15",
+      "home": "BRA",
+      "away": "YAR"
+    },
+    {
+      "matchweek": 1,
+      "date": "2026-08-15",
+      "home": "DRA",
+      "away": "HOB"
+    },
+    {
+      "matchweek": 1,
+      "date": "2026-08-15",
+      "home": "TAR",
+      "away": "GAR"
+    },
+    {
+      "matchweek": 1,
+      "date": "2026-08-15",
+      "home": "NET",
+      "away": "BRY"
+    },
+    {
+      "matchweek": 1,
+      "date": "2026-08-15",
+      "home": "HMR",
+      "away": "COR"
+    },
+    {
+      "matchweek": 1,
+      "date": "2026-08-15",
+      "home": "ULM",
+      "away": "ELM"
+    },
+    {
+      "matchweek": 2,
+      "date": "2026-08-22",
+      "home": "ASH",
+      "away": "MAR"
+    },
+    {
+      "matchweek": 2,
+      "date": "2026-08-22",
+      "home": "WYN",
+      "away": "KBA"
+    },
+    {
+      "matchweek": 2,
+      "date": "2026-08-22",
+      "home": "FAL",
+      "away": "VEL"
+    },
+    {
+      "matchweek": 2,
+      "date": "2026-08-22",
+      "home": "COL",
+      "away": "YAR"
+    },
+    {
+      "matchweek": 2,
+      "date": "2026-08-22",
+      "home": "DRA",
+      "away": "RAV"
+    },
+    {
+      "matchweek": 2,
+      "date": "2026-08-22",
+      "home": "BRA",
+      "away": "GAR"
+    },
+    {
+      "matchweek": 2,
+      "date": "2026-08-22",
+      "home": "NET",
+      "away": "HOB"
+    },
+    {
+      "matchweek": 2,
+      "date": "2026-08-22",
+      "home": "TAR",
+      "away": "COR"
+    },
+    {
+      "matchweek": 2,
+      "date": "2026-08-22",
+      "home": "ULM",
+      "away": "BRY"
+    },
+    {
+      "matchweek": 2,
+      "date": "2026-08-22",
+      "home": "HMR",
+      "away": "ELM"
+    },
+    {
+      "matchweek": 3,
+      "date": "2026-08-29",
+      "home": "MAR",
+      "away": "KBA"
+    },
+    {
+      "matchweek": 3,
+      "date": "2026-08-29",
+      "home": "FAL",
+      "away": "ASH"
+    },
+    {
+      "matchweek": 3,
+      "date": "2026-08-29",
+      "home": "WYN",
+      "away": "YAR"
+    },
+    {
+      "matchweek": 3,
+      "date": "2026-08-29",
+      "home": "DRA",
+      "away": "VEL"
+    },
+    {
+      "matchweek": 3,
+      "date": "2026-08-29",
+      "home": "COL",
+      "away": "GAR"
+    },
+    {
+      "matchweek": 3,
+      "date": "2026-08-29",
+      "home": "NET",
+      "away": "RAV"
+    },
+    {
+      "matchweek": 3,
+      "date": "2026-08-29",
+      "home": "BRA",
+      "away": "COR"
+    },
+    {
+      "matchweek": 3,
+      "date": "2026-08-29",
+      "home": "ULM",
+      "away": "HOB"
+    },
+    {
+      "matchweek": 3,
+      "date": "2026-08-29",
+      "home": "TAR",
+      "away": "ELM"
+    },
+    {
+      "matchweek": 3,
+      "date": "2026-08-29",
+      "home": "HMR",
+      "away": "BRY"
+    },
+    {
+      "matchweek": 4,
+      "date": "2026-09-12",
+      "home": "FAL",
+      "away": "MAR"
+    },
+    {
+      "matchweek": 4,
+      "date": "2026-09-12",
+      "home": "KBA",
+      "away": "YAR"
+    },
+    {
+      "matchweek": 4,
+      "date": "2026-09-12",
+      "home": "DRA",
+      "away": "ASH"
+    },
+    {
+      "matchweek": 4,
+      "date": "2026-09-12",
+      "home": "WYN",
+      "away": "GAR"
+    },
+    {
+      "matchweek": 4,
+      "date": "2026-09-12",
+      "home": "NET",
+      "away": "VEL"
+    },
+    {
+      "matchweek": 4,
+      "date": "2026-09-12",
+      "home": "COL",
+      "away": "COR"
+    },
+    {
+      "matchweek": 4,
+      "date": "2026-09-12",
+      "home": "ULM",
+      "away": "RAV"
+    },
+    {
+      "matchweek": 4,
+      "date": "2026-09-12",
+      "home": "BRA",
+      "away": "ELM"
+    },
+    {
+      "matchweek": 4,
+      "date": "2026-09-12",
+      "home": "HMR",
+      "away": "HOB"
+    },
+    {
+      "matchweek": 4,
+      "date": "2026-09-12",
+      "home": "TAR",
+      "away": "BRY"
+    },
+    {
+      "matchweek": 5,
+      "date": "2026-09-19",
+      "home": "MAR",
+      "away": "YAR"
+    },
+    {
+      "matchweek": 5,
+      "date": "2026-09-19",
+      "home": "DRA",
+      "away": "FAL"
+    },
+    {
+      "matchweek": 5,
+      "date": "2026-09-19",
+      "home": "KBA",
+      "away": "GAR"
+    },
+    {
+      "matchweek": 5,
+      "date": "2026-09-19",
+      "home": "NET",
+      "away": "ASH"
+    },
+    {
+      "matchweek": 5,
+      "date": "2026-09-19",
+      "home": "WYN",
+      "away": "COR"
+    },
+    {
+      "matchweek": 5,
+      "date": "2026-09-19",
+      "home": "ULM",
+      "away": "VEL"
+    },
+    {
+      "matchweek": 5,
+      "date": "2026-09-19",
+      "home": "COL",
+      "away": "ELM"
+    },
+    {
+      "matchweek": 5,
+      "date": "2026-09-19",
+      "home": "HMR",
+      "away": "RAV"
+    },
+    {
+      "matchweek": 5,
+      "date": "2026-09-19",
+      "home": "BRA",
+      "away": "BRY"
+    },
+    {
+      "matchweek": 5,
+      "date": "2026-09-19",
+      "home": "TAR",
+      "away": "HOB"
+    },
+    {
+      "matchweek": 6,
+      "date": "2026-09-26",
+      "home": "DRA",
+      "away": "MAR"
+    },
+    {
+      "matchweek": 6,
+      "date": "2026-09-26",
+      "home": "YAR",
+      "away": "GAR"
+    },
+    {
+      "matchweek": 6,
+      "date": "2026-09-26",
+      "home": "NET",
+      "away": "FAL"
+    },
+    {
+      "matchweek": 6,
+      "date": "2026-09-26",
+      "home": "KBA",
+      "away": "COR"
+    },
+    {
+      "matchweek": 6,
+      "date": "2026-09-26",
+      "home": "ULM",
+      "away": "ASH"
+    },
+    {
+      "matchweek": 6,
+      "date": "2026-09-26",
+      "home": "WYN",
+      "away": "ELM"
+    },
+    {
+      "matchweek": 6,
+      "date": "2026-09-26",
+      "home": "HMR",
+      "away": "VEL"
+    },
+    {
+      "matchweek": 6,
+      "date": "2026-09-26",
+      "home": "COL",
+      "away": "BRY"
+    },
+    {
+      "matchweek": 6,
+      "date": "2026-09-26",
+      "home": "TAR",
+      "away": "RAV"
+    },
+    {
+      "matchweek": 6,
+      "date": "2026-09-26",
+      "home": "BRA",
+      "away": "HOB"
+    },
+    {
+      "matchweek": 7,
+      "date": "2026-10-03",
+      "home": "MAR",
+      "away": "GAR"
+    },
+    {
+      "matchweek": 7,
+      "date": "2026-10-03",
+      "home": "NET",
+      "away": "DRA"
+    },
+    {
+      "matchweek": 7,
+      "date": "2026-10-03",
+      "home": "YAR",
+      "away": "COR"
+    },
+    {
+      "matchweek": 7,
+      "date": "2026-10-03",
+      "home": "ULM",
+      "away": "FAL"
+    },
+    {
+      "matchweek": 7,
+      "date": "2026-10-03",
+      "home": "KBA",
+      "away": "ELM"
+    },
+    {
+      "matchweek": 7,
+      "date": "2026-10-03",
+      "home": "HMR",
+      "away": "ASH"
+    },
+    {
+      "matchweek": 7,
+      "date": "2026-10-03",
+      "home": "WYN",
+      "away": "BRY"
+    },
+    {
+      "matchweek": 7,
+      "date": "2026-10-03",
+      "home": "TAR",
+      "away": "VEL"
+    },
+    {
+      "matchweek": 7,
+      "date": "2026-10-03",
+      "home": "COL",
+      "away": "HOB"
+    },
+    {
+      "matchweek": 7,
+      "date": "2026-10-03",
+      "home": "BRA",
+      "away": "RAV"
+    },
+    {
+      "matchweek": 8,
+      "date": "2026-10-17",
+      "home": "NET",
+      "away": "MAR"
+    },
+    {
+      "matchweek": 8,
+      "date": "2026-10-17",
+      "home": "GAR",
+      "away": "COR"
+    },
+    {
+      "matchweek": 8,
+      "date": "2026-10-17",
+      "home": "ULM",
+      "away": "DRA"
+    },
+    {
+      "matchweek": 8,
+      "date": "2026-10-17",
+      "home": "YAR",
+      "away": "ELM"
+    },
+    {
+      "matchweek": 8,
+      "date": "2026-10-17",
+      "home": "HMR",
+      "away": "FAL"
+    },
+    {
+      "matchweek": 8,
+      "date": "2026-10-17",
+      "home": "KBA",
+      "away": "BRY"
+    },
+    {
+      "matchweek": 8,
+      "date": "2026-10-17",
+      "home": "TAR",
+      "away": "ASH"
+    },
+    {
+      "matchweek": 8,
+      "date": "2026-10-17",
+      "home": "WYN",
+      "away": "HOB"
+    },
+    {
+      "matchweek": 8,
+      "date": "2026-10-17",
+      "home": "BRA",
+      "away": "VEL"
+    },
+    {
+      "matchweek": 8,
+      "date": "2026-10-17",
+      "home": "COL",
+      "away": "RAV"
+    },
+    {
+      "matchweek": 9,
+      "date": "2026-10-24",
+      "home": "MAR",
+      "away": "RAV"
+    },
+    {
+      "matchweek": 9,
+      "date": "2026-10-24",
+      "home": "COL",
+      "away": "BRA"
+    },
+    {
+      "matchweek": 9,
+      "date": "2026-10-24",
+      "home": "HOB",
+      "away": "VEL"
+    },
+    {
+      "matchweek": 9,
+      "date": "2026-10-24",
+      "home": "WYN",
+      "away": "TAR"
+    },
+    {
+      "matchweek": 9,
+      "date": "2026-10-24",
+      "home": "BRY",
+      "away": "ASH"
+    },
+    {
+      "matchweek": 9,
+      "date": "2026-10-24",
+      "home": "HMR",
+      "away": "KBA"
+    },
+    {
+      "matchweek": 9,
+      "date": "2026-10-24",
+      "home": "ELM",
+      "away": "FAL"
+    },
+    {
+      "matchweek": 9,
+      "date": "2026-10-24",
+      "home": "YAR",
+      "away": "ULM"
+    },
+    {
+      "matchweek": 9,
+      "date": "2026-10-24",
+      "home": "COR",
+      "away": "DRA"
+    },
+    {
+      "matchweek": 9,
+      "date": "2026-10-24",
+      "home": "GAR",
+      "away": "NET"
+    }
+  ],
+  "referees": [
+    {
+      "id": "REF-01",
+      "name": "Zakaria Oukadi"
+    },
+    {
+      "id": "REF-02",
+      "name": "Rasmus Veldal"
+    },
+    {
+      "id": "REF-03",
+      "name": "Halvar Nyby"
+    },
+    {
+      "id": "REF-04",
+      "name": "Pietro Dolelli"
+    },
+    {
+      "id": "REF-05",
+      "name": "Duarte Gouança"
+    },
+    {
+      "id": "REF-06",
+      "name": "Lilian Duroux"
+    },
+    {
+      "id": "REF-07",
+      "name": "Sergio Soldezo"
+    },
+    {
+      "id": "REF-08",
+      "name": "Mathéo Rochelin"
+    },
+    {
+      "id": "REF-09",
+      "name": "Harvey Corrmere"
+    },
+    {
+      "id": "REF-10",
+      "name": "Femi Fofayori"
+    },
+    {
+      "id": "REF-11",
+      "name": "Sacha Tessoux"
+    },
+    {
+      "id": "REF-12",
+      "name": "Kofi Kwawunmi"
+    }
+  ]
+}

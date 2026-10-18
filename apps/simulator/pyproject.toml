@@ -6,7 +6,12 @@ license = "MIT"
 authors = [{ name = "aliamrrr" }]
 requires-python = ">=3.12,<3.13"
 # Pure Python by design: no Azure SDKs, ever (see docs/ARCHITECTURE.md §2).
-dependencies = []
+# matplotlib (calibration histograms) lives in the root dev group, so runtime images stay lean.
+dependencies = [
+    "numpy>=2.5.4",
+    "pydantic>=2.14.1",
+    "pyyaml>=6.0.3",
+]
 
 [project.scripts]
 regista-sim = "regista_sim.cli:main"
