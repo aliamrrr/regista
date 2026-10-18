@@ -25,6 +25,10 @@ apps/web/dist/
 .azure/
 
 # local data & caches (the golden match and league stay committed under data/)
+# derived match files are regenerated on demand: the committed forms are events.jsonl.gz
+# (events.jsonl is over the 1 MB hook) and tracking.npz (`regista-sim tracking export` → jsonl.gz)
+data/**/events.jsonl
+data/**/tracking.jsonl.gz
 .cache/
 data/runs/
 data/llm_cache/
