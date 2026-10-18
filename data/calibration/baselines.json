@@ -1,0 +1,222 @@
+{
+  "schema": "regista.baselines.v1",
+  "generator": "regista-sim 0.1.0",
+  "seed": 7,
+  "matches": 40,
+  "metrics": {
+    "passes": {
+      "label": "Passes attempted",
+      "mean": 443.55,
+      "std": 72.6164,
+      "low": 350,
+      "high": 650,
+      "unit": "",
+      "in_range": true
+    },
+    "pass_completion": {
+      "label": "Pass completion",
+      "mean": 0.8501,
+      "std": 0.0284,
+      "low": 0.75,
+      "high": 0.9,
+      "unit": "%",
+      "in_range": true
+    },
+    "shots": {
+      "label": "Shots",
+      "mean": 14.6125,
+      "std": 5.6063,
+      "low": 8,
+      "high": 20,
+      "unit": "",
+      "in_range": true
+    },
+    "on_target_ratio": {
+      "label": "Shots on target / shots",
+      "mean": 0.3356,
+      "std": 0.1247,
+      "low": 0.3,
+      "high": 0.4,
+      "unit": "%",
+      "in_range": true
+    },
+    "goals": {
+      "label": "Goals",
+      "mean": 1.25,
+      "std": 1.0494,
+      "low": 1.2,
+      "high": 1.7,
+      "unit": "",
+      "in_range": true
+    },
+    "xg_per_shot": {
+      "label": "Mean xG per shot",
+      "mean": 0.0908,
+      "std": 0.0261,
+      "low": 0.09,
+      "high": 0.13,
+      "unit": "",
+      "in_range": true
+    },
+    "possession": {
+      "label": "Possession",
+      "mean": 0.5,
+      "std": 0.0652,
+      "low": 0.35,
+      "high": 0.65,
+      "unit": "%",
+      "in_range": true
+    },
+    "fouls": {
+      "label": "Fouls",
+      "mean": 8.675,
+      "std": 3.5392,
+      "low": 8,
+      "high": 14,
+      "unit": "",
+      "in_range": true
+    },
+    "corners": {
+      "label": "Corners",
+      "mean": 3.8,
+      "std": 2.8878,
+      "low": 3,
+      "high": 8,
+      "unit": "",
+      "in_range": true
+    },
+    "yellow_cards": {
+      "label": "Yellow cards",
+      "mean": 1.7625,
+      "std": 1.3335,
+      "low": 1,
+      "high": 3,
+      "unit": "",
+      "in_range": true
+    },
+    "distance_km": {
+      "label": "Distance per outfield player (90′)",
+      "mean": 10.8801,
+      "std": 0.3875,
+      "low": 9.5,
+      "high": 12.0,
+      "unit": "km",
+      "in_range": true
+    },
+    "sprints": {
+      "label": "Sprints (≥ 25.2 km/h) per outfield player",
+      "mean": 19.9739,
+      "std": 5.8925,
+      "low": 15,
+      "high": 40,
+      "unit": "",
+      "in_range": true
+    },
+    "top_speed_kmh": {
+      "label": "Top speed per match (fastest player)",
+      "mean": 34.23,
+      "std": 0.4912,
+      "low": 32,
+      "high": 36,
+      "unit": "km/h",
+      "in_range": true
+    },
+    "pass_speed_kmh": {
+      "label": "Pass ball speed",
+      "mean": 43.8129,
+      "std": 1.5954,
+      "low": 30,
+      "high": 90,
+      "unit": "km/h",
+      "in_range": true
+    },
+    "shot_speed_kmh": {
+      "label": "Shot speed",
+      "mean": 97.4219,
+      "std": 3.198,
+      "low": 60,
+      "high": 130,
+      "unit": "km/h",
+      "in_range": true
+    }
+  },
+  "chaos_components": {
+    "possession_changes_per_min": {
+      "mean": 2.4046,
+      "std": 0.7856,
+      "sign": 1,
+      "definition": "new possession_id values among events in the window ÷ 5",
+      "windows": 740
+    },
+    "short_possession_share": {
+      "mean": 0.4473,
+      "std": 0.1619,
+      "sign": 1,
+      "definition": "share of possessions starting in the window with < 3 passes",
+      "windows": 740
+    },
+    "duels_per_min": {
+      "mean": 1.1176,
+      "std": 0.5143,
+      "sign": 1,
+      "definition": "duel + tackle events in the window ÷ 5",
+      "windows": 740
+    },
+    "fouls_per_min": {
+      "mean": 0.1803,
+      "std": 0.1808,
+      "sign": 1,
+      "definition": "foul events in the window ÷ 5",
+      "windows": 740
+    },
+    "shots_after_regain": {
+      "mean": 0.4878,
+      "std": 0.6772,
+      "sign": 1,
+      "definition": "shots in the window within 10 s of their possession's regain (interception, ball recovery or won tackle)",
+      "windows": 740
+    },
+    "long_possession_share": {
+      "mean": 0.2505,
+      "std": 0.1429,
+      "sign": -1,
+      "definition": "share of possessions starting in the window with ≥ 6 passes",
+      "windows": 740
+    },
+    "completion_under_pressure": {
+      "mean": 0.8212,
+      "std": 0.0931,
+      "sign": -1,
+      "definition": "completed / attempted passes with under_pressure = true (null when there are none)",
+      "windows": 740
+    }
+  },
+  "chaos_index": {
+    "weights": {
+      "possession_changes_per_min": 1.0,
+      "short_possession_share": 1.0,
+      "duels_per_min": 1.0,
+      "fouls_per_min": 1.0,
+      "shots_after_regain": 1.0,
+      "long_possession_share": 1.0,
+      "completion_under_pressure": 1.0
+    },
+    "sum_mean": 0.0002,
+    "sum_std": 3.8666,
+    "scale": 15.0,
+    "formula": "chaos = clip(50 + scale × (weighted_sum − sum_mean) / sum_std, 0, 100)",
+    "windows": 740,
+    "label_share": {
+      "chaos": 0.145,
+      "contested": 0.731,
+      "control": 0.124
+    }
+  },
+  "pass": {
+    "in_range": 15,
+    "total": 15,
+    "share": 1.0,
+    "required": 0.9,
+    "ok": true
+  }
+}
